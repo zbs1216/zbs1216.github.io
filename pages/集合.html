@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>集合 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">集合</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2017-12-18 15:40:19 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 算法
+               | </span></p>
+          <div class="markdown-body"><h2>集合的定义</h2>
+<p>集合是由一组无序且唯一（即不能重复）的项组成的。这个数据结构使用了与有限集合相同的数学概念。</p>
+<p>与集合相关的数学概念</p>
+<ul>
+<li>空集，不包含任何元素的集合</li>
+<li>并集：对于给定的两个集合，返回包含两个集合中所有元素的新集合。</li>
+<li>交集：对于给定的两个集合，返回包含两个集合中公有元素的新集合。</li>
+<li>差集：对于给定的两个集合，返回一个包含所有存在于第一个集合且不存在于第二个集合的元素的新集合。</li>
+<li>子集：验证一个给定集合是否是另外集合的子集。</li>
+</ul>
+<h2>集合的方法</h2>
+<p>add(value)：向集合添加一个新的项。</p>
+<p>remove(value)：从集合移除一个值。</p>
+<p>has(value)：如果值在集合中，返回true，否则返回false。</p>
+<p>clear()：移除集合中的所有项。</p>
+<p>size()：返回集合所包含元素的数量。与数组的length属性类似。</p>
+<p>values()：返回一个包含集合中所有值的数组。</p>
+<p>union(otherSet): 返回两个集合的并集</p>
+<p>intersection(otherSet): 返回两个集合的交集</p>
+<p>difference(otherSet): 返回两个集合的差集</p>
+<p>subset(otherSet): 判断该集合是否为传入集合的子集</p>
+<h2>集合的创建（觉得这个实现有错误）</h2>
+<pre><code class="language-javascript">function Set () {
+	// 使用对象来表示集合
+	var items = {} ;
+
+	// 方法
+	this.has = function ( value ) {
+		return items.hasOwnProperty ( value ) ;
+	} ;
+
+	this.add = function ( value ) {
+		if ( ! this.has ( value ) ) {
+			items [ value ] = value ;
+			// 【疑惑】items[value] 有错误
+			// 例如 
+			//		var set = new Set();
+			// 		var num = 23;
+			// 		var str = &quot;23&quot;;
+			// 		set.add(num);
+			// 		set.add(str);
+			//	str 会覆盖 num，可是 str、num 是两个不同的值
+			//  如果 value 是对象时，更容易出现覆盖了，
+			//	因为items[value],会把value转变成字符串，
+			//  如果 value 是一个对象，会调用对象的 toString()方法。
+			// 而对象的 toString() 的结果很多时候都是一样的。 
+			// 这会导致冲突
+			return true ;
+		}
+	} ;
+
+	this.remove = function ( value ) {
+		if ( this.has ( value ) ) {
+			delete items [ value ] ;
+			return true ;
+		}
+		return false ;
+	} ;
+
+	this.clear = function ( ) {
+		items = { } ;
+	} ;
+
+	this.size = function ( ) {
+		return Object.keys( items ).length ;
+	} ;
+
+	this.values = function ( ) {
+		rturn Object.keys ( items ) ;
+	} ; 
+
+	this.union = function ( otherSet ) {
+		var unionSet = new Set ( ) ;
+		
+		var values = this.values ( ) ;
+		for ( var i = 0; i &lt; values.length; i++ ) {
+			unionSet.add ( values [ i ] ) ;
+		}
+
+		values = otherSet.values ( ) ;
+		for ( var i = 0; i &lt; values.length; i++ ) {
+			unionSet.add ( values [ i ] ) ;
+		}
+		
+		return unionSet ;
+	} ;
+
+	this.intersection = function ( otherSet ) {
+		var intersectionSet = new Set ( ) ;
+		
+		var values = this.values ( ) ;
+		for ( var i = 0; i &lt; values.length; i++ ) {
+			if ( otherSet.has ( values [ i ] ) ) {
+				intersectionSet.add ( values [ i ] ) ;
+			}
+		} 
+
+		return intersectionSet ;
+	} ;
+
+	this.difference = function ( otherSet ) {
+		var differenceSet = new Set ( ) ;
+		
+		var values = this.values ( ) ;
+		for ( var i = 0; i &lt; values.length; i++  {
+			if ( ! otherSet.has ( values [ i] ) ) {
+				differenceSet.add ( values [ i ] ) ;
+			}
+		}
+
+		return differenceSet ;
+	} ;
+
+	this.subset = function ( otherSet ) {
+		if ( this.size ( ) &gt; otherSet.size ( ) ) {
+			return false ;
+		}
+		else {
+			var values = this.values ( ) ;
+			for ( var i = 0; i &lt; values.length; i++ ) {
+				if ( ! otherSet.has ( values [ i ] ) ) {
+					return false ;
+				}
+			}
+			
+			return true ;
+		}
+	};
+}
+</code></pre>
+<h2>网上看到的另一个实现（感觉这个才是正确的）</h2>
+<pre><code class="language-javascript">/*js集合set类的实现*/
+function Set() {
+    this.dataStore = [];
+    this.add = add;//新增元素
+    this.remove = remove;//删除元素
+    this.size = size;//集合的元素个数
+    this.union = union;//求并集
+    this.contains = contains;//判断一个集合中是否包含某个元素
+    this.intersect = intersect;//交集
+    this.subset = subset;//判断一个集合是否是另一个的子集
+    this.difference = difference;//求补集
+    this.show = show;//将集合元素显示出来
+}
+
+function add(data) {
+    if (this.dataStore.indexOf(data) &lt; 0) {
+        this.dataStore.push(data);
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+function remove(data) {
+    var pos = this.dataStore.indexOf(data);
+    if (pos &gt; -1) {
+        this.dataStore.splice(pos,1);
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+function size() {
+    return this.dataStore.length;
+}
+
+function show() {
+    return &quot;[&quot; + this.dataStore + &quot;]&quot;;
+}
+
+function contains(data) {
+    if (this.dataStore.indexOf(data) &gt; -1) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+function union(set) {
+    var tempSet = new Set();
+    for (var i = 0; i &lt; this.dataStore.length; ++i) {
+        tempSet.add(this.dataStore[i]);
+    }
+    for (var i = 0; i &lt; set.dataStore.length; ++i) {
+        if (!tempSet.contains(set.dataStore[i])) {
+            tempSet.dataStore.push(set.dataStore[i]);
+        }
+    }
+    return tempSet;
+}
+
+function intersect(set) {
+    var tempSet = new Set();
+    for (var i = 0; i &lt; this.dataStore.length; ++i) {
+        if (set.contains(this.dataStore[i])) {
+            tempSet.add(this.dataStore[i]);
+        }
+    }
+    return tempSet;
+}
+
+function subset(set) {
+    if (this.size() &gt; set.size()) {
+        return false;
+    }
+    else {
+        for(var member in this.dataStore) {
+            if (!set.contains(member)) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+function difference(set) {
+    var tempSet = new Set();
+    for (var i = 0; i &lt; this.dataStore.length; ++i) {
+        if (!set.contains(this.dataStore[i])) {
+            tempSet.add(this.dataStore[i]);
+        }
+    }
+    return tempSet;
+}
+
+/*测试例子：求补集。属于集合cis,不属于集合it*/
+
+var cis = new Set();
+var it = new Set();
+cis.add(&quot;Clayton&quot;);
+cis.add(&quot;Jennifer&quot;);
+cis.add(&quot;Danny&quot;);
+it.add(&quot;Bryan&quot;);
+it.add(&quot;Clayton&quot;);
+it.add(&quot;Jennifer&quot;);
+var diff = new Set();
+diff = cis.difference(it);
+console.log(cis.show() + &quot; difference &quot; + it.show() + &quot; -&gt; &quot; + diff.show());
+</code></pre>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>HTML 标记与文档结构 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">HTML 标记与文档结构</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2017-12-26 11:20:30 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 CSS
+               | </span></p>
+          <div class="markdown-body"><h2>HTML 标记基础</h2>
+<h3>文本用闭合标签</h3>
+<p>闭合标签的基本格式：<code>&lt;标签名&gt;文本内容&lt;/标签名&gt;</code></p>
+<p>标题、段落等文本元素都要求闭合标签，也就是要有一个开标签和一个闭标签。</p>
+<ul>
+<li><code>&lt;h1&gt;h1&lt;/h1&gt;</code></li>
+<li><code>&lt;p&gt;paragraph&lt;/p&gt;</code></li>
+</ul>
+<h3>引用内容用自闭合标签</h3>
+<p>非文本内容通过自闭合标签来显示的。</p>
+<p>自闭合标签的基本格式：<code>&lt;标签名 属性_1=&quot;属性值&quot; 属性_2=&quot;属性值&quot; /&gt;</code></p>
+<p>闭合标签与自闭合标签的区别</p>
+<ul>
+<li>闭合标签包含的是会显示的实际内容</li>
+<li>自闭合标签只是给浏览器提供一个对要显示内容的引用。浏览器会在HTML 页面加载的时候，额外向服务器发送请求，以取得自闭合标签引用的内容。</li>
+</ul>
+<p>XHTML 标准严格规定所有标签都必须关闭，在HTML5 网页里，某些闭标签是可以省略不写的。</p>
+<h3>属性</h3>
+<p>属性负责为浏览器提供有关标签的额外信息。</p>
+<p>每个HTML 标签都可以添加属性。</p>
+<h3>标题与段落</h3>
+<p><code>&lt;h1&gt;</code>不仅是最大最突出的标题（除非你用CSS 缩小它的字号），搜索引擎也会将其视为仅次于<code>&lt;title&gt;</code>标签的另一个搜索关键词的来源。</p>
+<p>段落用于标记主要的文本内容，是所有文本元素中出场率最高的一个。简言之，只要有不适合放在其他文本标签中的文本，都可以把它放一个段落里面。</p>
+<h3>复合元素</h3>
+<p>HTML 不仅规定了标题、图片和段落等基本的内容标记，还规定了用于创建列表、表格和表单等复杂用户界面组件的标记，这些就是复合元素，即它们是由多个标签共同构成的。</p>
+<h3>嵌套标签</h3>
+<p>要在一个标签里嵌套另一个标签（也就是前者的开标签写在后者的开标签之前），必须要先关闭后一个标签再关闭前面那个标签。</p>
+<h2>HTML 文档剖析</h2>
+<p>有几个HTML 元素是所有HTML 文档（也就是网页）中都必须包含的。这些元素为内容提供了框架，有了这个框架才能正确显示内容。可以把这些必要的元素想象成一个模板页面里必须得有的元素。</p>
+<h3>HTML 模板</h3>
+<p>按照 HTML5 语法编写的最简单的 HTML 页面的模板</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot; /&gt;
+&lt;title&gt;An HTML Template&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;!-- 这里是网页内容 --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>模板的第一行代码是一种简化的 DOCTYPE，这一行就是为了声
+明：“以下是一个HTML 文档。”</p>
+<p>注意，这个标签不用关闭。</p>
+<p>然后是 <code>&lt;html&gt;</code> 标签，也就是根级标签。页面中所有的其他标签都嵌套在这个标签内部，而且它的闭标签也是整个页面中的最后一个闭标签。</p>
+<p><code>&lt;html&gt;</code>标签只有两个直接的子标签：<code>&lt;head&gt;</code> 和 <code>&lt;body&gt;</code>。</p>
+<p>帮助浏览器理解页面的信息都包含在 <code>&lt;head&gt;</code> 标签中。</p>
+<p>在这个最简单的例子里，<code>&lt;head&gt;</code> 标签里只包含 <code>&lt;meta&gt;</code> 和 <code>&lt;title&gt;</code> 两个标签。</p>
+<p>其中，<code>&lt;meta&gt;</code> 标签有一个 charset 属性，它是在告诉浏览器这个页面使用的是UTF-8 编码。</p>
+<p>而 <code>&lt;title&gt;</code> 标签中的文本会在页面显示时，作为整个页面的标题出现在浏览器窗口顶部的标题栏中。上面模板中页面的标题是“An HTML Template”。</p>
+<p>关于 <code>&lt;title&gt;</code> 标签搜索引擎会给 <code>&lt;title&gt;</code> 标签中的文字内容赋予很高的权重。而且这些文字也会作为网页标题出现在搜索结果列表中。为此，一定要让这些文字简洁明确，而且包含目标读者在搜索你的网页内容时会使用的关键词。</p>
+<p>而 <code>&lt;body&gt;</code> 标签则包含着标记所有内容的HTML 元素。</p>
+<h3>块级元素和行内元素</h3>
+<p>“文档流”，也就是HTML 元素会按照它们各自在标记中出现的先后顺序，依次从页面上方“流向”下方。</p>
+<p>浏览器的样式表之所以提供这种流动式效果，就是为了让那些简单但却正确标记了HTML 的内容，能够以朴素但却可用的方式显示出来。</p>
+<p>CSS 把默认的显示效果，转换成既有吸引力又直观的页面设计。</p>
+<p>块级元素（比如标题和段落）会相互堆叠在一起沿页面向下排列，每个元素分别占一行。</p>
+<p>行内元素（比如链接和图片）则会相互并列，只有在空间不足以并列的情
+况下才会折到下一行显示。</p>
+<h2>文档对象模型</h2>
+<p>DOM 是从浏览器的视角来观察页面中的元素以及每个元素的属性，由此得出这些元素的一个家族树。通过DOM，可以确定元素之间的相互关系。在CSS 中引用DOM 中特定的位置，就可以选中相应的HTML 元素，并修改其样式属性。</p>
+<p>CSS 操作DOM 的过程是先选择一个或一组元素，然后再修改这些元素的属性。通过CSS 修改了元素后，比如修改了宽度或者在标记里插入一个伪元素，这些变化会立即在DOM 中发生，并体现在页面上。简言之，就是通过 HTML 标记来构建DOM，然后在页面初次加载和用户与页面交互时，使用 CSS 来修改DOM。</p>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

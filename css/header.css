@@ -1,0 +1,104 @@
+/* #header 
+-------------------------------------------------------------------------------------  */
+.logo, 
+.nav li {
+    float:left;
+}
+
+.logo {
+    padding:30px 10px;        
+}
+
+.nav { 
+    float:right;
+    padding:35px 10px;  
+}
+
+
+.logo-line-after,
+.logo-line-before {
+    width: 75%;
+    height: 2px;
+    margin-left:12.5%;
+    background-color: black;
+}
+
+.logo-line-before {
+    animation:before 0.5s;
+    animation-timing-function:linear;
+}
+
+@keyframes before
+{
+	from {width: 0;}
+	to {width: 75%;}
+}
+
+.logo-line-after {
+    position: relative;
+}
+
+.logo-line-after::before {
+    content: " ";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: rgb(245,245,245);
+    animation:after 0.5s;
+    animation-timing-function:linear;
+    /* animation-direction:reverse; */
+}
+
+@keyframes after
+{
+	from {width: 100%;}
+	to {width: 0;}
+}
+
+.logo a, 
+.nav a { 
+    display:block; 
+    color:black; 
+    text-align:center;       
+}
+
+.logo a {
+    margin: 5px 0;
+    font-weight:bold; 
+    font-size:1.5rem;    
+}
+
+.nav a { 
+    margin-right:.5em;
+    padding: 0 .5em;
+}
+
+.nav a:hover { 
+    background-color:rgb(225,225,225); 
+    transition: all .3s ease-in-out;    
+}
+
+.logo i, 
+.nav i {
+    padding-right:1em;
+}
+
+.nav,
+.nav i {
+    color:rgb(85,85,85);    
+}
+
+@media screen and (max-width: 600px) { 
+    .nav {
+        float:none;
+        clear: both;
+        padding: 0;
+    }
+    .nav li{
+        float: none;
+    }
+    .nav a {
+        padding:1rem 0;
+        text-align: left;
+    }
+}

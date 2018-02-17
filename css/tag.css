@@ -1,0 +1,46 @@
+#tag {
+    border-left: 4px solid rgb(245,245,245);
+}
+
+#tag, .title {
+    color: rgb(102,102,102);
+}
+
+#tag .tag { 
+    display: block;
+    margin: 60px 0;
+    font-size:1.5rem;
+    color:rgb(85,85,85); 
+}
+
+#tag .article {
+    position: relative;
+    margin: 30px 0;
+    border-bottom:1px dashed rgb(204,204,204);
+ }
+
+ #tag .article::before {
+    content: " ";
+    /* position: absolute; */
+    display:inline-block;
+    /* left: 0; */
+    /* top: 12px; */
+    width: 6px;
+    height: 6px;
+    vertical-align: middle;
+    margin-left: -6px;
+    margin-right:1rem;
+    background: #bbb;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    /* transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 0s;
+    transition-property: background; */
+}
+
+#type .article > span, 
+#type .article > a {
+    display: inline-block;
+    margin-right: 1rem;
+}

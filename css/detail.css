@@ -1,0 +1,18 @@
+/* 右栏（id= rightSide_wraper）
+-------------------------------------------------------------------------------------  */
+#detail {
+    margin-right:10px;     
+}
+
+#detail .title,
+#detail .info {
+     text-align: center; 
+}
+
+#detail .markdown-body{ 
+    font-family: "ubuntu", "Tahoma", "Microsoft YaHei", 'arial', 'sans-serif';
+    line-height: 1.5;
+    color: #444444;
+    word-break: break-all;    
+}
+

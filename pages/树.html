@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>树 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">树</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2017-12-21 14:40:30 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 算法
+               | </span></p>
+          <div class="markdown-body"><h2>树的相关概念</h2>
+<ul>
+<li>一个树结构包含一系列存在父子关系的节点。</li>
+<li>每个节点都有一个父节点（除了顶部的第一个节点）以及零个或多个子节点</li>
+<li>位于树顶部的节点叫做根节点，它没有父节点</li>
+<li>树中的每个元素都叫做节点
+<ul>
+<li>节点分为外部节点和内部节点</li>
+<li>至少有一个子节点的节点为内部节点</li>
+<li>没有子元素的节点称为外部节点或叶节点</li>
+</ul>
+</li>
+<li>一个节点可以有祖先和后代
+<ul>
+<li>一个节点（除了根节点）的祖先包括，父节点、祖父节点、曾祖父节点等</li>
+<li>一个节点的后代包括子节点、孙子节点、曾孙节点等</li>
+</ul>
+</li>
+<li>子树
+<ul>
+<li>由节点和它的后代构成</li>
+</ul>
+</li>
+<li>节点的深度
+<ul>
+<li>取决于他的祖先节点的数量</li>
+</ul>
+</li>
+<li>树的高度
+<ul>
+<li>取决于所有节点深度的最大值 。</li>
+</ul>
+</li>
+</ul>
+<h2>二叉树、二叉搜索树的相关概念</h2>
+<ul>
+<li>二叉树
+<ul>
+<li>二叉树的节点，最多只能有两个子节点</li>
+<li>一个是左侧子节点</li>
+<li>另一个是右侧子节点。</li>
+</ul>
+</li>
+<li>二叉搜索树
+<ul>
+<li>是二叉树的一种</li>
+<li>只允许在左侧节点存储（比父节点）小的值</li>
+<li>在右侧节点存储（比父节点）大（或者等于）的值。</li>
+</ul>
+</li>
+</ul>
+<h2>创建二叉搜索树</h2>
+<h3>BinarySearchTree 类方法</h3>
+<p>insert ( key )：向树中插入一个新的键</p>
+<p>search ( key )：向树中查找一个键，如果节点存在，返回true；如果不存在，返回 false</p>
+<p>inOrderTraverse ( )：通过中序遍历方式遍历所有节点</p>
+<p>preOrderTraverse ( )：通过先序遍历方式遍历所有节点</p>
+<p>postOrderTraverse ( )：通过后序遍历方式遍历所有节点。</p>
+<p>min ()：返回树中最小的值/键</p>
+<p>max ( )：返回树中最大的值/键</p>
+<p>remove ( key )：从树中移除某个键</p>
+<h3>BinarySearchTree 类</h3>
+<pre><code class="language-javascript">function BinarySearchTree ( ) {
+  	// 声明一个 Node 类来表示树中的每个节点
+  	// 将节点本身称为键。
+  	// 键是树相关的术语中对节点的称呼。
+  	var	Node = function ( key ) {
+      	this.key = key ;
+      	this.left = null ;
+       	this.right = null ;
+  	} ;
+  	
+  	var root = null ;
+  
+  	// 向树插入一个节点
+    // 向树中插入一个新的节点，要经历三个步骤
+    // 1）创建用来表示新节点的 Node 类实例。
+    // 	  只须向构造函数传递我们想要插入树的节点值，
+    //	  它的作指针和右指针的值会由构造函数自动设置为 null
+    // 2）要验证这个插入操作是否为一种特殊情况
+    //    该特殊情况就是，插入的节点是树的第一个节点
+    //    如果是，就将根节点指向新节点
+    // 3）将节点加在非根节点的其他位置
+    //    该情况下，需要一个私有的辅助函数
+    this.insert = function ( key ) {
+        var newNode = new Node ( key ) ;
+
+        if ( root === null ) {
+            root = newNode ;
+        }
+        else {
+            insertNode ( root, newNode ) ;
+        }
+    } ;
+  
+  	// insertNode 辅助函数,会找到新节点应该插入的正确位置
+    // 1）如果树非空，需要找到插入新节点的位置。
+    //    因此，在调用 inertNode 函数时要通过参数传入树的根节点和要插入的节点
+    // 2）如果新节点的键小于当前节点的键（现在，当前节点就是根节点），需要检验当前节点的左侧子节点。
+    //    如果没有左侧子节点，就在那里插入新节点
+    //    如果有左侧子节点，需要通过递归调用 insertNode 函数，继续找到树的下一层。
+    //    在这里，下次将要比较的节点将会是当前节点的左侧子节点
+    // 3）如果节点的键比当前节点的键大，同时当前结点没有右侧子节点，
+    //    那么，就在那里插入新节点
+    //    如果有右侧子节点，需要递归调用 insertNode 函数
+    //    要用来和新节点比较的节点是右侧子节点
+    var insertNode = function ( node, newNode ) {
+        if ( newNode.key &lt; node.key) {
+            if ( node.left === null ) {
+                node.left = newNode ;
+            }
+            else {
+                    insertNode ( node.left, newNode ) ;
+            }
+        }
+        else {
+            if ( node.right === null ) {
+                node.right =newNode ;
+            }3
+            else {
+                insertNode (node.right, newNode )
+            }
+        }
+    } ;
+
+    // 中序遍历
+    // inOrderTraverse 方法接受一个回调函数作为参数。
+    // 回调函数用来定义对遍历到的每个节点进行的操作（这也叫做访问者模式）
+    this.inOrderTraverse = function ( calback ) {
+        inOrderTraverseNode ( root, callback ) ;
+    } ;
+    // inOrderTraverseNode 的实现
+    var inOrderTraverseNode = function ( node, callback ) {
+        if ( node !== null ) {
+            inOrderTraverseNode ( node.left, callback )	;
+            callback ( node.key ) ;
+            inOrderTraverseNode ( node.right, callback ) ;
+        }
+    } ;
+
+    // 先序遍历
+    this.preOrderTraverse = function ( callback ) {
+        preOrderTraverseNode ( root, callback ) ;
+    }  ;
+    // preOrderTraverseNode 函数的实现	
+    var preOrderTraverseNode = function ( callback ) {
+        if ( node !== null ) {
+            callback ( node.key ) ;
+            preOrderTraverseNode ( node.left, callback ) ;
+            preOrderTraverseNode ( node.right, callback ) ;
+        }
+    } ;
+  
+  
+    // 后序遍历
+    this.postOrderTraverse = function ( callback ) {
+        postOrderTraverseNode ( root, callback ) ;
+    } ;
+  	// postOrderTraverseNode 函数的实现
+  	var postOrderTraverseNode = function ( node, callback ) {
+      	if ( node !== null ) {
+          	postOrderTraverseNode ( node.left, callback ) ;
+          	postOrderTraverseNode ( node.right, callback ) ;
+          	callback ( node.key ) ;
+      	}
+  	} ;
+  
+  
+    // 搜索树的最小键
+    this.min = function ( ) {
+        return minNode ( root ) ;
+    } ;
+    // minNode 函数的实现
+    var minNode = function ( node ) {
+        if ( node ) {
+            while ( node &amp;&amp; node.left !==null ) {
+                node = node.left ;
+            }
+
+            return node.key ;
+        }
+
+        return null ;
+    } ;
+  	
+  
+    // 搜索树的最大键
+  	 this.max = function ( ) {
+     	return maxNode ( root ) ;  	
+  	 } ;
+  	 // maxNode 函数的实现
+  	 var maxNode = function ( ) {
+       	 if ( node ) {
+           	while ( node &amp;&amp; node.left !== null ) {
+              	node = node.right ;
+           	}          
+
+           	return node.key ;
+       	 }
+
+       	 return null ;
+  	 } ;
+  
+    // 搜索一个特定的值
+    this.search = function ( key ) {
+        return searchNode ( root, key ) ;
+    } ;
+    // searchNode 函数的实现
+    var searchNode = function ( node, key ) {
+        if ( node === null ) {
+            return false ;
+        }
+
+        if ( key &lt; node.key ) {
+            return searchNode ( node.left, key ) ;
+        }
+        else if ( key &gt; node.key ) {
+            return searchNode ( node.right, key ) ;
+        } 
+        else {
+            return true ;
+        }
+    } ;
+  
+    // 移除一个节点   
+    this.remove = function ( key ) {
+        root = removeNode ( root, key ) ;
+    } ;
+    // removeNode 函数的实现
+    var removeNode = function ( node, key ) {
+        if ( node === null ) {
+            return null ;
+        }
+
+        if ( key &lt; node.key ) {
+            node.left = removeNode ( node.left, key ) ;
+            return node ;
+        }
+        else if ( key &gt; node.key ) {
+            node.right = removeNode ( node.right, key ) ;
+            return node ;
+        }
+        else { // 键等于 node.key
+            // 第一种情况：一个叶节点
+            if ( node.left === null &amp;&amp; node.right === null ) {
+                node = null ;
+                return node ;
+            }
+        
+            // 第二种情况：一个只有一个子节点的节点
+            if ( node.left === null ) {
+                node = node.right ;
+                return node ;
+            }
+            else if ( node.right === null ) {
+                node = node.left ;
+                return node ;
+            }
+        
+            // 第三种情况：一个有两个子节点的节点
+            var aux = findMinNode ( node.right ) ;
+            node.key = aux.key ;
+            node.right = removeNode ( node.right, aux.key ) ;
+            return node ;
+        }
+    } ;
+}
+</code></pre>
+<h2>更多关于二叉树的知识</h2>
+<ul>
+<li>AVL 树</li>
+<li>红黑树</li>
+<li>堆积树</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

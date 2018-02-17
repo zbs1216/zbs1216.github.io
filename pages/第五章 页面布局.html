@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>第五章 页面布局 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">第五章 页面布局</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2018-1-15 11:09:12 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 CSS
+               | </span></p>
+          <div class="markdown-body"><h2>布局的基本概念</h2>
+<p>多栏布局有三种基本的实现方案：固定宽度、流动、弹性。</p>
+<ul>
+<li>
+<p>固定宽度</p>
+<ul>
+<li>固定宽度布局的大小不会随用户调整浏览器窗口大小而变化。</li>
+<li>一般是 900 到 1100像素宽。其中 960 像素是最常见的，因为这个宽度适合所有现代显示器，而且能够被 16、12、10、8、6、5、4 和 3 整除，不仅容易计算等宽分栏的数量，而且计算结果也能得到没有小数的像素数。</li>
+</ul>
+</li>
+<li>
+<p>流动布局</p>
+<ul>
+<li>流动的大小会随用户调整浏览器窗口大小而变化。</li>
+<li>这种布局能够更好地适应大屏幕，但同时也意味着放弃对页面某些方面的控制，比如随着页面宽度变化，文本行的长度和页面元素之间的位置关系都可能变化。</li>
+<li>流动中栏布局，在各栏宽度加大时通过为内容元素周围添加空白来保持内容居中，而且现在的导航条会在布局变窄到某个宽度时收缩进一个下拉菜单中，从而为内容腾出空间。</li>
+<li>CSS 媒体查询，这就让基于浏览器窗口宽度提供不同的 CSS 样式成为可能。这种可变的固定布局能够适应最大和最小的屏幕，业界称之为响应式设计。</li>
+</ul>
+</li>
+<li>
+<p>弹性布局与流动布局类似，在浏览器窗口变宽时，不仅布局变宽，而且所有内容元素的大小也会变化，让人产生一种所有东西都变大了的感觉。</p>
+</li>
+</ul>
+<h3>布局高度与布局宽度</h3>
+<h4>布局高度</h4>
+<p>多数情况下，布局中结构化元素（乃至任何元素）的高度是不必设定的。甚至想根本不应该给元素设定高度。除非确实需要这样做，比如在页面中创造一个绝对定位的元素。</p>
+<p>正常情况下都应该保持元素 height 属性的默认值 auto 不变，这是因为只有这样，元素才能随自己包含内容的增加而在垂直方向上扩展。这样扩展的元素会把下方的元素向下推，而布局也能随着内容数量的增减而垂直伸缩。</p>
+<p>假如你明确设定了元素的高度，那么超出的内容要么被剪掉，要么会跑到容器之外——取决于元素 overflow 属性的设定。</p>
+<h4>布局宽度</h4>
+<p>与高度不同，需要更精细地控制布局宽度，以便随着浏览器窗口宽度的合理变化，布局能够作出适当的调整，确保文本行不会过长或过短。</p>
+<p>如果随意给元素添加内边距、边框，或者元素本身过大，导致浮动元素的宽度超过包含元素的布局宽度，那浮动元素就可能“躲”到其他元素下方。</p>
+<p>即使必须设定栏宽，也不要给包含在其中的内容元素设定宽度，应该让这些内容元素自动扩展到填满栏的宽度。这是块级元素的默认行为。</p>
+<p>简言之，就是让栏宽限制其中内容元素的宽度。</p>
+<h2>三栏 - 固定宽度布局</h2>
+<p>只要掌握了创建三栏布局的技术，那么，想创建多少栏就能创建多少栏。</p>
+<pre><code class="language-html">&lt;div id=&quot;wrapper&quot;&gt;
+    &lt;article&gt;
+        &lt;! -- 这里是一些文本元素 --&gt;
+    &lt;/article&gt;
+&lt;/div&gt;
+</code></pre>
+<pre><code class="language-css">#wrapper {
+    width:960px; 
+    margin:0 auto; 
+    border:1px solid;
+}
+
+article {background:#ffed53;}
+</code></pre>
+<p>通过给整个外包装设定宽度值，并将其水平外边距设定为 auto，这个单栏布局在页面上居中了。随着向里添加内容，这一栏的高度会相应增加。</p>
+<p>外包装中的 article 元素本质上就是一个没有宽度的块级盒子，它水平扩展填满了外包装。</p>
+<p>下面，再向外包装里添加一个导航元素，让它作为第二栏。</p>
+<pre><code class="language-html">&lt;div id=&quot;wrapper&quot;&gt;
+    &lt;nav&gt;
+        &lt;!-- 无序列表 --&gt;
+    &lt;/nav&gt;
+    &lt;article&gt;
+        &lt;!-- 文本  --&gt;
+    &lt;/article&gt;
+&lt;/div&gt;
+</code></pre>
+<p>浮动作为两栏的容器元素，让它们并排显示:</p>
+<pre><code class="language-css">#wrapper {
+    width:960px; 
+    margin:0 auto; 
+    border:1px solid;
+}
+
+nav {
+    width:150px;
+    float:left;
+}
+
+nav li {
+    /*去掉列表项目符号*/
+    list-style-type:none;
+}
+
+article {
+    width:810px;
+    float:left;
+    background:#ffed53;
+}
+</code></pre>
+<p>把两栏容器元素的总宽度设定为外包装的宽度（150 + 810 = 960），并浮动它们，就可以创造出并肩排列的两栏来。每一栏的长度取决于内容多少。采用同样的方法，可以添加第三栏（或任意多个栏）。</p>
+<pre><code class="language-html">&lt;div id=&quot;wrapper&quot;&gt;
+    &lt;nav&gt;
+        &lt;!-- 无序列表 --&gt;
+    &lt;/nav&gt;
+    &lt;article&gt;
+         &lt;!-- 文本  --&gt;
+    &lt;/article&gt;
+    &lt;aside&gt;
+        &lt;!-- 文本 --&gt;
+    &lt;/aside&gt;
+&lt;/div&gt;
+</code></pre>
+<p>调整article 这一栏的宽度，为第三栏腾出空间。</p>
+<pre><code class="language-css">#wrapper {
+    width:960px; 
+    margin:0 auto; 
+    border:1px solid;
+}
+
+nav {
+    width:150px;
+    float:left;
+    background:#dcd9c0;
+}
+
+nav li {
+    list-style-type:none;
+}
+
+article {
+    width:600px;
+    float:left;
+    background:#ffed53;
+}
+
+aside {
+    width:210px;
+    float:left;
+    background:#3f7ccf;
+}
+</code></pre>
+<p>通过把三个浮动容器的总宽度设定为恰好等于外包装的宽度（150 + 600 + 210 = 960），就有了三栏布局的框架。用这种办法，可以想加多少栏就加多少栏，只要它们的总宽度等于外包装的宽度即可。</p>
+<p>添加与布局同宽的页眉和页脚：</p>
+<pre><code class="language-html">&lt;div id=&quot;wrapper&quot;&gt;
+    &lt;header&gt;
+    &lt;   !-- 标题 --&gt;
+    &lt;/header&gt;
+    &lt;nav&gt;
+        &lt;!-- 无序列表 --&gt;
+    &lt;/nav&gt;
+    &lt;article&gt;
+        &lt;!-- 文本 --&gt;
+    &lt;/article&gt;
+    &lt;aside&gt;
+        &lt;!-- 文本 --&gt;
+    &lt;/aside&gt;
+    &lt;footer&gt;
+        &lt;!-- 文本 --&gt;
+    &lt;/footer&gt;
+&lt;/div&gt;
+</code></pre>
+<p>希望页眉和页脚与布局同宽，而且它们默认就与布局同宽，在此只简单地为它们设定了背景色:</p>
+<pre><code class="language-css">header {background:#f00;}
+footer {background:#000;}
+</code></pre>
+<p>此时的页眉与布局同宽，其内容高度也比较合适。但是，页脚位于浮动元素后面，所以就会尽量往上移动。解决方法：</p>
+<pre><code class="language-css">footer {clear:both;}
+</code></pre>
+<p>为页脚应用 <code>clear:both</code>（<code>clear:left</code> 效果也一样，因为这里只有左浮动元素），就可以阻止它向上移动，不让它超过浮动元素的下方边界，就可以保证页脚始终都位于最长栏的下方。</p>
+<p>到目前为止，为 HTML 标记应用的 CSS 如下：</p>
+<pre><code class="language-css">* {
+    margin:0; 
+    padding:0;
+}
+
+#wrapper {
+    width:960px; 
+    margin:0 auto; 
+    border:1px solid;
+}
+
+header {background:#f00;}
+
+nav {
+    width:150px;
+    float:left;
+    background:#dcd9c0;
+}
+
+nav li {
+    list-style-type:none;
+}
+
+article {
+    width:600px;
+    float:left;
+    background:#ffed53;
+}
+
+aside {
+    width:210px;
+    float:left;
+    background:#3f7ccf;
+}
+
+footer {
+    clear:both; 
+    background:#000;
+}
+</code></pre>
+<h3>为栏设定内边距和边框</h3>
+<p>只要一调整各栏中的内容，布局就可能超过容器宽度，而右边的栏就可能滑到左边的栏下方。一般来说，两种情况下可能会发生这种问题。</p>
+<ul>
+<li>为了让内容与栏边界空开距离，给栏添加水平外边距和内边距，或者为了增加栏间距，为栏添加外边距（只要开始给布局添加样式，就一定会采用这里说的一种做法，甚至双管齐下），导致布局宽度增大，进而浮动栏下滑。换句话说，右边浮动的栏因为没有足够的空间与其他栏并列，就会滑到左边栏的下方。</li>
+<li>在栏中添加大图片，或者没有空格的长字符串（如长 URL），也会导致栏宽超过布局宽度。同样，这种情况下右边的栏也会滑到左边的栏下方。</li>
+</ul>
+<p>添加内边距，增大内容与栏边界的距离：</p>
+<pre><code class="language-css">article {
+    width:600px;
+    float:left;
+    background:#ffed53;
+    padding:10px 20px;
+}
+</code></pre>
+<p>中间栏的文本四周都增加了间距，与栏边界保持了一定距离。可是，这样一来由于中间栏的总宽度增加，导致右边的栏不能再与前两栏并排在一起，结
+果就跑到了左边栏的下方。这是因为，给固定宽度的元素添加水平外边距、边框和内边距，会导致元素盒子变宽。</p>
+<p>有三种方法来预防该问题发生：</p>
+<ul>
+<li>从设定的元素宽度中减去添加的水平外边距、边框和内边距的宽度和。</li>
+<li>在容器内部的元素上添加内边距或外边距。</li>
+<li>使用 CSS3 的 box-sizing 属性切换盒子缩放方式，比如 <code>section {box-sizing:border-box;}</code> 。 应用 box-sizing 属性后，给 section 添加边框和内边距都不会增大盒子，相反会导致内容变窄。</li>
+</ul>
+<h4>重设宽度以抵消内边距和边框</h4>
+<p>比如给 600 像素宽的栏又添加了 20 像素的内边距，为了抵消增加的内边距，可以把栏宽减少 40 像素而设定为 560 像素。这样，右边的栏就能归位。问题在于，每次只要调整内、外边距就要重设布局宽度。因此这个办法虽然可行，却不够理想。</p>
+<h4>给容器内部的元素应用内边距和边框</h4>
+<p>把外边距和内边距应用到内容元素上确实奏效。前提是这些元素没有明确地设定宽度，这样它们的内容才会随着内、外边距的增加而缩小。就像盒模型定义所说的，没有宽度的元素在水平方向上会适应其父元素，其内容会随着外边距、边框和内边距的增加而减少。</p>
+<p>然而，一栏之中可能会包含大量不同内容的元素。假如将来又决定调整内容与容器边界的距离，就必须每个元素都要进行调整，这样不仅麻烦，而且容易出错。况且，给栏添加边框同样会增大栏宽，不可能通过为其包含的内容元素逐个应用样式来做到。</p>
+<p>与其为容器中的元素添加外边距，不如在栏中再添加一个没有宽度的 div，
+让它包含所有内容元素，然后再给这个 div 应用边框和内边距。如此一来，只要为内部 div 设定一次样式，就可以把让所有内容元素与栏边界保持一致的距离。而且，将来再需要调整时也会很方便。任何新增内容元素的宽度都由这个内部 div 决定。</p>
+<pre><code class="language-html">&lt;article&gt;
+    &lt;div class=&quot;inner&quot;&gt;
+        &lt;!-- 文本 --&gt;
+    &lt;/div&gt;
+&lt;/article&gt;
+</code></pre>
+<pre><code class="language-css">article {
+    width:600px;
+    float:left;
+    padding:10px 20px;
+    background:#ffed53;
+}
+
+article .inner {
+    margin:10px;
+    border:2px solid red;
+    padding:20px;
+}
+</code></pre>
+<p>中间栏的宽度并未因此有什么变化，因为内容区减少的宽度抵消了应用到内部 div 上的外边距、边框和内边距的总宽度。总之，由此可以得出一个结论：如果布局中的栏是浮动的，而且都设定了宽度，就不要去动它。要动，就把内容放在内部 div 里，动这个 div。</p>
+<p>接下来，去掉中间栏的外边距、边框和内边距，给其他两栏也添加内部 div，然后只给这三栏加上内边距。</p>
+<pre><code class="language-html">&lt;div id=&quot;wrapper&quot;&gt;
+    &lt;header&gt;
+        &lt;!-- header text --&gt;
+    &lt;/header&gt;
+    &lt;nav&gt;
+        &lt;div class=&quot;inner&quot;&gt;
+            &lt;ul&gt;
+                &lt;!-- 链接 --&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/nav&gt;
+    &lt;article&gt;
+        &lt;div class=&quot;inner&quot;&gt;
+            &lt;!-- 文本 --&gt;
+        &lt;/div&gt;
+    &lt;/article&gt;
+    &lt;aside&gt;
+        &lt;div class=&quot;inner&quot;&gt;
+            &lt;!-- 文本 --&gt;
+        &lt;/div&gt;
+    &lt;/aside&gt;
+    &lt;footer&gt;
+        &lt;!-- 文本 --&gt;
+    &lt;/footer&gt;
+&lt;/div&gt;
+</code></pre>
+<p>利用这个 div 为三个栏中的内容创造间距。此外，还居中了页脚中的
+内容。</p>
+<pre><code class="language-css">nav .inner {padding:10px;}
+article .inner {padding:10px 20px;}
+aside .inner {padding:10px;}
+footer {text-align:center}
+</code></pre>
+<p>处理栏及其内部 div 的关键在于，浮动栏并设定栏宽，但不给任何内容元素设定宽度。要让内容元素扩展以填充它们的父元素——内部 div。这样，只要简单地设定内部 div 的外边距和内边距，就可以让它们以及它们包含的内容与栏边界保持一定距离。</p>
+<p>如果容器的上、下边框不可见，内部 div 的上、下外边距会叠加。要是遇到了这个问题，可以只为容器设定垂直内边距。但要小心一点，别一块儿也添加水平内边距，比如 <code>article {padding:20px 0;}</code>，就只设定了上、下内边距。</p>
+<h5>子-星选择符</h5>
+<p>“子-星选择符” 是一个组合选择符，利用它可以不使用内部 div 就能设定一栏中所有元素的外边距。</p>
+<p>星号选择符可以选择 “所有元素”，故而，在一个选择符后面加个星号，比如 someSelector * 就可以选择 someSelector 所代表元素的所有后代元素。</p>
+<p>子选择符可以选择 “某元素的子元素”，故而，把子选择符放到星号前面，比如 someSelector &gt; * 就会只选择 someSelector 所代表元素的所有子元素，而非后代元素。这正好适用于选择容器内部的所有顶部元素，然后设定它们的外边距。</p>
+<p>比如，对于 section 栏，设定 <code>section &gt; * {margin:0 10px;}</code>，就
+能为栏中所有子元素，不包括其他后代元素，各应用 10 像素的左、右外边距。</p>
+<p>使用 “子-星选择符” 要注意两点:</p>
+<ul>
+<li>第一，在为子元素设定垂直外边距时，只能使用 margin-top 和 margin-bottom，不能使用简写的 margin，否则会抵消用 “子-星选择符” 应用给这些元素的水平外边距。如果你想进一步缩进某个子元素的内容，就应该给该子元素应用内边距。</li>
+<li>第二，“子-星选择符” 有潜在性能问题，因为它会导致浏览器遍历整个 DOM 结构去查找所有匹配的元素。但这一点性能影响几乎可以忽略不计。假如你的页面真的包含几千上万个元素，那确实该考虑用性能度量工具测一测这个选择符的影响。</li>
+</ul>
+<h4>使用 <code>box-sizing:border-box</code></h4>
+<p>只要在三个浮动的栏的 CSS 规则中分别加上 <code>box-sizing:border-box</code>  声明，再给栏添加内边距（和边框）就不会导致盒子的宽度变化了。</p>
+<p>此时，既不用调整栏宽去抵消增加的内边距，也不用使用内部 div。添加内
+边距的结果就是内容收缩。</p>
+<pre><code class="language-html">&lt;div id=&quot;wrapper&quot;&gt;
+    &lt;header&gt;
+        &lt;!-- 标题 --&gt;
+    &lt;/header&gt;
+    &lt;nav&gt;
+        &lt;ul&gt;
+            &lt;!-- 链接 --&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+    &lt;article&gt;
+        &lt;!-- 文本 --&gt;
+    &lt;/article&gt;
+    &lt;aside&gt;
+        &lt;!-- 文本 --&gt;
+    &lt;/aside&gt;
+    &lt;footer&gt;
+        &lt;!-- 文本 --&gt;
+    &lt;/footer&gt;
+&lt;/div&gt;
+</code></pre>
+<pre><code class="language-css">* {
+    margin:0; 
+    padding:0;
+}
+
+#wrapper {
+    width:960px; 
+    margin:0 auto; 
+    border:1px solid #000;
+    overflow:hidden;
+}
+
+header {background:#f00;}
+
+nav {
+    box-sizing:border-box;
+    width:150px;
+    float:left;
+    background:#dcd9c0;
+    padding:10px 10px;
+}
+
+/*去掉列表项目符号*/
+nav li {list-style-type:none;}
+
+article {
+    box-sizing:border-box;
+    width:600px;
+    float:left;
+    background:#ffed53;
+    padding:10px 20px;
+}
+
+aside {
+    box-sizing:border-box;
+    width:210px;
+    float:left;
+    background:#3f7ccf;
+    padding:10px 10px;
+}
+
+footer {
+    clear:both; 
+    background:#000;
+}
+</code></pre>
+<p>直接给栏应用内边距会导致内容变窄，但不会影响布局。但是,IE6 和 IE7 不支持 box-sizing 属性。不过，有一个专门解决这个问题的腻子脚本（polyfill），名叫 borderBoxModel.js 。</p>
+<p>可以使用条件注释（以便只有 IE6 和 IE7 加载）把它添加到 HTML 标记之后、结束的 `&lt;/body&gt; 标签之前，以保证在加载 DOM 之后再执行该脚本：</p>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;!-- HTML 标记 --&gt;
+    &lt;!-- 只让IE8 之前的IE 加载它 --&gt;
+    &lt;!--[if lt IE 8 ]&gt;
+    &lt;script src=&quot;helpers/borderBoxModel.js&quot;&gt;&lt;/script&gt;
+    &lt;![endif]--&gt;
+&lt;/body&gt;
+</code></pre>
+<p>这样，IE6 和 IE7 就可以根据 box-sizing 属性的设定正确地调整栏的大小了。</p>
+<p>不仅给浮动的栏，甚至给所有元素都应用这个不同的盒缩放模型都是没有问题的，在 CSS 里会添加这一条规则：</p>
+<pre><code class="language-css">* {box-sizing:border-box}
+</code></pre>
+<p>如此一来，每个盒子的宽度并不是内容区的宽度，而是一经设定就不可变的真正的盒子宽度。</p>
+<p>最新版本的 borderBoxModel.js 腻子脚本以及它的用途和局限性，可以参考这里：
+https://github.com/albertogasparin/borderBoxModel。</p>
+<h5>预防过大的元素</h5>
+<p>设计一个将来可能由他人维护的动态网站时，需要考虑得更长远一些。比如，应该预见到可能出现一些过大的元素。</p>
+<p>如果将来有一张比浮动栏更宽的图片被放到栏中，就会导致布局变宽，
+而右边的栏又会滑到下方。</p>
+<p>为此， 一个简单的预防措施就是添加一条 <code>.inner img {max-width:100%;}</code> 声明，以便限制图片的宽度不超过其父元素（在此就是内部 div）。</p>
+<p>另一个办法是给每个栏（或者内部 div，如果用了的话）添加 <code>overflow:hidden</code> 声明。这条声明不会缩小图片以适应父元素，而会将它（以及任何过大元素）超出容器边界的部分剪切掉。</p>
+<p>动态网站中另一个潜在的问题是换行。HTML 只会在单词间空格的地方换行。一些长 URL，甚至一些长单词，在栏比较窄的情况下，都会导致栏宽过大。</p>
+<p>因此，还应该给所有栏的外包装元素应用 <code>word-wrap:break-word</code>  声明，以便所有栏及其内容继承这个设定。有了这条声明，浏览器会把过长的词断开显示在不同行上。</p>
+<p>只是 word-wrap 没有定义在哪里断开，因此结果完全是随机的，而且没有连字符。不过，这条规则只在需要时才会起作用，而且能保护布局不会被
+长 URL 顶得支离破碎。建议在每一栏中都用长 URL、大图片，以及包含内容过多的元素测试一下布局，看看这些声明到底会不会起作用，并发现更多需要事先考虑保护措施的其他漏洞。</p>
+<h2>三栏 - 中栏流动布局</h2>
+<h3>用负外边距实现</h3>
+<h3>用 CSS3 单元格实现</h3>
+<h2>多行多栏布局</h2>
+<h3>CSS 选择符的实际应用</h3>
+<h3>内部 DIV 实战</h3>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

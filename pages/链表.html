@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>链表 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">链表</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2017-12-18 14:42:33 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 算法
+               | </span></p>
+          <div class="markdown-body"><h2>链表的定义</h2>
+<p>​链表存储有序的元素集合，但不同于数组，链表中的元素在内存中并不是连续放置的。</p>
+<p>​每个元素由一个存储元素本身的节点和一个指向下一个元素的引用（也称指针或链接）组成。</p>
+<h2>比较：链表、数组</h2>
+<ul>
+<li>数组
+<ul>
+<li>大多数语言中，数组的大小是固定的，从数组的起点或中间插入或移除项的成本很高，因为需要移动元素（JavaScirpt 的 Array 类方法可以帮助我们做这些事，但背后的情况同样是这样）。</li>
+<li>数组可以直接访问任何位置的元素。</li>
+</ul>
+</li>
+<li>链表
+<ul>
+<li>添加或移除元素的时候，不需要移动其他元素。</li>
+<li>访问链表中间的一个元素，需要从起点（表头）开始迭代链表，直到找到所需的元素。</li>
+</ul>
+</li>
+</ul>
+<h2>链表的方法</h2>
+<p>append(element)：向链表尾部添加一个新大的项。</p>
+<p>insert(position, element)：向链表特定位置插入一个新的项。</p>
+<p>remove(element)：从列表移除一项。</p>
+<p>indexOf(element)：返回元素在链表中的索引。如果没有该元素，则返回-1.</p>
+<p>removeAt(position)：从链表特定位置移除一项。</p>
+<p>isEmpty()：如果链表不包含任何元素，返回 true。如果链表长度大于 0 则返回 false。</p>
+<p>size()：返回链表包含的元素个数。</p>
+<p>toString()：输出链表包含的所有元素。</p>
+<h2>链表的创建</h2>
+<pre><code class="language-javascript">function LinkedList ( ) {
+  	
+  	// Node 辅助类
+  	// 用来表示要加入列表的项
+  	// 包含一个 element 属性，即要添加到列表的值
+  	// 以及一个 next 属性，即指向列表中下一个节点项的指针
+  	var Node = function ( element ) {
+    	this.element = element ;
+      	this.next = null ;
+  	} ;
+  	
+  	// length ，存储列表项的数量
+  	var length = 0 ;
+  	// head，存储第一个节点的引用
+  	var head = null ;
+  	
+  	// LinkedList 类的方法
+  	this.append = function ( element ) {
+      	
+      	var node = new Node ( element ) ,
+            current ;
+      	
+      	if ( head === null ) { 
+        	head = node ; 
+        }
+      	else {
+          	current = head ;
+          
+          	while ( current.next ) {
+              	current = current.next ;
+          	}
+          	
+          	current.next = node ;
+      	}
+      
+      	length++ ;
+  	} ;
+  
+  
+  	this.insert = function ( position, element ) {
+      	
+      	if ( position &gt;= 0 &amp;&amp; position &lt;= length ) {
+          	
+          	var node = new Node ( element );
+            var	current = head;
+            var previous;
+        	var index = 0;
+          	
+          	if ( position === 0) {
+              	node.next = current;
+              	head = node;
+            }
+          	else {
+              	while ( index &lt; position ) {
+                  	previous = current;
+                  	current = current.next;
+					index++;
+              	}
+              	node.next = current;
+              	previous.next = node;
+          	}
+
+          	length++; 
+          	return true;
+      	}
+      	else {
+          	return fasle;
+      	}
+  	} ;
+  
+  
+  	this.removeAt = function ( position ) {
+      	
+      	if ( position &gt; -1 &amp;&amp; position &lt; length ) {
+          	var current = head ,
+                previous ,
+                index = 0 ;
+          	
+          	if (position === 0 ) {
+              	head = current.next ;
+          	}
+          	else {
+              	while ( index &lt; position ) {
+                  	previous = current ;
+                  	current = current.next;
+					index++;
+              	}
+              
+              	// 将 previous 与 current 的下一项链接起来：跳过 current ，从而移除它
+              	previous.next = current.next ;
+          	}
+          
+          	length--;
+          	
+          	return current.element ; 
+      	}
+      	else {
+          	return null ;
+      	}
+  	} ;
+  
+  
+  	this.indexOf = function ( element ) {
+      	
+      	var current = head;
+        var index = -1;
+      
+      	while ( current ) {
+          	if ( element === current.element ) {
+              	return index;
+          	}
+          index++;
+          current = current.next;
+      	}
+      	
+      	return -1;
+  	} ;
+  
+  	
+  	this.remove = function ( element ) {
+      	var index = this.indexOf ( element ) ;
+       	return this.removeAt ( index ) ;
+  	} ;
+  
+  	this.isEmpty = function ( ) {
+      	return length === 0 ;
+  	} ;
+  
+  
+  	this.size = function ( ) {
+      	return length ;
+  	} ;
+  
+  
+  	this.getHead = function ( ) {
+      	return head ;
+  	} ;
+  
+  
+  	this.toString = function ( ) {
+      	
+      	var current = head ,
+            string = &quot;&quot; ;
+      	
+      	while ( current ) {
+          	string += current.element ;
+          	current = current.next ;
+      	}
+      	
+      	return string ;
+  	} ;
+  
+}
+</code></pre>
+<h2>双向链表</h2>
+<p>​普通链表，一个节点只有链向下一个节点的链接。</p>
+<p>​双向链表，链接是双向的：一个链向下一个元素，另一个链像前一个元素。</p>
+<h2>双向链表的创建</h2>
+<pre><code class="language-javascript">funciton DoublyLinkedList ( ) {
+   
+	var Node = function ( element ) {
+		this.element = element ;
+		this.next = null ;
+		// 新增的，用来保存前一项的引用。
+		this.prev = null ; 
+	};
+
+	var length = 0 ;
+	var head = null ;
+	// 新增的，用来保存列表最后一项的引用
+	var tail = null ; 
+  
+	this.insert = function ( position , element ) {  	
+		// 检查越界值
+		if ( position &gt;= 0 &amp;&amp; position &lt;= length ) {
+			
+			var node = new Node ( element ) ,
+				current = head ,
+				previous ,
+				index = 0;
+			
+			if ( position === 0) { // 在第一个位置添加
+				
+				if ( ！head ) { // 新增的 
+					head = node ;
+					tail = node ;
+				}
+				else {
+					node.next = current ;
+					current.prev = node ; // 新增的
+					head = node ;
+				}
+			}
+			else if ( positon === length ) { //最后一项 //新增的
+				current = tail ;
+				current.next = node ;
+				node.prev = current ;
+				tail = node ;
+			}
+			else {
+				while ( index &lt; position ) {
+					previous = current ;
+					current = current.next ;
+					index++;
+				}
+				node.next = current ;
+				previous.next = node ;
+				
+				current.prev = node ; // 新增的
+				node.prev = previous ; // 新增的
+			}
+				
+			length++ ; // 更新列表长度
+			return ture ;
+		}
+		else {
+			return false ;
+		}
+	};
+  
+	this.removeAt = function ( position ) {
+		//检查越界值
+		if ( position &gt; -1 &amp;&amp; position &lt; length ) {
+			var current = head ,
+				previous ,
+				index = 0 ;
+			
+			// 移除第一项
+			if( positon === 0 ) {
+				
+				head = curent.next ;
+				
+				// 如果只有一项，更新 tail 
+				if ( length === 1 ) {
+					tail = null ;
+				}
+				else {
+					head.prev = null ;
+				}
+			}
+			else if ( position === length - 1 ) { // 最后一项
+				current = tail ;
+				tail =current.prev ;
+				tail.next = null ;
+			}
+			else {
+				while ( index &lt; position ) {
+					previous = current ;
+					current = current.next ;
+					index++;
+				}
+				
+				// 将 previous 与 current 的下一项链接起来，跳过 current
+				previous.next = current,next ;
+				current.next.prev = previous ;
+			}
+			
+			length-- ;
+			return current.element ;
+				
+		}
+		else {
+			return null ;
+		}
+	} ;
+  
+}
+</code></pre>
+<h2>循环链表</h2>
+<p>​循环链表与链表之间的唯一区别在于，循环链表最后一个元素指向下一个元素的指针（ tail.next ），是指向第一个元素（head），而不是引用 null。</p>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

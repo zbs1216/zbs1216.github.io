@@ -1,0 +1,56 @@
+@charset "UTF-8";
+/* 基础样式
+-------------------------------------------------------------------------------------  */
+html { 
+    color:rgb(30,30,30); 
+    font-size:14px; 
+    font-family:"Microsoft YaHei", Helvetica, sans-serif; 
+    background:white; 
+}
+
+body,
+header,
+main,
+footer,
+section,
+article,
+nav,
+side,
+div,
+ul,
+ol,
+li,
+p { 
+    padding:0; 
+    margin:0; 
+    border:none; 
+    outline:none; 
+}
+
+li { list-style-type:none; }
+
+input { 
+    border:none; 
+    outline:none; 
+}
+
+a { 
+    color:black; 
+    border:none; 
+    vertical-align:baseline; 
+}
+
+a:link { text-decoration:none; }
+
+.clearFloat{ clear:both; } 
+
+.clearFix:before, 
+.clearFix:after { 
+    content:'.'; 
+    display:block; 
+    height:0; 
+    visibility:hidden; 
+    clear:both; 
+}   
+
+

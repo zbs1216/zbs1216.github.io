@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>第三章 定位元素 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">第三章 定位元素</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2018-1-9 09:22:58 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 CSS
+               | </span></p>
+          <div class="markdown-body"><h2>理解盒模型</h2>
+<p>盒模型，就是浏览器为页面中的每个 HTML 元素生成的矩形盒子。&lt;br&gt;
+每一个元素都会在页面上生成一个盒子。因此，HTML 页面实际上就是由一堆盒子组成的。&lt;br&gt;</p>
+<p>这些盒子都要按照可见版式模型（visual formatting model）在页面上排布。&lt;br&gt;
+可见的页面版式主要由三个属性控制：position 属性、display 属性和 float 属性。</p>
+<table>
+<thead>
+<tr>
+<th>属 性</th>
+<th>作 用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>position</td>
+<td>控制页面上元素间的位置关系。</td>
+</tr>
+<tr>
+<td>display</td>
+<td>控制元素是堆叠、并排，还是根本不在页面上出现。</td>
+</tr>
+<tr>
+<td>float</td>
+<td>提供控制的方式，以便把元素组成成多栏布局。</td>
+</tr>
+</tbody>
+</table>
+<p>默认情况下，每个盒子的边框不可见，背景也是透明的，所以不能直接看到页面中盒子的结构。</p>
+<p>每个元素盒子的属性可以分成三组。</p>
+<ul>
+<li>边框（border）。设置边框的宽窄、样式和颜色。</li>
+<li>内边距（padding）。设置盒子内容区与边框的间距。</li>
+<li>外边距（margin）。设置盒子与相邻元素的间距。</li>
+</ul>
+<p>元素盒子还有一个背景层，可以改变颜色，也可以添加图片。</p>
+<p>有关盒模型的更多信息，可以参考这里：http://www.w3.org/TR/REC-CSS2/box.html。</p>
+<p><strong>简写属性</strong></p>
+<p>CSS 为边框、内边距和外边距分别规定了简写属性，让你通过一条声明就可以完成设定。在每个简写声明中，属性值的顺序都是上、右、下、左。</p>
+<p>示例：</p>
+<pre><code class="language-css">e {
+    margin-top:5px; 
+    margin-right:10px; 
+    margin-bottom:12px; 
+    margin-left:8px;
+}
+
+/* 使用简写属性，则可以简写为这样： */
+e {
+    margin:5px 10px 12px 8px;
+}
+</code></pre>
+<p>4 个值之间有空格，但不能是其他分隔符（比如逗号之类的）。甚至不用把 4 值全都写出来——如果哪个值没有写，那就使用对边的值。</p>
+<h3>盒子边框</h3>
+<p>边框（border）有3 个相关属性：</p>
+<ul>
+<li>宽度（border-width）。可以使用 thin、medium 和 thick 等文本值，也可以使用除百分比和负值之外的任何绝对值。</li>
+<li>样式（border-style）。有 none、hidden、dotted、dashed、solid、double、groove、ridge、inset 和 outset 等文本值。</li>
+<li>颜色（border-color）。可以使用任意颜色值，包括 RGB、HSL、十六进制颜色值和颜色关键字。</li>
+</ul>
+<p>CSS 推荐标准并未明确规定 border-width 这几个文本值t hin、medium 和 thick 的确切宽度，实际显示的宽度可能会因浏览器而异。</p>
+<p>对于边框样式（border-style），除了solid 值（实线）之外，CSS 规范也没有明确规定。因此 dashed 值（虚线）在不同浏览器中的短划线长度和线间距也可能会不一样。</p>
+<p>border 的第四个属性 border-radius 并不影响盒模型的定位。</p>
+<h3>盒子内边距</h3>
+<p>内边距是盒子内容区与盒子边框之间的距离。</p>
+<p>由于内边距在盒子的内部，所以它也会取得盒子的背景。</p>
+<h3>中和外边距和内边距</h3>
+<pre><code class="language-css">* {margin:0; padding:0;}
+</code></pre>
+<p>这条规则把所有元素默认的外边距和内边距都设定为零。</p>
+<p>不同浏览器默认的内边距和外边距也不一样，特别是对表单和列表等复合元素。</p>
+<p>在这种情况下，把所有元素默认的外边距和内边距都设定为零，然后再根据需要添加，则会在各浏览器上获得一致的效果。</p>
+<h3>叠加外边距</h3>
+<p>垂直方向上的外边距会叠加。</p>
+<p>上下外边距相遇时，它们会相互重叠，直至一个外边距碰到另一个元素的边框。较宽的外边距决定两个元素最终离多远。这个过程就叫外边距叠加。</p>
+<p>叠加的只是垂直外边距，水平外边距不叠加。对于水平相邻的元素，它们
+的水平间距是相邻外边距之和。</p>
+<h3>外边距的单位</h3>
+<p>为文本元素设置外边距时通常需要混合使用不同的单位。</p>
+<p>比如说，一个段落的左、右外边距可以使用像素，以便该段文本始终与包含元素边界保持固定间距，不受字号变大或变小的影响。而对于上、下外边距，以em 为单位则可以让段间距随字号变化而相应增大或缩小。</p>
+<p>示例：</p>
+<pre><code class="language-css">/*这里使用了简写属性把上、下外边距设置为 0.75em，把左、右外边距设置为 30 像素*/
+p {font-size:1em; margin:.75em 30px;}
+</code></pre>
+<p>这样，段落的垂直间距始终会保持为字体高度的四分之三（上下外边距都是 0.75em，叠加后还是 0.75em）。如果用户增大了字号，那么不仅段落中的文本会变大，段间距也会成比例变大。这样，页面的整体布局就会比较协调一致。与此同时，使用像素单位的左、右外边距不会改变。</p>
+<h2>盒子有多大</h2>
+<h3>盒模型结论一：</h3>
+<p>没有（就是没有设置 width 的）宽度的元素始终会扩展到填满其父元素的宽度为止。&lt;br&gt;
+添加水平边框、内边距和外边距，会导致内容宽度减少，减少量等于水平边框、内边距和外边距的和。</p>
+<h3>盒模型结论二：</h3>
+<p>为设定了宽度的盒子添加边框、内边距和外边距，会导致盒子扩展得更宽。&lt;br&gt;
+盒子的 width 属性设定的只是盒子内容区的宽度，而非盒子要占
+据的水平宽度。</p>
+<p>CSS3 新增了一个 box-sizing 属性，通过它可以将有宽度的盒子也设定成具有默认的 auto 状态下的行为。</p>
+<h2>浮动与清除</h2>
+<p>CSS 设计 float 属性的主要目的，是为了实现文本绕排图片的效果。然而，这个属性也成了创建多栏布局最简单的方式。</p>
+<p>浮动，就是把元素从常规文档流中拿出来，可以实现传统出版物上那种文字绕排图片的效果，也可以让原来上下堆叠的块级元素，变成左右并列，从而实现布局中的分栏。</p>
+<p>浮动元素脱离了常规文档流之后，原来紧跟其后的元素就会在空间允许的情况下，向上提升到与浮动元素平起平坐。</p>
+<p>如果浮动元素后面有两个段落，而只想让第一段与浮动元素并列（就算旁边还能放下第二段，也不想让它上来），用 clear 属性来 “清除” 第二段，然后它呆在浮动元素下面了。</p>
+<h3>浮动</h3>
+<h4>文本绕排图片</h4>
+<p>为了实现文本绕排图片的浮动效果，必须在标记中先写图片，然后再写环绕它的文本。</p>
+<p>示例：</p>
+<pre><code class="language-html">&lt;img …… /&gt;
+&lt;p&gt;…the paragraph text…&lt;/p&gt;
+</code></pre>
+<p>CSS 规则:</p>
+<pre><code class="language-css">/*为简明起见，省略了字体声明*/
+p {margin:0; border:1px solid red;}
+
+/*外边距防止图片紧挨文本*/
+img {float:left; margin:0 4px 4px 0;}
+</code></pre>
+<p>以上规则会让图片浮动到左侧，从而让文本绕排到右侧。</p>
+<p>在浮动一张图片或者其他元素时，这是在要求浏览器把它往上方推，直到它碰到父元素（也就是 body 元素）的内边界。后面的段落不再认为浮动元素在文档流中位于它的前面了，因而它会占据父元素左上角的位置。
+不过，它的内容（文本）会绕开浮动的图片。</p>
+<p>浮动非图片元素时，必须给它设定宽度，否则后果难以预料。图片无所谓，因为它本身有默认的宽度。</p>
+<h4>创建分栏</h4>
+<p>在此基础上创建多栏，只要再用一次 float 属性。</p>
+<p>给段落设定宽度，然后也浮动它即可。</p>
+<pre><code class="language-css">p {float:left; margin:0; width:200px; border:1px solid red;}
+img {float:left; margin:0 4px 4px 0;}
+</code></pre>
+<p>这样同时浮动图片和 “有宽度的” 段落，会导致段落的文本绕排效果消失，而浮动的段落也会尽可能向左向上移动。就这样，这个段落就构成了紧挨着图片的一栏。</p>
+<p>这就是使用 float 属性创建多栏布局的原理。换句话说，如果几个相邻的元素都具有设定的宽度，都是浮动的，而且水平空间也足以容纳它们，它们就会并列排在一行。</p>
+<p>如果创建了三个浮动、固定宽度的元素，它们就会像这样并排在一行，构成三栏布局的框架。每个元素都可以作为容器，包含其他元素。</p>
+<h3>围住浮动元素的三种方法</h3>
+<p>浮动元素位于 “文档流外部”，因而它已经不被包含在标记中的父元素之内了。正因为如此，它对布局可能产生破坏性影响。</p>
+<p>浮动元素脱离了文档流，其父元素也看不到它了，因而也不会包围它。这种情况有时候并非我们想要的。</p>
+<h4>方法一：为父元素添加 overflow:hidden</h4>
+<p>为父元素应用 <code>overflow:hidden</code>，以强制它包围浮动元素。</p>
+<p><code>overflow:hidden</code> 声明的真正用途是防止包含元素被超大内容撑大。&lt;br&gt;
+应用 <code>overflow:hidden</code> 之后，包含元素依然保持其设定的宽度，而超大的子内容则会被容器剪切掉。&lt;br&gt;
+除此之外，<code>overflow:hidden</code> 还有另一个作用，它能可靠地迫使父元素
+包含其浮动的子元素。</p>
+<p><strong>注意：</strong></p>
+<p>不能在下拉菜单的顶级元素上应用 <code>overflow:hidden</code>，否则作为其子元素的下拉菜单就不会显示了。因为下拉菜单会显示在其父元素区域的外部，而这恰恰是 <code>overflow:hidden</code> 所要阻止的。</p>
+<h4>方法二：同时浮动父元素</h4>
+<p>父元素浮动以后，不管其子元素是否浮动，它都会紧紧地包围（也称收缩包裹）住它的子元素。&lt;br&gt;
+因此，需要用 <code>width:100%</code> 再让父元素与浏览器容器同宽。&lt;br&gt;</p>
+<p>另外，由于父元素现在也浮动了，所以父元素后面的与其紧邻的元素会往上挤到它旁边去。为了强制父元素的紧邻元素依然呆在父元素下方，要给它应用 <code>clear:left</code>。被清除的元素不会被提升到浮动元素的旁边。</p>
+<p><strong>注意：</strong></p>
+<p>不能对已经靠自动外边距居中的元素使用 “浮动父元素” 技术，否则它就不会再居中，而是根据浮动值浮动到左边或右边了</p>
+<h4>方法三：添加非浮动的清除元素</h4>
+<p>给父元素的最后添加一个非浮动的子元素，然后清除该子元素。&lt;br&gt;</p>
+<p>由于包含元素一定会包围非浮动的子元素，而且清除会让这个子元素位于（清除一侧）浮动元素的下方，因此包含元素一定会包含这个子元素,以及前面的浮动元素。</p>
+<p>在包含元素最后添加子元素作为清除元素的方式有两种。&lt;br&gt;</p>
+<p>第一种是简单地在 HTML 标记中添加一个子元素，并给它应用
+clear 属性。由于没有默认的样式，不会引入多余空间，div 元素很适合这个目的。&lt;br&gt;</p>
+<p>第二种方法，用 CSS 来添加这个清除元素的方法。&lt;br&gt;
+首先，要给父元素添加一个类 <code>clearfix</code>。&lt;br&gt;
+clearfix 规则:</p>
+<pre><code class="language-css">.clearfix:after {
+    content:&quot;.&quot;;
+    display:block;
+    height:0;
+    visibility:hidden;
+    clear:both;
+}
+</code></pre>
+<p>clearfix 规则添加了一个清除的包含句点作为非浮动元素（必须得有内容，而句点是最小的内容）。</p>
+<p>规则中的其他声明是为了确保这个伪元素没有高度，而且在页面上不可见。</p>
+<p>使用 <code>clear:both</code> 意味着父元素中新增的子元素会清除左、右浮动元素（位于左、右浮动元素下方）。这里当然可以只用 left，但 both 也适用于将来图片 <code>float:right</code> 的情况。</p>
+<h3>没有父元素时如何清除</h3>
+<p>示例：</p>
+<pre><code class="language-html">&lt;section&gt;
+    &lt;img src=&quot;images/rubber_duck3.jpg&quot;&gt;
+    &lt;p&gt;This text sits next to the image and because the…&lt;/p&gt;
+    &lt;img src=&quot;images/beach_ball.jpg&quot;&gt;
+    &lt;p&gt;This text is short, so the next image can float up…&lt;/p&gt;
+    &lt;img src=&quot;images/yellow_float.jpg&quot;&gt;
+    &lt;p&gt;Because the previous image’s text does not…&lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+<pre><code class="language-css">section {width:300px; border:1px solid red;}
+img {float:left; margin:0 4px 4px 0;}
+p {margin:0 0 5px 0;}
+</code></pre>
+<p>目标是让每段文字停靠在相应的图片旁边。然而，第二段文字太短了，都没
+有够到第二张浮动图片的下沿。这就给下一对图片/段落向上浮动留出了空间。</p>
+<p>第三对图片/段落有条件（有空间）停靠在第二张浮动图片旁边，于是它们就靠了过去。浮动元素就是尽可能地向左上或右上迁移。但这个视觉上的结果却不是期望的。</p>
+<p>由于每一对图片/段落都没有包含元素，在此就无法使用前面讨论的 “强制父元素包围” 的方法。不过，可以使用 clearfix 规则，给每个段落都加上 clearfix 类。</p>
+<p>在每个段落内容的最后添加了 “清除子元素”，期望的布局效果实现了。因为第三对图片和段落前面增加了一个清除元素，所以它们就不能再往上走了。
+注意，没有只给第二个段落添加 clearfix 类，而是每个段落都加上了一个。这样，无论将来哪个段落的文本高度低于图片了，页面布局都不会被破坏。</p>
+<h2>定位</h2>
+<p>CSS 布局的核心是 position 属性，对元素盒子应用这个属性，可以相对于它在常规文档流中的位置重新定位。position 属性有4 个值：static、relative、absolute、fixed，默认值为 static。</p>
+<h3>静态定位</h3>
+<h3>相对定位</h3>
+<p>相对定位，相对的是它原来在文档流中的位置（或者默认位置），该元素仍然会占据原来的空间。</p>
+<p>可以使用 top、right、bottom 和 left 属性来改变它的位置。</p>
+<p>可以给 top 和 left 属性设定负值，把元素向上、向左移动。</p>
+<h3>绝对定位</h3>
+<p>绝对定位会把元素彻底从文档流中脱离出来，元素之前占据的空间被 “回收”。</p>
+<p>绝对定位元素默认的定位上下文是 body 元素。</p>
+<p>通过 top 和 left 设定的偏移值，决定了元素相对于 body 元素（标记
+层次中的祖先容器），而不是相对于它在文档流中的位置偏移多远。</p>
+<p>把元素的 position 属性设定为 relative、absolute 或 fixed 后，继而可以使用 top、right、bottom 和 left 属性，相对于另一个元素移动该元素的位置。这里的 “另一个元素”，就是该元素的定位上下文。</p>
+<p>绝对定位元素默认的定位上下文是 body。这是因为 body 是标记中所有元素唯一的祖先元素。而实际上，绝对定位元素的任何祖先元素都可以成为它的定位上下文，只要把相应祖先元素的 position 设定为 relative 。</p>
+<h3>固定定位</h3>
+<p>固定定位会把元素彻底从文档流中脱离出来。</p>
+<p>固定定位元素的定位上下文是视口（浏览器窗口或手持设备的屏幕），因此它不会随页面滚动而移动。</p>
+<h2>显示属性</h2>
+<p>display 属性：</p>
+<ul>
+<li>block。块级元素，比如段落、标题、列表等，在浏览器中上下堆叠显示。</li>
+<li>inline。行内元素，比如 a、span 和 img，在浏览器中左右并排显示，只有前一行没有空间时才会显示到下一行。</li>
+<li>none。。把元素的 display 设定为 none，该元素及所有包含在其中的元素，都不会在页面中显示。它们原先占据的所有空间也都会被 “回收”，就好像相关的标记根本不存在一样。
+visibility 属性，这个属性最常用的两个相对的值是 visible（默认值）和 hidden。把元素的 visibility 设定为 hidden，元素会隐藏，但它占据的页面空间仍然 “虚位以待”。</li>
+</ul>
+<h2>背景</h2>
+<p>背景支持为元素添加背景颜色和背景图片。</p>
+<p>每个元素盒子都可以想象成由两个图层组成。元素的前景层包含内容（如文本或图片）和边框，元素的背景层可以用实色填充（使用 background-color 属性），也可以包含任意多个背景图片（使用<br>
+background-image 属性），背景图片叠加在背景颜色之上。</p>
+<p>在 CSS3 被浏览器实现之前，只能在背景颜色上添加一张背景图片。而现在，我们可
+以为背景图层添加多张图片（以及 CSS3 渐变）。</p>
+<p>前景色会影响元素的内容和边框。前提条件是，在使用 border 设定边框的样式和宽度，而没有设定边框颜色（或者没有使用 border-color 单独设定边框颜色）的情况下，边框会使用 color 属性设定的字体颜色。</p>
+<h3>CSS 背景属性</h3>
+<p>CSS 规定以下与背景相关属性：</p>
+<ul>
+<li>background-color</li>
+<li>background-image</li>
+<li>background-repeat</li>
+<li>background-position</li>
+<li>background-size</li>
+<li>background-attachment</li>
+<li>background（简写属性）</li>
+<li>background-clip</li>
+<li>background-origin</li>
+<li>background-break</li>
+</ul>
+<h3>背景颜色</h3>
+<p>通过设置 background-color 可以设定元素的颜色。然后，元素就会以设定的颜色填充背景图层。</p>
+<h3>背景图片</h3>
+<p>格式：</p>
+<pre><code class="language-css">background-image:url(图片路径/图片文件名)
+</code></pre>
+<p>图片地址两边不用加引号，加了也没问题。</p>
+<p>默认情况下背景图片会以元素左上角为起点，沿水平和垂直方向重复出
+现，最终填满整个背景区域。</p>
+<h3>背景重复</h3>
+<p>background-repeat 属性有4 个值:</p>
+<ul>
+<li>repeat，默认值。效果是水平和垂直方向都重复，直至填满元素的背景区域为止。</li>
+<li>repeat-x，只在水平方向重复。</li>
+<li>repeat-y，只在垂直方向上重复。</li>
+<li>no-repeat，任何方向上都不重复（或者说只让背景图片显示一次）。</li>
+</ul>
+<p>CSS3 还规定另外两个值：</p>
+<ul>
+<li>background-repeat: round，为确保图片不被剪切，通过调整图片大小来适应背景区域。</li>
+<li>background-repeat: space，为确保图片不被剪切，通过在图片间添加空白来适应背景区域。</li>
+</ul>
+<h3>背景位置</h3>
+<p>background-position 属性同时设定元素和图片的原点。原点决定了元
+素和图片中某一点的水平和垂直坐标。</p>
+<p>默认情况下，background-position 的原点位于左上角。换句话说，元素的左上角和图片的左上角是对齐的，随后图片向各个方向重复，都是以左上角为起点。</p>
+<p><code>background-position:center center</code> 设定图片中心点与元素中心点重合，然后再向各个方向重复。</p>
+<p>设定背景位置时可以使用三种值：关键字、百分比、绝对或相对单位的数值。</p>
+<h4>关键字值</h4>
+<p>分别是 top、left、bottom、right 和 center。</p>
+<p>可以使用两个值分别设定水平和垂直位置。</p>
+<p>这些关键字中的任意两个组合起来都可以作为该属性的值。比如，top right 表示把图片放在元素的右上角位置，center center 把图片放在元素的中心位置。</p>
+<p>关键字指的顺序不重要，left bottom 和 bottom left 意思相同。为了设定的值在所有浏览器中都有效，最好不要混用关键字值与数字值。</p>
+<p>只给 background-position 设定一个关键字值，则另一个也会取相同的值，比如 <code>background-position:center</code> 就相当于写了  <code>background-position:center cetner</code>。</p>
+<h4>数字值</h4>
+<p>使用数值（比如 40% 30%）时，第一个值表示水平位置，第二个值表示垂直位置。要是只设定一个值，则将其用来设定水平位置，而垂直位置会被设为center。</p>
+<p>在使用关键字和百分比值的情况下，设定的值同时应用于元素和图片。换句话说，如果设定了33% 33%，则图片水平 33% 的位置与元素水平 33% 的位置对齐。垂直方面也一样</p>
+<p>像素之类的绝对单位数值就不一样了。要是用像素单位来设定位置，那么图片的左上角会被放在距离元素左上角指定位置的地方。</p>
+<p>还可以使用负值。这样就可以把图片的左上角定位到元素外部，从而在元素中只能看到部分图片。</p>
+<p>给图片设定足够大的正值，也可以把图片的右下角推到元素外部，从而在元素中也只能看到部分图片。位于元素外部的那部分图片不会显示。</p>
+<h3>背景尺寸</h3>
+<p>background-size 是CSS3 规定的属性，这个属性用来控制背景图片的尺寸。可以给它设定的值及含义如下：</p>
+<ul>
+<li>50%：缩放图片，使其填充背景区的一半。</li>
+<li>100px 50px：把图片调整到100 像素宽，50 像素高。</li>
+<li>cover：拉大图片，使其完全填满背景区；保持宽高比。</li>
+<li>contain：缩放图片，使其恰好适合背景区；保持宽高比。</li>
+</ul>
+<h3>背景黏附</h3>
+<p>background-attachment 属性控制滚动元素内的背景图片是否随元素滚动而移动。</p>
+<p>属性值：</p>
+<ul>
+<li>scroll，默认值是。背景图片随元素移动。</li>
+<li>fixed。背景图片不会随元素滚动而移动。</li>
+</ul>
+<h3>简写背景属性</h3>
+<p>background 属性可以用来设定所有背景相关的值。</p>
+<p>示例：</p>
+<pre><code class="language-css">body {
+    background:url(images/watermark.png) center #fff no-repeat contain fixed;
+}
+</code></pre>
+<p>声明中少写了哪个属性的值（假如如没写no-repeat），就会使用相应属性的默认值（repeat）。</p>
+<h3>其他 CSS3 背景属性</h3>
+<h4>background-clip</h4>
+<p>控制背景绘制区域的范围，比如可以让背景颜色和背景图片只出现在内容区，而不出现在内边距区域。默认情况下，背景绘制区域是扩展到边框外边界的。</p>
+<h4>background-origin</h4>
+<p>控制背景定位区域的原点，可以设定为元素盒子左上角以外的位置。比如，可以设定以内容区左上角作为原点。</p>
+<h4>background-break</h4>
+<p>控制分离元素（比如跨越多行的行内盒子）的显示效果。</p>
+<h3>多背景图片</h3>
+<p>CSS3 可以给元素背景添加多个背景图片。</p>
+<p>示例：</p>
+<pre><code class="language-css">e {
+    background:
+        url(images/turq_spiral.png) 30px -10px no-repeat,
+        url(images/pink_spiral.png) 145px 0px no-repeat,
+        url(images/gray_spiral.png) 140px -30px no-repeat, #ffbd75;
+}
+</code></pre>
+<p>代码中先列出的图片显示在上方，或者说，更接近前景。</p>
+<p>每张图片的声明都单独放在了一行里，以逗号分隔，以便看清它们
+的位置、重复的设定值。为了防止图片加载失败时元素背景处于默认的透明状态，在最后一条声明中加上了背景颜色。</p>
+<h3>厂商前缀</h3>
+<p>为鼓励浏览器厂商尽早采用 W3C 的 CSS3 推荐标准，于是就产生了 VSP（ Vendor Specific Prefixes，厂商前缀）的概念。</p>
+<p>有了这些 CSS 属性的前缀，厂商就可以尝试实现 W3C 涵盖新 CSS 属性的工作草案。在迅速实现新属性的同时，还可以声明它们是过渡的、部分实现的，或者实验性的。</p>
+<p>VSP 的开头是一个连字符，然后是前缀名，接着又是一个连字符，最后是W3C 属性名。</p>
+<pre><code class="language-css">-moz- /* Firefox */
+-webkit- /* Chrome 及Safari */
+-ms- /* 微软 Internet Explorer */
+-o- /* Opera */
+</code></pre>
+<p>另外要特别注意，在带前缀的属性声明之后还要声明 W3C 标准属性，以备将来有浏览器实现完整的不带前缀的属性时派上用场。这里的 Safari 和 Chrome 都使用相同的 -webkit- 前缀，是因为它们都使用 Webkit 渲染引擎。</p>
+<h3>背景渐变</h3>
+<p>渐变就是在一定长度内两种或多种颜色之间自然的过渡。</p>
+<p>渐变分两种，一种线性渐变，一种放射性渐变。线性渐变从元素的一端延伸到另一端，放射性渐变则从元素内一点向四周发散。</p>
+<h4>线性渐变</h4>
+<p>示例：</p>
+<pre><code class="language-css">/* 声明了一种开始颜色和一种结束颜色，这两种颜色会按照默认的方向（从上到下）实现平滑过渡 */
+e {background:linear-gradient(#e86a43, #fff);}
+
+/* 声明了起点关键字left，渐变方向变成了从左到另一端 */
+e {background:linear-gradient(left, #64d1dd, #fff);}
+
+/* 声明了-45deg（deg 是 “度”），等于把起点从默认的中上设定到了左上。 */
+e {background:linear-gradient(-45deg, #e86a43, #fff);}
+</code></pre>
+<h5>渐变点</h5>
+<p>渐变点就是渐变方向上的点，可以在这些点上设定颜色和不透明度。通过设定下一个渐变点的颜色值，就可以控制渐变的效果。可以添加任意多个渐变点。渐变点的位置一般使用整个渐变宽度的百分比来表示。</p>
+<p>示例：</p>
+<pre><code class="language-css">/*例1：50% 处有一个渐变点*/
+background:linear-gradient(#64d1dd, #fff 50%, #64d1dd);
+
+/*例2：20% 和 80% 处有两个渐变点*/
+background:linear-gradient(#e86a43 20%, #fff 50%, #e86a43 80%);
+
+/*例3：25%、50%、75%处有三个渐变点*/
+background:linear-gradient(#64d1dd, #fff 25%, #64d1dd 50%, #fff 75%,#64d1dd);
+
+/*例4：为同一个渐变点设定两种颜色可以得到突变效果*/
+background:linear-gradient(#e86a43, #fff 25%, #64d1dd 25%, #64d1dd 75%, #fff 75%, #e86a43);
+</code></pre>
+<p>例 1 在 50% 处包含一个渐变点，因此渐变效果是从开始颜色到渐变点颜
+色（白色），然后再从渐变点颜色到结束颜色。注意，开始和结束位置如果没有声明，则默认为 0% 和 100% 。</p>
+<p>如果不是使用百分比或其他值声明渐变点的位置，则三种颜色会均匀分布于整个渐变，其实际位置是 0%、50% 和 100% 。</p>
+<p>例 2 演示了起点和终点不是 0% 和 100% 时的情形。此时，在第一个渐变点（20%）之前，是第一个渐变点声明的实色，而在该点之后，则是从该颜色到下一个渐变点颜色的过渡。同样，在最后一个渐变点（80%）之后，该渐变点的颜色会以实色扩展到元素结束。</p>
+<p>例 3 简单展示了相同颜色在几个渐变点之间变来变去的效果。</p>
+<p>例 4 展示了在同一个渐变点声明两种不同的颜色，能实现一种突变的效果。</p>
+<h4>放射性渐变</h4>
+<p>创建放射性渐变时，可以使用参数指定形状、位置、尺寸、颜色和不透明度。</p>
+<p>示例：</p>
+<pre><code class="language-css">.gradient1 {
+    background: radial-gradient(#fff, #64d1dd,#70aa25);
+}
+
+.gradient2 {
+    background: radial-gradient(circle, #fff, #64d1dd, #e86a43);
+}
+
+.gradient3 {
+    background: radial-gradient(50px 30px, circle, #fff, #64d1dd, #4947ba);
+}
+</code></pre>
+<p>上述的每一个例子都设定3 种颜色。</p>
+<p>例 1 展示了默认的渐变形状，即渐变效果会填充元素。如果元素是正方形，那渐变就是圆形。</p>
+<p>例 2 设定了形状关键字 circle，于是渐变的形状变得均匀，并在元素最近的边达到了终点，形成了圆形渐变。而长边剩下的区域则填充了终点的颜色。</p>
+<p>例 3 中的位置参数 50px 30px 把渐变的圆心放到了靠近左上角的位置。</p>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>字典和散列表 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">字典和散列表</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2017-12-18 17:00:07 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 算法
+               | </span></p>
+          <div class="markdown-body"><h2>集合、字典、散列表</h2>
+<ul>
+<li>都可以存储不重复的值</li>
+<li>集合，每个值作为主要元素</li>
+<li>字典、散列表，以 [ 键， 值 ] 对的形式存储数据</li>
+<li>字典、散列表各自的实现方式有所不同</li>
+</ul>
+<h2>字典</h2>
+<h3>字典的方法</h3>
+<p>set(key, value)：向字典添加新元素</p>
+<p>remove (key)：通过使用键值来从字典中移除键值对应的数据值</p>
+<p>has(key)：如果某个键值存在于这个字典中，则返回 true ，反之，返回 false</p>
+<p>get(key)：通过键值查找特定的数值并返回</p>
+<p>clear()：将字典的所有数据全部删除</p>
+<p>size()：返回字典所包含元素的数量</p>
+<p>keys()：将字典所包含的所有键名以数组形式返回</p>
+<p>values()：将字典所包含的所有数值以数组形式返回</p>
+<h3>创建字典</h3>
+<pre><code class="language-javascript">function Dictionary ( ) {
+  	var items = { } ;
+
+  	this.has = function ( key ) {
+      	return key in items ;
+		//【疑惑】为什么不是在 items 的自身属性中检查
+		// hasOwnProperty()
+		// 如果输入的 key 是 items 的原型的属性，
+		// 而不是 items 的自身属性，是否会造成错误？
+		// 例如调用 remove()方法时，会不会出现错误？  
+  	} ;
+  
+  	this.set = function ( key, value ) {
+      	items [ key ] = value ;
+  	} ;
+  
+  	this.remove = function (key) {
+      	if ( this.has ( key ) ) {
+          	delete items [ key ] ;
+          	return true ;
+      	}
+      	return false ;
+  	} ;
+  
+  	this.get = function ( key ) {
+      	return this.has ( key ) ? items [ key ] : undefined ;
+  	} ;
+  
+  	this.values = function ( ) {
+      	var values = [];
+      	for ( var k in items ) {
+          	if ( this.has ( k ) ) {
+              	values.push ( items [ k ] ) ;
+          	}
+      	}
+      	return values ;
+  	} ;
+  
+  	this.clear = function ( ) {};
+  	this.size = function ( ) {};
+  	this.keys = function ( ) {} ;
+  	this.getItems = function ( ) {
+      	return items ;
+  	} ;
+  
+  	
+}
+</code></pre>
+<h2>散列表</h2>
+<h3>散列表的方法</h3>
+<p>put(key, value)：向散列表增加一个新的项（也能更新散列表）</p>
+<p>remove(key)：根据键值从散列表中移除值</p>
+<p>get(key)：返回根据键值检索到的特定的值</p>
+<h3>创建散列表</h3>
+<pre><code class="language-javascript">function HashTable ( ) {
+  	var table = [ ] ;
+  
+  	//散列函数
+  	var loseloseHashCode = function ( key ) {
+      	var hash = 0 ;
+      	for ( var i = 0; i &lt; key.length; i++ ) {
+          	hash += key.charCodeAt ( i ) ;
+      	}
+      	return hash % 37 ;
+  	} ;
+  
+  	this.put = function ( key, value ) {
+      	var position = loseloseHashCode ( key ) ;
+      	table [ position ] = value ;
+  	} ;
+  
+  	this.get = function ( key ) {
+      	return table [ loseloseHahCode ( key ) ] ;
+  	} ;
+  
+  	this.remove = function ( key ) {
+      	table [ loseloseHashCode ( key ) ] = undefined ;
+  	} ;
+} 
+</code></pre>
+<h3>冲突处理</h3>
+<ul>
+<li>分离链接</li>
+<li>线性探查</li>
+<li>双散列法</li>
+<li>对于分离链接、线性探查，只须重写三个方法：put、get、remove</li>
+</ul>
+<h3>分离链接</h3>
+<p>为散列表的每一个位置创建一个链表并将元素存储在里面。</p>
+<p>​这是解决冲突的最简单的方法，但是在 HashTable 实例之外需要额外的存储空间。</p>
+<pre><code class="language-javascript">// 辅助类，表示将要加入 LinkedList 实例的元素
+var ValuePair = function ( key, value ) {
+  	this.key = key;
+  	this.value = value;
+  	this.toString = function() {
+      	return &quot;[&quot; + this.key + &quot;-&quot; + this.value + &quot;]&quot;;
+  	};
+};
+
+// put 方法
+this.put = function ( key, value ) {
+ 	var position = loseloseHashCode ( key ) ;
+  
+  	if ( table [ position ] === undefined ) {
+      	talbe [ positon ] = new LinkedList ( ) ;
+  	}
+  
+  	table [ position ].append ( new ValuePair ( key, value ) ) ;
+} ;
+
+// get 方法
+this.get = function ( key ) {
+  	var position = loseloseHashCode ( key ) ;
+  	
+  	if ( table [ positon ] !== undefined ) {
+      	
+      	// 遍历链表来寻找键/值
+      	var current = table [ position ].getHead ( ) ;
+      	
+      	while ( current.next ) {
+          	if ( current.element.key === key ) {
+              	return current.element.value ;
+          	}
+          	current = current.next ;
+      	}
+      	
+      	// 检查元素在链表第一个或最后一个节点的情况
+      	if ( current.elelemt.key === key ) {
+          	return current.element.value ;
+      	}
+  	}
+  	return undefined ;
+} ;
+
+// remove 方法
+this.remove = function ( key ) {
+  	var positon = loseloseHashCode ( key ) ;
+  	
+  	if ( table [ position ] !== undefined ) {
+      	
+      	var current = table [ position ].getHead ( ) ;
+      	while ( current.next ) {
+          	if ( current.element.key === key ) {
+              	table [ position ].remove ( current.element ) ;
+              	if ( table [ position ].isEmpty ( ) ) {
+                  	table [ position ] = undefined ;
+              	}
+              	return true ;
+          	}
+          	current = current.next ;
+      	}
+      
+      	// 检查是否为第一个或最后一个元素
+      	if ( current.element.key === key ) {
+          	table [ position ].remove ( current.element ) ;
+          	if ( table [ position ].isEmpty () ) {
+              	table [ position ].remove ( current.element ) ;
+          	}
+          	return true ;
+      	}
+  	} 
+  	
+  	return false ;
+} ;
+</code></pre>
+<h3>线性探查</h3>
+<p>​当想向表中某个位置加入一个新元素的时候，如果索引为 index 的位置已被占据，就尝试 index + 1 的位置。</p>
+<p>​如果 index + 1 的位置也被占据了，就尝试 index + 2 的位置，以此类推。</p>
+<pre><code class="language-javascript">// put 方法
+this.put = function ( key, value ) {
+  	var position = loseloseHashCode ( key ) ;
+  
+  	if ( table [ position ] === undefined ) {
+      	table [ position ] = new Value Pair ( key, value ) ;
+  	}
+  	else {
+      	var index = ++position ;
+      	while ( table [ index] !== undefined ) {
+          	index++ ;
+      	}
+      	table [ index ] = new ValuePair ( key, value ) ;
+  	}
+} ;
+
+
+// get 方法
+this.get = function ( key ) {
+  	var position = loseloseHashCode ( key ) ;
+  
+  	if ( table [ position ] !== undefined ) {
+      	if ( table [ position ].key === kye ) {
+          	return table [ position ].value ;
+      	}
+      	else {
+          	var index = ++ position ;
+          	while ( table [ index ] === undefined || table [ index ].key !== key )	{
+              	index++ ;
+          	}
+          	if ( table [ index ].key === key ) {
+              	return table [ index ].value ;
+          	}
+      	}
+  	}
+  	return undefined ;
+} ;
+
+// remove 方法
+this.remove = function ( key ) {
+  	var position = loseloseHashCode ( key ) ;
+  
+  	if ( table [ position ] !== undefined ) {
+      	if ( table [position ].key === kye ) {
+          	table [ index ] = undefined ;
+      	}
+      	else {
+          	var index = ++ position ;
+          	while ( table [ index ] === undefined || table [ index ].key !== key )	{
+              	index++ ;
+          	}
+          	if ( table [ index ].key === key ) {
+              	table [ index ] = undefined ;
+          	}
+      	}
+  	}
+  	return undefined ;
+} ;
+
+table [ index ] = undefined ;
+</code></pre>
+<h3>更好的散列函数</h3>
+<p>一个表现良好的散列函数：</p>
+<ul>
+<li>插入、检索元素的时间（即性能）</li>
+<li>较低的冲突可能性</li>
+</ul>
+<pre><code class="language-javascript">// 比 “ loseloseHashCode() ” 更好的散列函数
+var djb2HashCode = function ( key ) {
+  	var hash = 5381 ; // 初始化一个质数
+  	for ( var i = 0; i &lt; key.length; i++ ) {
+      	hash = hash*33 + key.charCodeAt ( i );
+  	}
+  	return hash % 1013 ; // 将使用相加的和与另一个随机质数（比我们认为的散列表的大小要大）相除的余数
+} ;
+</code></pre>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

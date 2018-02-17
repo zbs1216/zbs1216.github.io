@@ -1,0 +1,11 @@
+/* leftSide 
+-------------------------------------------------------------------------------------  */
+#leftSide_wraper {width:100%;}
+#leftSide_wraper li {position:relative;}
+#leftSide_wraper li ul {background-color:white;}
+#leftSide_wraper span {display:block; font-size:1rem; line-height:1.5;}
+#leftSide_wraper li ul span{padding-left:2rem;}
+#leftSide_wraper span:hover {
+    background-color:rgb(225,225,225); cursor:pointer;
+    transition: all .3s ease-in-out;    
+}

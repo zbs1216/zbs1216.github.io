@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>排序和搜索 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">排序和搜索</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2017-12-21 16:00:01 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 算法
+               | </span></p>
+          <div class="markdown-body"><h2>排序和搜索算法</h2>
+<h3>用来表示待排序和搜索的数据结构</h3>
+<pre><code class="language-javascript">function ArrayList () {
+  	var array = [];
+  
+  	this.insert = function ( item ) {
+      	array.push ( item );
+  	} ;
+  	
+  	this.toString = functin () {
+      	return array.join ();
+  	};
+}
+</code></pre>
+<h3>插入排序</h3>
+<p>原理</p>
+<ul>
+<li>每次排一个数组项，以此方式构建组后的排序数组</li>
+<li>假定第一项已经排序了，接着，它和第二项进行比较</li>
+<li>第二项是应该呆在原位还是插入到第一项之前呢？这样，头两项就已正确排序了</li>
+<li>接着，和第三项比较（它是改插入到第一、第二还是第三的位置呢？），以此类推</li>
+</ul>
+<pre><code class="language-javascript">this.insertionSort = function () {
+	var length = array.length;
+	var j;
+	var temp;
+
+	for ( var i = 1; i &lt; length; i++ ) {
+		j = i;
+		temp = array[i];
+
+		while ( j &gt; 0 &amp;&amp; array[j - 1] &gt; temp ) {
+			array[j] = array[j - 1];
+			j-- ;
+		}
+		
+		array[j] = temp ;
+	}
+};
+</code></pre>
+<h3>归并排序</h3>
+<p>是第一个可以被实际使用的排序算法</p>
+<p>归并排序性能不错，复杂度为 O(nlog&lt;sup&gt;n&lt;/sup&gt;)</p>
+<p>归并排序是一种分治算法。</p>
+<p>其思想是将原始数组切分成较小数组，直到每个小数组只有一个位置，接着将小数组归并成较大的数组,直到最后只有一个排序完毕的大数组。</p>
+<pre><code class="language-javascript">this.mergeSort = function () {
+	array = mergeSortRec (array);
+};
+	
+// 辅助函数
+var mergeSortRec = function (array) {
+	var length = array.length;
+
+	if ( length === 1 ) {
+		return array;
+	}
+
+	var mid = Math.floor ( length/2 ),
+		left = array.slice ( 0, mid ),
+		right = array.slice ( mid, length );
+
+	return merger( mergeSortRec(left), mergeSortRec(right) );
+} ;
+	
+// 辅助函数
+var merger = function(left, right) {
+	var result = [],
+		il = 0,
+		ir = 0;
+
+	while ( il &lt; left.length &amp;&amp; ir &lt; right.length ) {
+
+		if ( left[il] &lt; right[ir] ) {
+			result.push( left[il] );
+			il++;
+		}
+		else {
+			result.push( right[ir] );
+			ir++;
+		}
+	}
+
+	while ( il &lt; left.length ) {
+		reult.push( left[il] );
+		il++;
+	}
+
+	while ( ir &lt; right.length ) {
+		resule.push( right[ir] );
+		ir++;
+	}
+
+	return result;
+} ;  
+
+</code></pre>
+<h3>快速排序</h3>
+<p>复杂度为 O(nlog&lt;sup&gt;n&lt;/sup&gt;)，且它的性能通常比其他的复杂度为 O(nlog&lt;sup&gt;n&lt;/sup&gt;) 的排序算法要好</p>
+<p>使用分治的方法，将原始数组分为较小的数组（但没有像归并排序那样将它们分割开）</p>
+<p>步骤</p>
+<ul>
+<li>从数组中选择中间一项作为主元</li>
+<li>创建两个指针，
+<ul>
+<li>左边一个指向数组的第一个项</li>
+<li>右边一个指向数组最后一个项。</li>
+<li>移动左指针指到找到一个比主元大的元素</li>
+<li>接着，移动右指针直到找到一个比主元小的元素</li>
+<li>然后，交换它们</li>
+<li>重复这个过程，直到左指针超过了右指针</li>
+<li>这个过程将使得比主元小的值都排在主元之前，而比主元大的值将都排在主元之后。这一步叫做划分操作。</li>
+</ul>
+</li>
+<li>接着，算法对划分后的小数组（较主元小的值组成的子数组，以及较主元大的值组成的子数组）重复之前的两个步骤，直至数组已完全排序。</li>
+</ul>
+<pre><code class="language-javascript">this.quickSort = function ( ) {
+	quick( array, 0, array.length - 1 );
+} ;
+      
+// 辅助函数 quick
+var quick = function ( array, left, right ) {
+	
+	var index;
+	
+	if ( array.length &gt; 1 ) {
+		index = partition ( array, left, right );
+		
+		if ( left &lt; index - 1) {
+			quick ( array, left, index - 1 );
+		}
+		
+		if ( index &lt; right ) {
+			quick ( array, index, right );
+		}
+	}
+} ;
+      
+// 辅助函数 partition
+// 第一件要做的事情是选择主元（pivot）
+// 有好几种方式
+// 最简单的一种是选择数组的第一项（最左项）。
+// 然而，研究表明对于几乎已排序的数组，这不是好的选择，它将导致该算法的最差表现
+// 另一种方式是随机选择一个数组项或者是选择中间项。
+// 本实例中，选择中间项作为主元。
+// 初始化两个指针：
+	// left （低），初始化为数组第一个元素；
+	// right（高），初始化为数组最后一个元素
+// 只要 left 和 right 指针没有相互交错，就执行划分操作。
+// 首先，移动 left 指针，直到找到一个元素比主元大
+// 对 right 指针，做同样的事情，移动 right 指针，直到找到一个比主元小的元素
+// 当左指针指向的元素比主元大，且右指针指向的元素比主元小，并且此时左指针索引没有右指针索引大，意思是左项比右项大（值比较）。交换它们，然后移动两个指针，并且重复此过程
+// 在划分操作结束后，返回左指针的索引，用来创建子数组。
+var partition = function ( array, left, right ) {
+	
+	var pivot = array[ Math.floor( ( right + left )/2 ) ],
+		i = left,
+		j = right;
+	
+	while ( i &lt;= j ) {
+		while ( array [ i ] &lt; pivot ){
+			i++;
+		}
+		while ( array [ j ] &gt; pivot ) {
+			j-- ;
+		}
+		if ( i &lt;= j ) {
+			swapQuickStort ( array, i, j ) ;
+			i++ ;
+			j--;
+		}
+	}
+	return i ;
+} ;
+  	
+// 辅助函数 swapQuickStort
+var swapQuickStort = function ( array, index1, index2) {
+	var aux = array[index1];
+	array[index1] = array[index2];
+	array[index2] = aux;
+} ;
+</code></pre>
+<h3>顺序搜索</h3>
+<pre><code class="language-javascript">this.sequentialSearch = function ( item ) {
+	var i = 0,
+		len = array.length;
+
+	for ( var i = 0; i &lt; len; i++ ) {
+		if ( item === array[i] ) {
+			return i;
+		}
+	}
+
+	return -1;
+};
+</code></pre>
+<h3>二分搜索</h3>
+<p>要求被搜索的数据结构已排序</p>
+<p>步骤</p>
+<ul>
+<li>选择数组的中间值</li>
+<li>如果选中值是待搜索值，那么算法执行完毕（值找到了）</li>
+<li>如果待搜索值比选中值小，则返回步骤 1 并在选中值左边的子数组中寻找</li>
+<li>如果待搜索值比选中值要大，则返回步骤 1 并在选中值右边的子数组中寻找</li>
+</ul>
+<pre><code class="language-javascript">this.binarySearch = function ( item ) {
+	this.quickSort();
+	
+	var low = 0,
+		high = array.length - 1,
+		mid, 
+		element;
+	
+	while ( low &lt;= high ) {
+		mid = Math.floor ( low + high );
+		element = array[mid];
+
+		if ( element &lt; item ) {
+			low = mid + 1 ;
+		}
+		else if ( elememt &gt; item ) {
+			high = mid - 1;
+		}
+		else {
+			return mid;
+		}
+	}
+
+	return -1;
+};
+</code></pre>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

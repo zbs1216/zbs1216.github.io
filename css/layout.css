@@ -1,0 +1,5 @@
+/* layput.css 
+-------------------------------------------------------------------------------------  */
+#header, #footer { color:black; background-color:rgb(245,245,245); }
+#main { margin:1rem 0; min-height: calc(100vh - 7.4rem - 4.2rem - 2rem); }
+.wraper { margin:0 auto; padding:0 1rem; max-width:960px; } 

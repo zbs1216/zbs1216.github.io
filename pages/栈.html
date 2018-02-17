@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>栈 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">栈</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2017-12-17 12:18:11 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 算法
+               | </span></p>
+          <div class="markdown-body"><h2>栈的定义</h2>
+<p>栈是一种遵从后进先出原则的有序集合。新添加的或待删除的元素都保存在栈的末尾，称作栈顶，另一端叫做栈底。在栈里，新元素都靠近栈顶，旧元素都靠近栈底。</p>
+<h2>栈的方法</h2>
+<p>push(element)：添加一个新元素到栈顶。</p>
+<p>pop(element)：移除栈顶的元素，同时返回被移除的元素。</p>
+<p>peek()：返回栈顶的元素，不对栈做任何修改（这个方法不会移除栈顶的元素，仅仅返回栈顶的元素）。</p>
+<p>isEmpey()：如果栈里没有任何元素则返回 true，否则返回 false。</p>
+<p>clear()：移除栈里的所有元素。</p>
+<p>size()：返回栈里的元素个数。</p>
+<h2>栈的创建</h2>
+<p>创建一个类来表示栈。</p>
+<pre><code>function Stack() {
+    // 用数组保存栈里的元素
+    var items = [];
+
+    // 栈方法
+    this.push = function(element) {
+        items.push(element);
+    };
+
+    this.pop = function() {
+        return items.pop();
+    };
+
+    this.peek = function() {
+        return items[ items.length - 1 ];
+    };
+
+    this.isEmpty = function() {
+        return items.length === 0;
+    };
+
+    this.size = function() {
+        return items.length;
+    };
+
+    this.clear = function() {
+        items = [];
+    };
+
+    this.print = function() {
+        console.log( items.toString() );
+    };
+}
+</code></pre>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

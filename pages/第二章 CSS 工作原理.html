@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>第二章 CSS 工作原理 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">第二章 CSS 工作原理</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2018-1-5 10:19:24 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 CSS
+               | </span></p>
+          <div class="markdown-body"><h2>剖析 CSS 规则</h2>
+<p>规则是一条完整的CSS 指令。规则声明了要修改的元素和要应用给该元素
+的样式。</p>
+<p><code>p {color:red;}</code></p>
+<h3>为文档添加样式的三种方法</h3>
+<ul>
+<li>行内样式：写在元素标签里</li>
+<li>嵌入样式：写在 <code>&lt;style&gt;</code> 标签里</li>
+<li>链接样式：写在单独的CSS 样式表中</li>
+</ul>
+<h3>行内样式</h3>
+<p>行内样式的作用范围非常有限。行内样式只能影响它所在的标签，而且总会覆盖嵌入样式和链接样式。</p>
+<h3>嵌入样式</h3>
+<p>嵌入的CSS 样式放在HTML 文档的 <code>&lt;head&gt;</code> 元素。嵌入样式的应用范围仅限于当前页面。页面样式会覆盖外部样式表中的样式，但会被行内样式覆盖。</p>
+<h3>链接样式</h3>
+<p>在创建包含多个页面的网站时，需要把样式集中在一个单独的文件里，这个文件就叫样式表。</p>
+<p>样式表是一个扩展名为.css 的文本文件。可以在任意多个HTML 页面中链接同一个样式表文件。</p>
+<p>每个页面中只需加入类似下面的这一行代码即可：
+<code>&lt;link href=&quot;styles.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;</code></p>
+<p>链接样式的作用范围可以是整个网站。</p>
+<p>只要使用 <code>&lt;link&gt;</code> 标签把样式表链接到每个页面，相应的页面就可以使用其中的样式。随后，只要修改了样式表中的样式，改动就会在所有被选中的元素上体现出来，无论这个元素在哪个页面里。这样，既可以做到全站页面外观统一，又便于整站样式更新。</p>
+<h3><code>@import</code> 指令</h3>
+<p>除了以上三种为页面添加样式的方法，还有一种在样式表中链接其他样式表的方法，那就应用 <code>@import</code> 指令（是一种 at 规则）：</p>
+<p><code>@import url(css/styles2.css)</code></p>
+<p>要注意的是，<code>@import</code> 指令必须出现在样式表中其他样式之前，否则@import 引用的样式表不会被加载。</p>
+<h3>注意</h3>
+<p>CSS 样式是通过 <code>&lt;style&gt;</code> 标签嵌入到页面里的。当浏览器遇到开标签 <code>&lt;style&gt;</code> 时，就会由解释 HTML 代码切换为解释 CSS 代码。等遇到闭标签
+<code>&lt;/style&gt;</code> 时，它会再切换回解释 HTML 代码。</p>
+<p>对于写在样式表里的样式，就不需要 <code>&lt;style&gt;</code> 标签了。如果在样式表里加上这个标签，样式表中的样式就不会被浏览器加载了。</p>
+<h3>CSS 规则命名惯例</h3>
+<p>CSS 规则由选择符和声明两部分组成。</p>
+<p>选择符用于指出规则所要选择的元素。</p>
+<p>声明由两部分组成：属性和值。属性指出要影响元素哪方面的样式，值就是属性的一个新状态。</p>
+<h2>上下文选择符</h2>
+<p>上下文选择符，基于祖先或同胞元素选择一个元素。
+CSS 规范里，叫后代组合式选择符，就是一组以空格分隔的标签名。用于选择作为指定祖先元素后代的标签。</p>
+<p>格式： <code>标签1 标签2 {声明}</code></p>
+<p>标签 2 是想要选择目标，而且只有在标签 1 是其祖先元素（不一定是
+父元素）的情况下才会被选中。</p>
+<h2>特殊的上下文选择符</h2>
+<h3>子选择符</h3>
+<p>格式： <code>标签 1 &gt; 标签 2 {声明}</code></p>
+<p>标签 2 必须是标签 1 的子元素，或者说，标签 1 必须是标签 2 的父元素。与常规的上下文选择符不同，这个选择符中的标签 1 不能是标签 2 的父元素之外的其他祖先元素。</p>
+<h3>紧邻同胞选择符</h3>
+<p>格式：<code>标签 1 + 标签 2 {声明}</code></p>
+<p>标签 2 必须紧跟在其同胞标签 1 的后面。</p>
+<h3>一般同胞选择符</h3>
+<p>格式：<code>标签 1 ~ 标签 2 {声明}</code></p>
+<p>标签 2必须跟（不一定紧跟）在其同胞标签 1 后面。</p>
+<h2>通用选择符 <code>*</code></h2>
+<p>格式： <code>* {声明}</code></p>
+<p>通用选择符 <code>*</code> （常被称为星号选择符）是一个通配符，它匹配任何元素。</p>
+<h2>ID 和类选择符</h2>
+<p>ID 和类为选择元素提供了另一套手段，利用它们可以不用考虑文档的层次结构。</p>
+<p>可以给id 和class 属性设定任何值，但不能以数字或特殊符号开头。</p>
+<h3>类属性</h3>
+<p>类属性是 HTML 元素的 class 属性，body 标签中包含的任何 HTML 元素都可以添加这个属性。</p>
+<h3>类选择符</h3>
+<p>格式： <code>.类名</code></p>
+<p>类选择符就是在 HTML 类名前面加一个点（英文句号）。点（.）、 类名之间没有空格。</p>
+<h3>标签带类选择符</h3>
+<p>如果只想瞄准带有这个类的段落，可以把标签名和类选择符写在一块，比如：</p>
+<p><code>p.specialtext {...}</code></p>
+<p>该规则只选择带 specialtext 类的段落。</p>
+<h3>多类选择符</h3>
+<p>可以给元素添加多个类，比如：</p>
+<p><code>&lt;p class=&quot;specialtext featured&quot;&gt;Here the span tag &lt;span&gt;may or may not&lt;/span&gt; be styled.&lt;/p&gt;</code></p>
+<p>HTML 的 class 属性可以有多个空格分隔的值。</p>
+<p>选择同时存在这两个类名的元素：</p>
+<p><code>.specialtext.featured {...}</code></p>
+<p>CSS 选择符的两个类名之间没有空格，因为只想选择同时具有这两个类
+名的那个元素。如果加了空格，那就变成了“祖先/后代”关系的上下文选择符了。</p>
+<p>每个类名分别用一个 HTML class 属性的做法是常见的错误，正确的做法是像上面的代码那样，只用一个class 属性，但给它设定多个值。</p>
+<h3>ID 属性</h3>
+<p>ID 与类的写法相似，表示 ID 选择符的 <code>#</code> 的用法，也跟表示类选择符的 <code>.</code> 类似。</p>
+<p>如果有一个段落像下面这样设定了 ID 属性:</p>
+<p><code>&lt;p id=&quot;specialtext&quot;&gt;This is the special text.&lt;/p&gt;</code></p>
+<p>那么，相应的 ID 选择符就是这样的：</p>
+<p><code>#specialtext {...}</code></p>
+<p>或者这样的：</p>
+<p><code>p#specialtext {...}</code></p>
+<p>除此之外，ID 与类的用法都一样，而且前面关于类选择符的（几乎）一
+切，都适应于 ID 选择符。</p>
+<h3>用于页内导航的 ID</h3>
+<p>ID 也可以用在页内导航链接中。
+下面就是一个链接，其目标是同一页的另一个位置：</p>
+<p><code>&lt;a href=&quot;#bio&quot;&gt;Biography&lt;/a&gt;</code></p>
+<p>href 属性值开头的 #， 它表示这个链接的目标在当前页面中，因而不会触发浏览器加载页面（如果没有#，浏览器就会尝试加载 bio 目录下的默认页面了）。</p>
+<p>使用与 CSS 选择符里相同的 #ID 名语法，可以把链接导航到同一页面中的目标ID。在这个页面的下方，应该有对应的目标元素：</p>
+<pre><code>&lt;h3 id=&quot;bio&quot;&gt;Biography&lt;/h3&gt;
+&lt;p&gt;I was born when I was very young…&lt;/p&gt;
+</code></pre>
+<p>注意，作为目标的 ID 值前面是没有 <code>#</code> 的，就是一个普通的 ID 值。</p>
+<p>用户单击前面的链接时，页面会向下滚动到 ID 值为 bio 的 h3 元素的位置。</p>
+<p>如果链接的 href 属性里只有一个 <code>#</code>，那么点击该链接会返回页面顶部：  <code>&lt;a href=&quot;#&quot;&gt;Back to Top&lt;/a&gt;</code></p>
+<p>要写一个“返回顶部”链接，不需要 ID 为 <code>#</code> 的目标元素。</p>
+<p>如果暂时不知道某个 href 应该放什么 URL，也可以用 <code>#</code> 作为占位符，但不能把该属性留空。因为 href 属性值为空的链接的行为跟正常链接不一样。这样，团队中的其他人将来可以用中间层（比如PHP）变量替换 <code>#</code>，以便动态接收来自数据库的 URL。</p>
+<h3>什么时候用 ID，什么时候用类</h3>
+<h4>什么时候用 ID</h4>
+<p>ID 的用途是在页面中唯一地标识一个元素。因此，同一个页面中的每一个 ID 属性，都必须有独一无二的值（名字）。换一个角度讲，每个ID 名在页面中都只能用一次。</p>
+<p>也可以使用 ID 把 JavaScript 与某个标签关联起来（比如，当用户鼠标移动到一个链接上面时，运行激活动画的脚本）。ID 值的唯一性对 JavaScript 尤其重要，否则就会导致 JavaScript 行为异常。</p>
+<p><code>&lt;nav id=&quot;mainmenu&quot;&gt;</code></p>
+<p>在这里，页面中就不能再有其他元素使用 mainmenu 作为 ID 名了。为了标识页面的某一部分，比如主导航菜单，可以为 nav（navigation，导航）添加一个 ID 属性，并让它包含菜单元素。</p>
+<pre><code class="language-html">&lt;nav id=&quot;mainmenu&quot;&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Yin&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Yang&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+</code></pre>
+<p>有了用唯一 ID 标识的菜单之后，就可以使用上下文选择符来选择其中包含的各种类型的标签了。</p>
+<p>比如，可以将这个菜单中的链接设置为橙色，同时又不会影响页面中
+的其他链接：</p>
+<p><code>#mainmenu a {color:orange;}</code></p>
+<p>利用唯一 ID，可以在 CSS 中方便地定位到这个元素，以及它的子元素。可以给页面中每个顶级区域都添加一个 ID，从而得到非常明确的上下文，以便编写 CSS 时只选择嵌套在相应区域内的标签。</p>
+<h4>什么时候使用类</h4>
+<p>类的目的是为了标识一组具有相同特征的元素。</p>
+<p>在下面这个孩子名字的列表中，要把男孩的名字变成蓝色，把女孩的名字变成粉红色。首先，用类在标记中标识出了性别。</p>
+<pre><code class="language-html">&lt;nav&gt;
+    &lt;ul&gt;
+        &lt;li class=&quot;boy&quot;&gt;&lt;a href=&quot;#&quot;&gt;Alan&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&quot;boy&quot;&gt;&lt;a href=&quot;#&quot;&gt;Andrew&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&quot;girl&quot;&gt;&lt;a href=&quot;#&quot;&gt;Angela&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&quot;boy&quot;&gt;&lt;a href=&quot;#&quot;&gt;Angus&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&quot;girl&quot;&gt;&lt;a href=&quot;#&quot;&gt;Anne&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&quot;girl&quot;&gt;&lt;a href=&quot;#&quot;&gt;Annette&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+</code></pre>
+<p>然后，再用CSS 为链接应用颜色：</p>
+<pre><code class="language-css">.boy a {color:#6CF;}    /*蓝色*/
+.girl a {color:#F9C;}   /*粉红色*/
+</code></pre>
+<p>第一条规则选择所有类名为 boy 的祖先元素包含的 a 元素，第二条规则选择所有类名为 girl 的祖先元素包含的 a 元素。这两种情况下的祖先元素，都是作为相应链接父元素的 li 元素。</p>
+<h4>不要乱用类</h4>
+<p>不要像使用 ID 一样，每个类都指定一个不同的类名，然后再为每个类编写规则。</p>
+<p>如果你确实有这种随意使用类的习惯，说明还不了解继承和上下文选择符的作用。于是，可能会给每个标签都重复写同样的样式（比如为页面中很多标签分别指定相同的字体）。实际上，继承和上下文选择符能让不同的标签共享样式，从而降低需要编写和维护的 CSS 量。</p>
+<h3>ID 和 类的小结</h3>
+<p>ID 的用途是在页面标记中唯一地标识一个特定的元素。它能够为编写CSS 规则提供必要的上下文，排除无关的标记，而只选择该上下文中的标签。</p>
+<p>类是可以应用给任意多个页面中的任意多个HTML 元素的公共标识符，
+以便为这些元素应用相同的CSS 样式。而且，使用类也让为不同标签名的元素应用相同的样式成为可能。</p>
+<h2>属性选择符</h2>
+<p>它基于HTML 标签的属性选择元素。</p>
+<h3>属性名选择符</h3>
+<p>格式：<code>标签名[属性名] {...}</code></p>
+<p>选择任何带有属性名的标签名。</p>
+<p>示例：</p>
+<pre><code class="language-css"> /* 选择带有title 属性的 HTML img 元素  */
+img[title] {...}
+</code></pre>
+<h3>属性值选择符</h3>
+<p>格式：<code>标签名[属性名=&quot;属性值&quot;]{...}</code></p>
+<p>在 HTML5 中，属性值的引号可加可不加。</p>
+<p>选择任何带有值为属性值的属性名的标签名。</p>
+<p>示例：</p>
+<pre><code class="language-css"> /* 选择 title 属性值为 &quot;red flower&quot; 的 HTML img 元素  */
+img[title=&quot;red flower&quot;] {...}
+</code></pre>
+<p>更多的<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/Attribute_selectors">属性选择符</a>形式</p>
+<h3>属性选择符小结</h3>
+<p>基于属性名和属性的其他特征选择元素，提供了另一种区别对待相同标签的
+机会。</p>
+<h2>伪类</h2>
+<p>到现在为止，介绍的选择符都有一个共同点，即它们针对的都是标记中的某个部分，比如标签名、类名、ID、属性或属性值。</p>
+<p>然而，使用CSS 还可以在某些事件发生时，改变某些元素的样式，比如用户鼠标悬停在一个链接上。而这就要靠伪类来实现。</p>
+<p>伪类分两种：</p>
+<ul>
+<li>UI（User Interface，用户界面）伪类,会在 HTML 元素处于某个状态时（比如鼠标指针位于链接上），为该元素应用 CSS 样式。</li>
+<li>结构化伪类,会在标记中存在某种结构上的关系时（如某个元素是一组元素中的第一个或最后一个），为相应元素应用 CSS 样式。</li>
+</ul>
+<h3>UI 伪类</h3>
+<p>UI 伪类会基于特定 HTML 元素的状态应用样式。</p>
+<h4>链接伪类</h4>
+<p>针对链接的伪类一共有 4 个，因为链接始终会处于如下 4 种状态之一：</p>
+<ul>
+<li>Link。此时，链接就在那儿等着用户点击。</li>
+<li>Visited。用户此前点击过这个链接。</li>
+<li>Hover。鼠标指针正悬停在链接上。</li>
+<li>Active。链接正在被点击（鼠标在元素上按下，还没有释放）。</li>
+</ul>
+<p>以下是这些状态对应的 4 个伪类选择符：</p>
+<pre><code class="language-css">a:link {...}
+a:visited {...}
+a:hover {...}
+a:active {...}
+/* 由于这4 个伪类的特指度相同，如果不按照这里列出的顺序使用它们，浏览器可能不会显示预期结果。 */
+</code></pre>
+<p>一个冒号（:）表示伪类，两个冒号（::）表示 CSS3 新增的伪元素。浏览器目前都支持对 CSS 1 和 CSS 2 的伪元素使用一个冒号，但希望能习惯于用双冒号代替单冒号，因为这些单冒号的伪元素最终可能都会被淘汰掉</p>
+<p>注意，有些伪类可以用于任何元素，而不仅仅是 a 元素。</p>
+<h4>:focus 伪类</h4>
+<p>格式：<code>e:focus</code></p>
+<p>e 表示任何元素，如p、h1、section，等等。</p>
+<h4>:target 伪类</h4>
+<p>格式：<code>e:target</code></p>
+<p>如果用户点击一个指向页面中其他元素的链接，则那个元素就是目标（target），可以用 `:target  伪类选中它。</p>
+<p>示例：</p>
+<pre><code class="language-html">&lt;a href=&quot;#more_info&quot;&gt;More Information&lt;/a&gt;
+
+&lt;!-- 位于页面其他地方、ID 为 more_info 的那个元素就是目标。--&gt;
+&lt;h2 id=&quot;more_info&quot;&gt;This is the information you are looking for.&lt;/h2&gt;
+</code></pre>
+<p>那么，</p>
+<pre><code class="language-css">#more_info:target {background:#eee;}
+</code></pre>
+<p>会在用户单击链接转向 ID 为 more_info 的元素时，为该元素添加浅灰色背景。</p>
+<h3>结构化伪类</h3>
+<p>结构化伪类可以根据标记的结构应用样式。</p>
+<h4>:first-child 和 :last-child</h4>
+<p>格式：</p>
+<pre><code class="language-css">e:first-child
+e:last-child
+</code></pre>
+<p><code>:first-child</code> 代表一组同胞元素中的第一个元素，而 <code>:last-child</code>  则代表最后一个。</p>
+<p>示例：</p>
+<pre><code class="language-html">&lt;ol class=&quot;results&quot;&gt;
+    &lt;li&gt;My Fast Pony&lt;/li&gt;
+    &lt;li&gt;Steady Trotter&lt;/li&gt;
+    &lt;li&gt;Slow Ol' Nag&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+<pre><code class="language-css">ol.results li:first-child {color:blue;}
+</code></pre>
+<p>文本 “My Fast Pony” 就会变成蓝色。</p>
+<p>如果选择符改成这样：</p>
+<pre><code class="language-css">ol.results li:last-child {color:red;}
+</code></pre>
+<p>那变成红色的文本就是 “Slow Ol’ Nag” 了</p>
+<p><em>补充</em></p>
+<blockquote>
+<p><a href="http://www.cnblogs.com/wangmeijian/p/4562304.html">那些年踩过的坑之:first-child伪类选择器</a>：</p>
+<ul>
+<li>只要 E 元素是它的父级的第一个子元素，就选中。它需要同时满足两个条件，一个是“第一个子元素”，另一个是“这个子元素刚好是 E ”。</li>
+<li>类似容易误解的结构选择器还有: nth-child()、:nth-last-child、:only-child</li>
+</ul>
+</blockquote>
+<h4>:nth-child</h4>
+<p>格式：</p>
+<pre><code class="language-css">e:nth-child(n)
+</code></pre>
+<p>e 表示元素名，n 表示一个数值（也可以使用 odd 或 even）。</p>
+<p>示例：</p>
+<pre><code class="language-css">li:nth-child(3)
+</code></pre>
+<p>会选择一组列表项中的每个第三项。</p>
+<p>更多的
+<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/Reference#%E9%80%89%E6%8B%A9%E5%99%A8">伪类</a></p>
+<h2>伪元素</h2>
+<p>伪元素是文档中若有实无的元素。</p>
+<h3>::first-letter 伪元素</h3>
+<p>格式：</p>
+<pre><code class="language-css">e::first-letter
+</code></pre>
+<p>选中一整块文字第一行的第一个字母，并且文字所处的行之前没有其他内容（如图片和内联的表格） 。</p>
+<h3>::first-line 伪元素</h3>
+<p>格式：</p>
+<pre><code class="language-css">e::first-line
+</code></pre>
+<p>选中文本段落（一般情况下是段落）的第一行。</p>
+<h3>::before 和 ::after 伪元素</h3>
+<p>格式：</p>
+<pre><code class="language-css">e::before
+e::after
+</code></pre>
+<p>可用于在特定元素前面或后面添加特殊内容。</p>
+<p><strong>注意</strong>
+搜索引擎不会取得伪元素的信息（因为它在标记中并不存在）。因此，不要通过伪元素添加你想让搜索引擎索引的重要内容。</p>
+<p>更多关于伪类的内容：</p>
+<p>https://developer.mozilla.org/zh-CN/docs/Web/CSS/::first-letter</p>
+<p>https://developer.mozilla.org/zh-CN/docs/Web/CSS/Pseudo-classes</p>
+<p>https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Introduction_to_CSS/Pseudo-classes_and_pseudo-elements</p>
+<h2>继承</h2>
+<p>CSS 中的祖先元素也会向后代传递一样东西：CSS 属性的值。</p>
+<p>CSS 中有很多属性是可以继承的，其中相当一部分都跟文本有关，比如颜色、字体、字号。</p>
+<p>也有很多CSS 属性不能继承，因为继承这些属性没有意义。这些不能
+继承的属性主要涉及元素盒子的定位和显示方式，比如边框、外边距、内边距。</p>
+<p>由于字体和文本样式是可以继承的，所以在使用相对字体单位（如百分比和 em ）时要格外小心。如果某个标签的字体大小被设置为80%，而它的一个后代的字体大小也被设置为 80%，那么该后代中文本最终的字体大小将是 64%（ 80% 的 80% ）。</p>
+<p>可以参考 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference">CSS参考资料</a>， 每个单独的属性页都会从一个汇总表开始，其中包含有关该元素的各种详细信息，包括是否被继承。</p>
+<h2>层叠</h2>
+<p>层叠，是一种样式在文档层次中逐层叠加的过程，目的是让浏览器面对某个标签特定属性值的多个来源，确定最终使用哪个值。</p>
+<h3>样式来源</h3>
+<p>浏览器层叠各个来源样式的顺序：</p>
+<ul>
+<li>浏览器默认样式表</li>
+<li>用户样式表</li>
+<li>作者链接样式表（按照它们链接到页面的先后顺序）</li>
+<li>作者嵌入样式</li>
+<li>作者行内样式</li>
+</ul>
+<p>浏览器会按照上述顺序依次检查每个来源的样式，并在有定义的情况下，更新对每个标签属性值的设定。整个检查更新过程结束后，再将每个标签以最终设定的样式显示出来。</p>
+<h3>层叠规则</h3>
+<h4>层叠规则一：找到应用给每个元素和属性的所有声明</h4>
+<p>浏览器在加载每个页面时，都会据此查到每一条CSS 规则，标识出所有受到影响的HTML 元素。</p>
+<h4>层叠规则二：按照顺序和权重排序。浏览器依次检查 5 个来源，并设定匹配的属性</h4>
+<p>如果匹配的属性在下一个来源也有定义，则更新该属性的值，如此循环，直到检查完页面中所有标签受影响属性的全部 5 个来源为止。最终某个属性被设定成什么值，就用什么值来显示。</p>
+<p>声明也可以有权重。可以像下面这样为单独的声明增加权重：</p>
+<pre><code class="language-css">p {color:green !important; font-size:12pt;}
+</code></pre>
+<p>空格 !important 分号（;）用于加重声明的权重。</p>
+<p>这条规则加重了将文本设置为绿色的权重。就算层叠的下一来源给段落设定了其他颜色，最终的颜色值仍然还是绿色。说到底，就是一种特权。</p>
+<h4>层叠规则三：按特指度排序。</h4>
+<p>特指度表示一条规则有多明确。一条规则的特指度，由它的选择符中包含多少个标签、类名和 ID 决定。</p>
+<h3>计算特指度</h3>
+<p>记分规则:对每个选择符都要按下面的 “I-C-E” 公式计算三个值。</p>
+<p>三个字母间的短横线是分隔符，并非减号。针对这个公式的计分办法如下：</p>
+<ol>
+<li>选择符中有一个 ID，就在 I 的位置上加 1；</li>
+<li>选择符中有一个类，就在 C 的位置上加 1；</li>
+<li>选择符中有一个元素（标签）名，就在 E 的位置上加 1；</li>
+<li>得到一个三位数。</li>
+</ol>
+<p>示例：</p>
+<table>
+<thead>
+<tr>
+<th>选择符</th>
+<th>I-C-E</th>
+<th>特指度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P</td>
+<td>0-0-1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>p.largetext</td>
+<td>0-1-1</td>
+<td>11</td>
+</tr>
+<tr>
+<td>p#largetext</td>
+<td>1-0-1</td>
+<td>101</td>
+</tr>
+<tr>
+<td>body p#largetext</td>
+<td>1-0-2</td>
+<td>102</td>
+</tr>
+<tr>
+<td>body p#largetext ul.mylist</td>
+<td>1-1-3</td>
+<td>113</td>
+</tr>
+<tr>
+<td>body p#largetext ul.mylist lit</td>
+<td>1-1-4</td>
+<td>114</td>
+</tr>
+</tbody>
+</table>
+<p>在此，每个选择符都比前一个选择符的特指度更高。</p>
+<h4>层叠规则四：顺序决定权重</h4>
+<p>如果两条规则都影响某元素的同一个属性，而且它们的特指度也相同，则位置最靠下（或后声明）的规则胜出。</p>
+<h4>层叠要点</h4>
+<ul>
+<li>
+<p>规则一：包含 ID 的选择符胜过包含类的选择符，包含类的选择符胜过包含标签名的选择符。</p>
+</li>
+<li>
+<p>规则二：如果几个不同来源都为同一个标签的同一个属性定义了样式，行内样式胜过嵌入样式，嵌入样式胜过链接样式。在链接的样式表中，具有相同特指度的样式，后声明的胜过先声明的。</p>
+</li>
+<li>
+<p>规则一胜过规则二。换句话说，如果选择符更明确（特指度更高），无论它在哪里，都会胜出。（<strong>存在疑问</strong>：内联样式应该比 ID 更高）</p>
+</li>
+<li>
+<p>规则三：设定的样式胜过继承的样式，此时不用考虑特指度（即显式设定优先）。</p>
+</li>
+</ul>
+<p>下面简单解释一下规则三。比如下面的标记:</p>
+<pre><code class="language-html">&lt;div id=&quot;cascade_demo&quot;&gt;
+    &lt;p id=&quot;inheritance_fact&quot;&gt;Inheritance is &lt;em&gt;weak&lt;/em&gt; in the Cascade&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+<p>和下面的规则:</p>
+<pre><code class="language-css">div#cascade_demo p#inheritance_fact {color:blue;}
+/* 2 - 0 - 2 （高特指度） */
+</code></pre>
+<p>会导致单词 “weak” 变成蓝色，因为它从父元素 p 那里继承了这个颜色值。但是，只要再给 em 添加一条规则：</p>
+<pre><code class="language-css">em {color:red;}
+/* 0 - 0 - 1 （低特指度） */
+</code></pre>
+<p>em 就会变成红色。因为，虽然它的特指度低（0-0-1），但 em 继承的颜色值，会被为它明确（显式）指定的颜色值覆盖，就算（隐式）遗传该颜色值的规则的特指度高（2-0-2）也没有用。</p>
+<h2>规则声明</h2>
+<p>一个声明包含两部分：属性和值。属性指出要影响元素的哪个方面（颜色、高度，等等），而值表示把属性设定为什么（绿色、12px，等等）。</p>
+<p>每个元素都有很多属性，每个元素都有很多属性。</p>
+<p>CSS 属性值主要分以下三类：</p>
+<ul>
+<li>文本值。
+<ul>
+<li>例如，font-weight:bold 声明中的 bold 就一个文本值。文本值也叫做关键字。</li>
+</ul>
+</li>
+<li>数字值。
+<ul>
+<li>数字值后面都有一个单位，例如英寸或点。</li>
+<li>在声明 font-size:12px 中，12 是数字值，而 px 是单位（像素）。如果数字值为 0，那么就不用带单位了。</li>
+</ul>
+</li>
+<li>颜色值。
+<ul>
+<li>颜色值可以用几种不同的格式来写，包括RGB（Red, Green, Blue，红绿蓝）、HSL（Hue, Saturation, Luminance，色相，饱和度，亮度）和十六进制值（例如 color:#336699）。</li>
+</ul>
+</li>
+</ul>
+<h3>文本值</h3>
+<p>所有CSS 属性都有文本值</p>
+<h3>数字值</h3>
+<p>数字值主要分两类：绝对值和相对值。</p>
+<p>绝对值描述的是一个真实的长度（比如，6 英寸），而相对值
+则是相对于其他基准的描述（比如“是某某的两倍长”）。</p>
+<h4>绝对值及示例</h4>
+<table>
+<thead>
+<tr>
+<th>绝 对 值</th>
+<th>单位缩写</th>
+<th>示 例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>英寸</td>
+<td>in</td>
+<td>height: 6in</td>
+</tr>
+<tr>
+<td>厘米</td>
+<td>cm</td>
+<td>height: 40cm</td>
+</tr>
+<tr>
+<td>毫米</td>
+<td>mm</td>
+<td>height: 500mm</td>
+</tr>
+<tr>
+<td>点</td>
+<td>pt</td>
+<td>height: 60pt</td>
+</tr>
+<tr>
+<td>皮卡</td>
+<td>pc</td>
+<td>height: 90pc</td>
+</tr>
+<tr>
+<td>像素</td>
+<td>px</td>
+<td>height: 72px</td>
+</tr>
+</tbody>
+</table>
+<p>打印纸是以英寸为单位度量的。</p>
+<h4>相对值及示例</h4>
+<table>
+<thead>
+<tr>
+<th>相 对 值</th>
+<th>单位缩写</th>
+<th>示 例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Em</td>
+<td>em</td>
+<td>height:1.2em</td>
+</tr>
+<tr>
+<td>Ex</td>
+<td>ex</td>
+<td>height:6ex</td>
+</tr>
+<tr>
+<td>百分比</td>
+<td>%</td>
+<td>height:120%</td>
+</tr>
+</tbody>
+</table>
+<p>em 和 ex 都是字体大小的单位，但在CSS 中，它们作为长度单位适用于任何元素。</p>
+<p>em ，它表示一种字体中字母 M 的宽度，因此它的具体大小取决于你使用的字体。</p>
+<p>ex ，等于给定字体中字母 x 的高度（小写字母 x 代表一种字体的字母中间部分的高度，不包括字母上、下突出的部分——如 d 和 p 上下都出头儿）。</p>
+<p>百分比非常适合设定被包含元素的宽度，此时的百分比就是相对于宽度而言的。</p>
+<h3>颜色值</h3>
+<h4>颜色名</h4>
+<p>设定颜色属性时可以直接使用颜色关键字。</p>
+<p>W3C 定义了 16 个颜色关键字：</p>
+<table>
+<thead>
+<tr>
+<th>颜色关键字</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>aqua（浅绿色）</td>
+<td>black（黑色）</td>
+<td>blue（蓝色）</td>
+</tr>
+<tr>
+<td>fuchsia（紫红色）</td>
+<td>gray（灰色）</td>
+<td>green（绿色）</td>
+</tr>
+<tr>
+<td>lime（黄绿色）</td>
+<td>maroon（褐红色）</td>
+<td>navy（深蓝色）</td>
+</tr>
+<tr>
+<td>olive（茶青色 ）</td>
+<td>purple（紫色）</td>
+<td>red（红色）</td>
+</tr>
+<tr>
+<td>silver（银色）</td>
+<td>teal（青色）</td>
+<td>white（白色）</td>
+</tr>
+<tr>
+<td>yellow（黄色）</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>要了解这些颜色名及其对应的 RGB 颜色值，可以参
+考：http://www.w3.org/TR/css3-color/#html4。</p>
+<h4>十六进制颜色（#RRGGBB 或 #RGB）</h4>
+<p>格式：</p>
+<pre><code>#rrggbb
+</code></pre>
+<p>示例:</p>
+<pre><code class="language-css">/* 橙色 */
+#ff8800
+</code></pre>
+<p>这个 6 位数的前两位定义红色，中间两位定义绿色，后两位定义蓝色。</p>
+<h4>RGB 颜色值（R, G , B）</h4>
+<p>每种颜色都可以用一个 0 到 255（包含）之间的值指定。</p>
+<p>格式如下：</p>
+<pre><code>rgb(r, g, b)
+</code></pre>
+<p>示例：</p>
+<pre><code>rgb(0,255,0)
+</code></pre>
+<p>表示纯绿色。</p>
+<h4>RGB 百分比值（R%, G%, B%）</h4>
+<p>这是用百分比来表示每种颜色值的一种方法。
+格式：</p>
+<pre><code>r%, g%, b%
+</code></pre>
+<p>可以接受的值是 0% 到 100% 。这种方法只能表示区区一百万（100 × 100 × 100）种颜色。</p>
+<p>使用百分比表示的颜色值，比使用十六进制更容易猜到你想要的颜色。举个例子，100%, 0%, 0% 是纯红色，0%, 100%, 0%是 纯绿色。</p>
+<h4>HSL (色相 ， 饱和度 %，  亮度 %)</h4>
+<p>格式：</p>
+<pre><code>HSL(0,0%,0%)
+</code></pre>
+<p>HSL 颜色中的第一个值表示色相，也就是一个实际的颜色，比如红色和绿色。所有颜色围绕色相环（也叫色轮）一周，而色相值以圆周上的度数表示。</p>
+<p>饱和度设定有多少颜色。&lt;br&gt;
+灰色的饱和度低，而强烈的色彩饱和度高。</p>
+<p>亮度设定颜色的明暗。&lt;br&gt;
+0% 就是黑色，100% 就是白色，而中间的值是实际能看到的色相。</p>
+<p>HSL 只有一个表示颜色的值。把饱和度和亮度都设定为 50%，就可以调制出
+想要的任何颜色来。</p>
+<h4>Alpha 通道</h4>
+<p>RGB 和 HSL 都支持 Alpha 通道，用于设置颜色的不透明度（换句话说，就是能够透过多少背景）。&lt;br&gt;
+相应的格式分别叫 RGBA 和 HSLA。其中，两种格式中的 A
+（alpha）值可以是 1（完全不透明）也可以是 0（完全透明），或者介于1 和 0 之间的小数值。</p>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

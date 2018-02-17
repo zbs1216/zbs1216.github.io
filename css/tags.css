@@ -1,0 +1,10 @@
+/* tags.css
+--------------------------------------------------------------------------- */
+#tags .title,
+#tags .total {
+    text-align: center;
+}
+
+#tags .tag a {
+    display:inline-block;
+}
