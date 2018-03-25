@@ -16,14 +16,14 @@ function getText(url, callback) {
             console.log("request.status ： " + request.status);
             
             let keys = Object.keys(request);
-            console.log("request keys： " + keys);
+            console.log("request keys： " + JSON.stringify(keys) ) ;
             
             let obj = {}
             for (let i = 0, len = keys.length; i < len; i++) {
                 let key = keys[i]
                 obj[key] = request[key]
             }
-            console.log("request : " + obj);
+            console.log("request : " + JSON.stringify(obj) ) ;
 
         
 	}; 
