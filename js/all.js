@@ -12,8 +12,8 @@ function getText(url, callback) {
     
 	request.onreadystatechange = function() {
 			callback(request.responseText);
-			console.log("request.readystate ： " + request.readystate;)
-			console.log("request.status ： " + request.status;)
+			console.log("request.readystate ： " + request.readystate);
+			console.log("request.status ： " + request.status);
         
 	}; 
 
