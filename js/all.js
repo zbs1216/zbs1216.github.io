@@ -12,6 +12,7 @@ function getText(url, callback) {
     
 	request.onreadystatechange = function() {
         callback(request.responseText);
+		console.log(request)
 	}; 
 
     request.send(null);
