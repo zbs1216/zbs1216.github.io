@@ -187,7 +187,10 @@ a:link { text-decoration:none; }
     word-break: break-all;    
 }
 
-#indexPage{margin-top: 85px;}
+#indexPage{
+    display: none;
+    margin-top: 85px;
+}
 
 #indexPage .article {
     margin-bottom: 50px;
@@ -210,7 +213,7 @@ a:link { text-decoration:none; }
 }
 
 #indexPage .title span {
-    display:none;
+    display:block;
     position: absolute;
     width: 100%;
     height: 2px;
