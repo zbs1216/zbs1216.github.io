@@ -12,8 +12,12 @@ function getText(url, callback) {
     request.open("GET", url);
     
 	request.onreadystatechange = function() {
-        callback(request.responseText);
-	}; 
+        if (request.readystate === 4 && request.status === 200) {
+            callback(request.responseText);
+		}
+    }; 
+    
+    
 
     request.send(null);
 }
