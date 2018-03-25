@@ -11,21 +11,9 @@ function getText(url, callback) {
     request.open("GET", url);
     
 	request.onreadystatechange = function() {
-			callback(request.responseText);
-			console.log("request.readystate ： " + request.readystate);
-            console.log("request.status ： " + request.status);
-            
-            let keys = Object.keys(request);
-            console.log("request keys： " + JSON.stringify(keys) ) ;
-            
-            let obj = {}
-            for (let i = 0, len = keys.length; i < len; i++) {
-                let key = keys[i]
-                obj[key] = request[key]
-            }
-            console.log("request : " + JSON.stringify(obj) ) ;
-
-        
+        if (request.readystate === 4 && request.status === 200) {
+            callback(request.responseText);
+        }
 	}; 
 
     request.send(null);
