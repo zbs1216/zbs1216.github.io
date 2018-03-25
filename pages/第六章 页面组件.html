@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>第六章 页面组件 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">第六章 页面组件</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2018-1-15 16:55:45 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 CSS
+               | </span></p>
+          <div class="markdown-body"><p>界面组件是对 HTML 提供的常见用户界面（UI，User Interface）元素的称呼，包括列表和表单等。实际上，下拉菜单和弹出层也是很常用的界面组件，只不过 HTML没有提供对应的原生标签，本章也将介绍如何通过标记和样式实现它们。</p>
+<p>除了介绍怎么实现这些界面组件，还会讲解怎么写代码才能更方便地重用这些组件，省得每次都从头写。另外，还会讲解怎么把它们放到重用样式表中，以备将来在不同的项目中派上用场。</p>
+<h2>导航菜单</h2>
+<p>菜单由一组链接组成。用 HTML 中的列表元素（ul 或 ol）来分组链接不仅符合逻辑，而且即使没有额外的 CSS 也能适当显示链接的层次。默认情况下，由于列表项（li）是块级元素，因此它们会上下堆叠。</p>
+<h3>纵向菜单</h3>
+<pre><code class="language-html">&lt;nav class=&quot;list1&quot;&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Alternative&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Country&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Jazz&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Rock&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+</code></pre>
+<pre><code class="language-css">/*去掉默认的内边距和外边距*/
+* {
+    margin:0; 
+    padding:0;
+}
+
+/*设定本例中菜单的大小和位置*/
+nav {
+    margin:50px; 
+    width:150px;
+}
+
+/*给菜单加上边框*/
+.list1 ul {
+    border:1px solid #f00; 
+    border-radius:3px;
+    padding:5px 10px 3px;
+}
+
+/*去掉项目符号并为链接添加间距*/
+.list1 li {
+    list-style-type:none; 
+    padding:3px 10px;
+}
+
+/*“非首位子元素”选择符*/
+.list1 li + li {border-top:1px solid #f00;}
+
+/*为链接添加样式*/
+.list1 a {
+    text-decoration:none; 
+    font:20px Exo, helvetica,arial, sans-serif; font-weight:400; 
+    color:#000;
+    background:#ffed53;
+}
+
+/*悬停高亮*/
+.list1 a:hover {color:#069;}
+</code></pre>
+<h4>使用 “非首位子元素” 选择符</h4>
+<p><code>li + li</code> 选择符的意思是 “任何跟在 li 之后的 li ”。</p>
+<p>对于连续的元素，比如这里多个 li，这个选择符会选择除第一个之外的所有 li 元素。这样，就可以给除第一个 li 之外的所有列表项上方加一条边框。</p>
+<p>假如只简单使用 li 选择符，那第一个列表项上方也将被加上边框，而这不是想要的。把这种选择符称为 “非首位子元素” 选择符，它在选择列表时非常实用。</p>
+<p>实现相同效果的其他方法，比如：</p>
+<pre><code class="language-css">/*给所有li 上方添加一条边框*/
+li {border-top:1px solid #f00;}
+
+/*去掉第一个li 上方的边框*/
+li:first-child {border-top:none;}
+</code></pre>
+<h4>让列表行可以点击</h4>
+<p>目前只有文本是可以点的，因为链接（a）是行内元素，它会收缩并包住
+其中的文本。然而，更好的用户体验是让列表项所在的整行都能点击。</p>
+<p>此外，在每个 li 元素的上方和下方，各有 3 像素的内边距，导致链接文本与列表项边框之间有了距离。正因为有了这段距离，当用户鼠标移动到链接间的间隙时，光标会从 “悬停于链接之上” 时的小手形状，变成常规的箭头形状。</p>
+<p>要解决上述问题，首先得把内边距从 li 元素转移到链接内部，然后让链接完全填满整个列表项。</p>
+<h3>横向菜单</h3>
+<h3>下拉菜单</h3>
+<h2>表单</h2>
+<h3>HTML 表单元素</h3>
+<h3>表单标记策略</h3>
+<h3>设定表单样式</h3>
+<h3>设计搜索表单</h3>
+<h2>弹出层</h2>
+<h3>堆叠上下文和 z-index</h3>
+<h3>用 CSS 创造三角形</h3>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

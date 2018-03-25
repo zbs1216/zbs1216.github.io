@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>INNER JOIN 关键字) | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">INNER JOIN 关键字)</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2018-3-6 10:24:11 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 SQL
+               | </span></p>
+          <div class="markdown-body"><h2>INNER JOIN 关键字</h2>
+<p>INNER JOIN 关键字在表中存在至少一个匹配时返回行。</p>
+<h2>语法</h2>
+<pre><code class="language-sql">SELECT column_name(s)
+FROM table1
+INNER JOIN table2
+ON table1.column_name=table2.column_name;
+</code></pre>
+<p>或：</p>
+<pre><code class="language-sql">SELECT column_name(s)
+FROM table1
+JOIN table2
+ON table1.column_name=table2.column_name;
+</code></pre>
+<p><strong>注释 ：</strong> INNER JOIN 与 JOIN 是相同的。</p>
+<h2>示例</h2>
+<p>示例使用 样本数据库。</p>
+<p>该库包含 &quot;Websites&quot; 表：</p>
+<pre><code>+----+--------------+---------------------------+-------+---------+
+| id | name         | url                       | alexa | country |
++----+--------------+---------------------------+-------+---------+
+| 1  | Google       | https://www.google.cm/    | 1     | USA     |
+| 2  | 淘宝          | https://www.taobao.com/   | 13    | CN      |
+| 3  | 菜鸟教程      | http://www.runoob.com/    | 4689  | CN      |
+| 4  | 微博          | http://weibo.com/         | 20    | CN      |
+| 5  | Facebook     | https://www.facebook.com/ | 3     | USA     |
+| 7  | stackoverflow | http://stackoverflow.com/ |   0 | IND     |
++----+---------------+---------------------------+-------+---------+
+</code></pre>
+<p>下面是 &quot;access_log&quot; 网站访问记录表的数据：</p>
+<pre><code class="language-sql">mysql&gt; SELECT * FROM access_log;
+
++-----+---------+-------+------------+
+| aid | site_id | count | date       |
++-----+---------+-------+------------+
+|   1 |       1 |    45 | 2016-05-10 |
+|   2 |       3 |   100 | 2016-05-13 |
+|   3 |       1 |   230 | 2016-05-14 |
+|   4 |       2 |    10 | 2016-05-14 |
+|   5 |       5 |   205 | 2016-05-14 |
+|   6 |       4 |    13 | 2016-05-15 |
+|   7 |       3 |   220 | 2016-05-15 |
+|   8 |       5 |   545 | 2016-05-16 |
+|   9 |       3 |   201 | 2016-05-17 |
++-----+---------+-------+------------+
+</code></pre>
+<h3>INNER JOIN 示例</h3>
+<p>返回所有网站的访问记录：</p>
+<pre><code class="language-sql">SELECT Websites.name, access_log.count, access_log.date
+FROM Websites
+INNER JOIN access_log
+ON Websites.id=access_log.site_id
+ORDER BY access_log.count;
+</code></pre>
+<p>输出结果：</p>
+<pre><code class="language-sql">mysql&gt; SELECT Websites.name, access_log.count, access_log.date
+    -&gt; FROM Websites
+    -&gt; INNER JOIN access_log
+    -&gt; ON Websites.id=access_log.site_id    
+    -&gt; ORDER BY access_log.count;
+
++---------+---------+------------+
+| name    | count   | date       |
++---------+---------+------------+
+| 淘宝     |  10     | 2016-05-14 |
+| 微博    |   13     | 2016-05-15 |
+| Google  |   45    | 2016-05-10 |
+| 菜鸟教程 |   100   | 2016-05-13 |
+| 菜鸟教程 |  201    | 2016-05-17 |
+| Facebook|   205   | 2016-05-14 |
+| 菜鸟教程 |  220    | 2016-05-15 |
+| Google  |   230   | 2016-05-14 |
+| Facebook|  545    | 2016-05-16 |
++---------+--------+-------------+
+</code></pre>
+<p><strong>注释 ：</strong> INNER JOIN 关键字在表中存在至少一个匹配时返回行。如果 &quot;Websites&quot; 表中的行在 &quot;access_log&quot; 中没有匹配，则不会列出这些行。</p>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>UPDATE 语句 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">UPDATE 语句</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2018-3-5 20:59:57 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 SQL
+               | </span></p>
+          <div class="markdown-body"><h2>UPDATE 语句</h2>
+<p>UPDATE 语句用于更新表中已存在的记录。</p>
+<h2>语法</h2>
+<pre><code class="language-sql">UPDATE table_name
+SET column1=value1,column2=value2,...
+WHERE some_column=some_value;
+</code></pre>
+<p><em><strong>注意</strong></em></p>
+<p>SQL UPDATE 语句中的 WHERE 子句规定哪条记录或者哪些记录需要更新。如果您省略了 WHERE 子句，所有的记录都将被更新！</p>
+<h2>示例</h2>
+<p>样本数据库与 <strong>SELECT 语句</strong> 一章相同。</p>
+<h3>UPDATE 示例</h3>
+<p>把 &quot;菜鸟教程&quot; 的 alexa 排名更新为 5000，country 改为 USA：</p>
+<pre><code class="language-sql">UPDATE Websites 
+SET alexa='5000', country='USA' 
+WHERE name='菜鸟教程';
+</code></pre>
+<p>输出结果：</p>
+<pre><code class="language-sql">mysql&gt; UPDATE Websites 
+    -&gt; SET alexa='5000', country='USA' 
+    -&gt; WHERE name='菜鸟教程';
+
++----+--------------+---------------------------+-------+---------+
+| id | name         | url                       | alexa | country |
++----+--------------+---------------------------+-------+---------+
+| 1  | Google       | https://www.google.cm/    | 1     | USA     |
+| 2  | 淘宝          | https://www.taobao.com/   | 13    | CN      |
+| 3  | 菜鸟教程      | http://www.runoob.com/    | 5000  | USA     |
+| 4  | 微博          | http://weibo.com/         | 20    | CN      |
+| 5  | Facebook     | https://www.facebook.com/ | 3     | USA     |
++----+--------------+---------------------------+-------+---------+
+</code></pre>
+<h2>Update 警告！</h2>
+<p>在更新记录时要格外小心！在上面的实例中，如果省略了 WHERE 子句，如下所示：</p>
+<pre><code class="language-sql">UPDATE Websites
+SET alexa='5000', country='USA'
+</code></pre>
+<p>执行以上代码会将 Websites 表中所有数据的 alexa 改为 5000，country 改为 USA。</p>
+<p>执行没有 WHERE 子句的 UPDATE 要慎重，再慎重。</p>
+<h3>在 MySQL 中设置参数</h3>
+<p>在 MySQL 中可以通过设置 <code>sql_safe_updates</code> 这个自带的参数来解决，当该参数开启的情况下，你必须在 update 语句后携带 where 条件，否则就会报错。</p>
+<pre><code>set sql_safe_updates=1; 表示开启该参数
+</code></pre>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

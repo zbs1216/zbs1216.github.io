@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>SELECT INTO 语句 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">SELECT INTO 语句</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2018-3-6 14:33:22 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 SQL
+               | </span></p>
+          <div class="markdown-body"><h2>SELECT INTO 语句</h2>
+<p>SELECT INTO 语句从一个表复制数据，然后把数据插入到另一个新表中。</p>
+<h2>MySQL 数据库</h2>
+<p>MySQL 数据库不支持 <code>SELECT ... INTO</code> 语句，但支持 <code>INSERT INTO ... SELECT</code> 。</p>
+<p>MySQL 可以使用以下语句来拷贝表结构及数据：</p>
+<pre><code class="language-sql">CREATE TABLE 新表 SELECT * FROM 旧表 
+</code></pre>
+<h2>语法</h2>
+<pre><code class="language-sql">SELECT *
+INTO newtable [IN externaldb]
+FROM table1;
+</code></pre>
+<p>或者只复制希望的列插入到新表中：</p>
+<pre><code class="language-sql">SELECT column_name(s)
+INTO newtable [IN externaldb]
+FROM table1;
+</code></pre>
+<p><strong>提示 ：</strong> 新表将会使用 SELECT 语句中定义的列名称和类型进行创建。可以使用 AS 子句来应用新名称。</p>
+<h2>示例</h2>
+<h3>创建 Websites 的备份复件：</h3>
+<pre><code class="language-sql">SELECT *
+INTO WebsitesBackup2016
+FROM Websites;
+</code></pre>
+<h3>只复制一些列插入到新表中：</h3>
+<pre><code class="language-sql">SELECT name, url
+INTO WebsitesBackup2016
+FROM Websites;
+</code></pre>
+<h3>只复制中国的网站插入到新表中：</h3>
+<pre><code class="language-sql">SELECT *
+INTO WebsitesBackup2016
+FROM Websites
+WHERE country='CN';
+</code></pre>
+<h3>复制多个表中的数据插入到新表中：</h3>
+<pre><code class="language-sql">SELECT Websites.name, access_log.count, access_log.date
+INTO WebsitesBackup2016
+FROM Websites
+LEFT JOIN access_log
+ON Websites.id=access_log.site_id;
+</code></pre>
+<h3><strong>提示 ：</strong> SELECT INTO 语句可用于通过另一种模式创建一个新的空表。只需要添加促使查询没有数据返回的 WHERE 子句即可：</h3>
+<pre><code class="language-sql">SELECT *
+INTO newtable
+FROM table1
+WHERE 1=0;
+</code></pre>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

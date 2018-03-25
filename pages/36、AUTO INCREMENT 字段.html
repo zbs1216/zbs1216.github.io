@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>AUTO INCREMENT 字段 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">AUTO INCREMENT 字段</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2018-3-6 16:39:06 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 SQL
+               | </span></p>
+          <div class="markdown-body"><h2>AUTO INCREMENT 字段</h2>
+<p>Auto-increment 会在新记录插入表中时生成一个唯一的数字。</p>
+<p>通常希望在每次插入新记录时，自动地创建主键字段的值。</p>
+<p>可以在表中创建一个 auto-increment 字段。</p>
+<h2>用于 MySQL 的语法</h2>
+<p>把 &quot;Persons&quot; 表中的 &quot;ID&quot; 列定义为 auto-increment 主键字段：</p>
+<pre><code class="language-sql">CREATE TABLE Persons
+(
+ID int NOT NULL AUTO_INCREMENT,
+LastName varchar(255) NOT NULL,
+FirstName varchar(255),
+Address varchar(255),
+City varchar(255),
+PRIMARY KEY (ID)
+)
+</code></pre>
+<p>MySQL 使用 AUTO_INCREMENT 关键字来执行 auto-increment 任务。</p>
+<p>默认地，AUTO_INCREMENT 的开始值是 1，每条新记录递增 1。</p>
+<p>要让 AUTO_INCREMENT 序列以其他的值起始，请使用下面的 SQL 语法：</p>
+<pre><code class="language-sql">ALTER TABLE Persons AUTO_INCREMENT=100
+</code></pre>
+<p>要在 &quot;Persons&quot; 表中插入新记录，不必为 &quot;ID&quot; 列规定值（会自动添加一个唯一的值）：</p>
+<pre><code class="language-sql">INSERT INTO Persons (FirstName,LastName)
+VALUES ('Lars','Monsen')
+</code></pre>
+<p>上面的 SQL 语句会在 &quot;Persons&quot; 表中插入一条新记录。&quot;ID&quot; 列会被赋予一个唯一的值。&quot;FirstName&quot; 列会被设置为 &quot;Lars&quot;，&quot;LastName&quot; 列会被设置为 &quot;Monsen&quot;。</p>
+<h2>用于 SQL Server 的语法</h2>
+<p>把 &quot;Persons&quot; 表中的 &quot;ID&quot; 列定义为 auto-increment 主键字段：</p>
+<pre><code class="language-sql">CREATE TABLE Persons
+(
+ID int IDENTITY(1,1) PRIMARY KEY,
+LastName varchar(255) NOT NULL,
+FirstName varchar(255),
+Address varchar(255),
+City varchar(255)
+)
+</code></pre>
+<p>MS SQL Server 使用 IDENTITY 关键字来执行 auto-increment 任务。</p>
+<p>在上面的实例中，IDENTITY 的开始值是 1，每条新记录递增 1。</p>
+<p>提示：要规定 &quot;ID&quot; 列以 10 起始且递增 5，请把 identity 改为 IDENTITY(10,5)。</p>
+<p>要在 &quot;Persons&quot; 表中插入新记录，我们不必为 &quot;ID&quot; 列规定值（会自动添加一个唯一的值）：</p>
+<pre><code class="language-sql">INSERT INTO Persons (FirstName,LastName)
+VALUES ('Lars','Monsen')
+</code></pre>
+<p>上面的 SQL 语句会在 &quot;Persons&quot; 表中插入一条新记录。&quot;ID&quot; 列会被赋予一个唯一的值。&quot;FirstName&quot; 列会被设置为 &quot;Lars&quot;，&quot;LastName&quot; 列会被设置为 &quot;Monsen&quot;。</p>
+<h2>用于 Access 的语法</h2>
+<p>把 &quot;Persons&quot; 表中的 &quot;ID&quot; 列定义为 auto-increment 主键字段：</p>
+<pre><code class="language-sql">CREATE TABLE Persons
+(
+ID Integer PRIMARY KEY AUTOINCREMENT,
+LastName varchar(255) NOT NULL,
+FirstName varchar(255),
+Address varchar(255),
+City varchar(255)
+)
+</code></pre>
+<p>MS Access 使用 AUTOINCREMENT 关键字来执行 auto-increment 任务。</p>
+<p>默认地，AUTOINCREMENT 的开始值是 1，每条新记录递增 1。</p>
+<p>提示：要规定 &quot;ID&quot; 列以 10 起始且递增 5，请把 autoincrement 改为 AUTOINCREMENT(10,5)。</p>
+<p>要在 &quot;Persons&quot; 表中插入新记录，我们不必为 &quot;ID&quot; 列规定值（会自动添加一个唯一的值）：</p>
+<pre><code class="language-sql">INSERT INTO Persons (FirstName,LastName)
+VALUES ('Lars','Monsen')
+</code></pre>
+<p>上面的 SQL 语句会在 &quot;Persons&quot; 表中插入一条新记录。&quot;ID&quot; 列会被赋予一个唯一的值。&quot;FirstName&quot; 列会被设置为 &quot;Lars&quot;，&quot;LastName&quot; 列会被设置为 &quot;Monsen&quot;。</p>
+<h2>用于 Oracle 的语法</h2>
+<p>在 Oracle 中，代码稍微复杂一点。</p>
+<p>必须通过 sequence 对象（该对象生成数字序列）创建 auto-increment 字段。</p>
+<pre><code class="language-sql">CREATE SEQUENCE seq_person
+MINVALUE 1
+START WITH 1
+INCREMENT BY 1
+CACHE 10
+</code></pre>
+<p>上面的代码创建一个名为 seq_person 的 sequence 对象，它以 1 起始且以 1 递增。该对象缓存 10 个值以提高性能。cache 选项规定了为了提高访问速度要存储多少个序列值。</p>
+<p>要在 &quot;Persons&quot; 表中插入新记录，必须使用 nextval 函数（该函数从 seq_person 序列中取回下一个值）：</p>
+<pre><code class="language-sql">INSERT INTO Persons (ID,FirstName,LastName)
+VALUES (seq_person.nextval,'Lars','Monsen')
+</code></pre>
+<p>上面的 SQL 语句会在 &quot;Persons&quot; 表中插入一条新记录。&quot;ID&quot; 列会被赋值为来自 seq_person 序列的下一个数字。&quot;FirstName&quot;列 会被设置为 &quot;Lars&quot;，&quot;LastName&quot; 列会被设置为 &quot;Monsen&quot;。</p>
+<h2>更多</h2>
+<p>给已经存在的 colume 添加自增语法：</p>
+<pre><code class="language-sql">ALTER TABLE table_name CHANGE column_name column_name data_type(size) constraint_name AUTO_INCREMENT;
+</code></pre>
+<p>比如：</p>
+<pre><code class="language-sql">ALTER TABLE student CHANGE id id INT( 11 ) NOT NULL AUTO_INCREMENT;
+</code></pre>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

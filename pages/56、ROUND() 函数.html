@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>ROUND() 函数 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">ROUND() 函数</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2018-3-7 17:04:59 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 SQL
+               | </span></p>
+          <div class="markdown-body"><h2>ROUND() 函数</h2>
+<p>用于把数值字段舍入为指定的小数位数。</p>
+<h2>语法</h2>
+<pre><code class="language-sql">SELECT ROUND(column_name,decimals) FROM table_name;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>column_name</td>
+<td>必需。要舍入的字段。</td>
+</tr>
+<tr>
+<td>decimals</td>
+<td>必需。规定要返回的小数位数。</td>
+</tr>
+</tbody>
+</table>
+<h2>示例</h2>
+<h3>返回参数X的四舍五入的一个整数。</h3>
+<pre><code class="language-sql">mysql&gt; select ROUND(-1.23);
+        -&gt; -1
+mysql&gt; select ROUND(-1.58);
+        -&gt; -2
+mysql&gt; select ROUND(1.58);
+        -&gt; 2
+</code></pre>
+<h3>返回参数X的四舍五入的有 D 位小数的一个数字。如果D为0，结果将没有小数点或小数部分。</h3>
+<pre><code class="language-sql">mysql&gt; select ROUND(1.298, 1);
+        -&gt; 1.3
+mysql&gt; select ROUND(1.298, 0);
+        -&gt; 1
+</code></pre>
+<p>*<em>注意 ：</em> ROUND 返回值被变换为一个 BIGINT 。</p>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

@@ -36,7 +36,7 @@
       <div class="wraper clearFix">
         <div id="detail">
           <h1 class="title">第五章 页面布局</h1>
-          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2018-1-15 11:09:12 
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2018-1-14 17:02:43 
                |  </span><span><i class="fa fa-folder-o"> </i> 分类于 CSS
                | </span></p>
           <div class="markdown-body"><h2>布局的基本概念</h2>
@@ -428,11 +428,201 @@ https://github.com/albertogasparin/borderBoxModel。</p>
 <p>只是 word-wrap 没有定义在哪里断开，因此结果完全是随机的，而且没有连字符。不过，这条规则只在需要时才会起作用，而且能保护布局不会被
 长 URL 顶得支离破碎。建议在每一栏中都用长 URL、大图片，以及包含内容过多的元素测试一下布局，看看这些声明到底会不会起作用，并发现更多需要事先考虑保护措施的其他漏洞。</p>
 <h2>三栏 - 中栏流动布局</h2>
+<p>实现中栏流动布局有两种方法。:</p>
+<ul>
+<li>在中栏改变大小时使用负外边距定位右栏。</li>
+<li>使用 CSS3 让栏容器具有类似表格单元的行为。</li>
+</ul>
+<p>负外边距适合比较老的浏览器，而 CSS 的 table 属性则要简单得多。</p>
 <h3>用负外边距实现</h3>
+<p>实现三栏布局且让中栏内容区流动（不固定）的核心问题，就是处理右栏的定位，并在中栏内容区大小改变时控制右栏与布局的关系。</p>
+<p>解决方案是控制两个外包装容器的外边距。其中一个外包装包围所有三栏，另一个外包装只包围左栏和中栏。</p>
+<pre><code class="language-html">&lt;div id=&quot;main_wrapper&quot;&gt;
+    &lt;header&gt;
+        &lt;!-- 页眉--&gt;
+    &lt;/header&gt;
+    &lt;div id=&quot;threecolwrap&quot;&gt;/*三栏外包装（包围全部三栏）*/
+        &lt;div id=&quot;twocolwrap&quot;&gt;/*两栏外包装（包围左栏和中栏）*/
+            /*左栏*/
+            &lt;nav&gt;
+                &lt;!-- 导航 --&gt;
+            &lt;/nav&gt;
+            /*中栏*/
+            &lt;article&gt;
+             &lt;!-- 区块 --&gt;
+            &lt;/article&gt;
+        &lt;/div&gt;/*结束两栏外包装（twocolwrap）*/
+        /*右栏*/
+        &lt;aside&gt;
+            &lt;!-- 侧栏 --&gt;
+        &lt;/aside&gt;
+    &lt;/div&gt;/*结束三栏外包装（threecolwrap）*/
+    &lt;footer&gt;
+        &lt;!-- 页脚 --&gt;
+    &lt;/footer&gt;
+&lt;/div&gt;
+</code></pre>
+<pre><code class="language-css">* {
+    margin:0; 
+    padding:0;
+}
+
+body {font:1em helvetica, arial, sans-serif;}
+
+div#main_wrapper {
+    min-width:600px; 
+    max-width:1100px;
+
+    /*超过最大宽度时，居中布局*/
+    margin:0 auto;
+
+    /*背景图片默认从左上角开始拼接*/
+    background:url(images/bg_tile_150pxw.png) repeat-y #eee;
+}
+
+header {
+    padding:5px 10px;
+    background:#3f7ccf;
+}
+
+div#threecolwrap {
+    /*浮动强制它包围浮动的栏*/
+    float:left;
+    width:100%;
+
+    /*背景图片右对齐*/
+    background:url(images/bg_tile_210pxw.png) top right repeat-y;
+}
+
+div#twocolwrap {
+    /*浮动强制它包围浮动的栏*/
+    float:left;
+    width:100%;
+
+    /*把右栏拉到区块外边距腾出的位置上*/
+    margin-right:-210px;
+}
+
+nav {
+    float:left;
+    width:150px;
+    background:#f00;
+    padding:20px 0;
+}
+
+/*让子元素与栏边界保持一定距离*/
+nav &gt; * {margin:0 10px;}
+
+article {
+    width:auto;
+    margin-left:150px;
+ 
+    /*在流动居中的栏右侧腾出空间*/
+    margin-right:210px;
+ 
+    background:#eee;
+    padding:20px 0;
+}
+
+/*让子元素与栏边界保持一定距离*/
+article &gt; * {margin:0 20px;}
+
+aside {
+    float:left;
+    width:210px;
+    background:#ffed53;
+    padding:20px 0;
+}
+
+/*让子元素与栏边界保持一定距离*/
+aside &gt; * {margin:0 10px;}
+
+footer {
+    clear:both;
+    width:100%;
+    text-align:center;
+    background:#000;
+}
+</code></pre>
+<p>三栏中的右栏是 210 像素宽。为了给右栏腾出空间，中栏 article 元素有一个 210 像素的右外边距。</p>
+<p>仅仅有这个外边距，只能把右栏再向右推 210 像素。</p>
+<p>包围左栏和中栏的两栏外包装上 210 像素的负右外边距，会把右栏拉回 article 元素右外边距（在两栏外包装内部右侧）创造的空间内。</p>
+<p>中栏 aticle 元素的宽度是 auto，因此它仍然会力求占据浮动左栏剩余的所有空间。可是，一方面它自己的右外边距在两栏外包装内为右栏腾出了空间，另一方面两栏外包装的负右外边距又把右栏拉到了该空间内。</p>
+<h4>人造栏技术</h4>
+<p>这些栏看起来都跟布局一样高，其实都是假象。</p>
+<p>这里采用了一种叫 “人造栏” 的技术，这样才让所有栏看起来都一样高了。</p>
+<p>该技术就是给包围栏的外包装元素应用与各栏同宽的背景图片和背景色。</p>
+<p>外包装元素跟它们包含的栏不一样，它们的高度就是布局高度，当然与内容
+区的高度相同。</p>
+<p>通过在它们的背景的垂直方向上重复拼接背景图片，就可以在视觉上造成各栏与布局同高的假象。</p>
+<p>这个例子分别为左栏和右栏应用了不同的背景图片，为流动的中栏应用了背景色。</p>
+<p>左栏的背景图片加在了 div#main_wrapper 上。右栏的背景图片加在了 div#threecolwrap 上，而且让它沿该 div 的右侧垂直拼接。</p>
+<p>中栏的背景色也加在了 div#main_wrapper 上，这个背景色实际上是整个布局的背景色。</p>
+<p>而位于两侧的两栏的背景图片，以及页眉和页脚的背景色，都会覆盖这个背景色（子元素覆盖父元素）。因此，只能在中栏看到该全局背景色。</p>
 <h3>用 CSS3 单元格实现</h3>
+<p>利用 HTML 的 <code>&lt;table&gt;</code> 标签实现多栏布局是难以接受的，但使用 CSS 让布局形如表格则是可以接受的。这种方法不会导致固定不变的表格布局，也不会出现难以重新应用样式的问题（比如在手持设备上表现为一栏）。</p>
+<p>CSS 可以把一个 HTML 元素的 display 属性设定为 table、table-row 和 table-cell。通过这种方法可以模拟相应 HTML 元素的行为。</p>
+<p>通过 CSS 把布局中的栏设定为 table-cell 有三个好处：</p>
+<ul>
+<li>单元格（table-cell）不需要浮动就可以并排显示，而且直接为它们应用内边距也不会破坏布局。</li>
+<li>默认情况下，一行中的所有单元格高度相同，因而也不需要人造的等高栏效果了。</li>
+<li>任何没有明确设定宽度的栏都是流动的。</li>
+</ul>
+<p>这三个好处解决了本章前面学习布局时遇到的问题。然而，CSS3 表格行为在 IE7 及更低版本中并没有得到支持，而且也没有稳妥的补救措施。如果愿意摒弃IE7，那么它就是一个既简单又可靠，而且还很彻底的解决方案。</p>
+<p>甚至都不需要用 div 外包装来扮演 table 和 tr 元素，仅仅是把三栏的
+display 属性设定为 table-cell 就可以了。</p>
+<p>浏览器的排版引擎在碰到没有表行（tr）的一组单元格时，会自动为它们添加表行，而在表行没有被 table 元素包围时，会自动为表行添加 table。</p>
+<p>因此，不需要多写任何标记，只要把每一栏的 display 属性设定为 table-cell，剩下的事儿就可全部交给浏览器负责。</p>
+<p>要实现一个三栏流动中栏布局，只需要以下标记：</p>
+<pre><code class="language-html">&lt;nav&gt;
+    &lt;!-- 内容 --&gt;
+&lt;/nav&gt;
+&lt;article&gt;
+    &lt;!-- 内容 --&gt;
+&lt;/article&gt;
+&lt;aside&gt;
+    &lt;!-- 内容 --&gt;
+&lt;/aside&gt;
+</code></pre>
+<pre><code class="language-css">nav {
+    display:table-cell; 
+    width:150px; 
+    padding:10px;
+    background:#dcd9c0;
+}
+
+article { 
+    display:table-cell; 
+    padding:10px 20px;
+    background:#ffed53;
+}
+
+aside {
+    display:table-cell; 
+    width:210px; 
+    padding:10px;
+    background:#3f7ccf;
+}
+</code></pre>
+<p>这个简单、功能完备的布局对 IE7 和 IE6 可没有任何腻子脚本，连退化的后备方案都没有。在这些浏览器中，三栏会上下堆叠在一起。</p>
 <h2>多行多栏布局</h2>
 <h3>CSS 选择符的实际应用</h3>
+<p>前面的布局中只包含一个 article、一个 nav……，因此比较容易选择，只要用标签名即可。而在创建复杂布局时，一个页面中会出现多个相同的标签，选择的时候就要用上下文选择符来区分它们了。</p>
+<p>随着页面变得越来越复杂，相同的 HTML 元素（如section、article、nav，等等）会出现很多次。为了选择某个元素，必须区分这些相同的标签名。</p>
+<p>有些新手会给每个标签都添加一个不同的类名。</p>
+<p>但这种做法是不值得提倡的。不仅因为类本身就不该这么用（类应该用于标记具有相同特征的元素），而且这么多类会把标记弄得很乱，让 CSS 也很难看懂。为了知道每个类代表哪个元素，必须不断地查看 HTML。</p>
+<p>更好的做法是给标记中每个主要区域的顶级元素添加一个 ID，这也是使用 ID 的正确方式，ID 就是标识页面中唯一元素用的。</p>
+<p>然后，这些 ID 就会成为 HTML 标记中的 “路标”，放在上下文选择符开头的时候，它们就能起到框定后代元素的作用。</p>
+<p>这就是在标记中保持类和 ID 属性最少的秘诀。而且，相应的上下文选择符也能清晰地传达出路径信息，让人从 CSS 中一眼就能看出它要选择哪个元素。</p>
+<p>前面的 HTML 标记。其中的三个 ID 是精确选择任意元素唯一必要的几个
+“路标”，即使再给布局中添加一些内容元素，也用不着更多的 “路标”。</p>
+<p>只要顶级元素上有一个 ID，就可以把它作为 “路标”，进而选择它的任意
+后代元素（甚至能够选择将来才会加入其中的内容元素）。另外，同样重要的是，这样也避免了无意中把样式添加给标记中的其他元素上。</p>
+<p>如果在没有别的手段选择某个特定元素的情况下，只在标记中添加一个类或一个 ID，那么 HTML 就能保持清晰整洁，而 CSS 也将易读易维护。</p>
 <h3>内部 DIV 实战</h3>
+<p>每一栏中的间距要依靠内部 div。水平间距是由内部 div 的左、右外边距生成的，它们把这个 div 压缩了一下，这才使内容远离了父元素
+（如果此时直接给父元素应用水平内边距的话，一定会破坏布局）。</p>
+<p>而每一栏中的垂直间距是由父元素的内边距生成的。这是因为，就是在父元素没有上、下边框的情况下，子元素的上、下外边距会折叠的。</p>
 </div>
         </div>
       </div>

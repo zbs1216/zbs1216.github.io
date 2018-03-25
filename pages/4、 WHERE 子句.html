@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>WHERE 子句 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">WHERE 子句</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2018-3-5 16:38:25 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 SQL
+               | </span></p>
+          <div class="markdown-body"><p>WHERE 字句用于提取满足指定标准的记录。</p>
+<h2>语法</h2>
+<pre><code class="language-sql">SELECT column_name,column_name 
+FROM table_name
+WHERE column_name operator value;
+</code></pre>
+<h2>示例</h2>
+<p>样本数据库与 <strong>SELECT 字句</strong> 一章相同。</p>
+<h3>WHERE 字句示例</h3>
+<p>从 &quot;Websites&quot; 表中选取国家为 &quot;CN&quot; 的所有网站：</p>
+<pre><code class="language-sql">SELECT * FROM Websites WHERE country='CN';
+</code></pre>
+<p>输出结果：</p>
+<pre><code class="language-sql">mysql&gt; SELECT * FROM Websites WHERE country='CN';
+
++----+--------------+---------------------------+-------+---------+
+| id | name         | url                       | alexa | country |
++----+--------------+---------------------------+-------+---------+
+| 2  | 淘宝          | https://www.taobao.com/   | 13    | CN      |
+| 3  | 菜鸟教程      | http://www.runoob.com/    | 4689  | CN      |
+| 4  | 微博          | http://weibo.com/         | 20    | CN      |
++----+--------------+---------------------------+-------+---------+
+</code></pre>
+<h2>文本字段 vs. 数值字段</h2>
+<p>SQL 使用单引号来环绕文本值（大部分数据库系统也接受双引号）。</p>
+<p>在上个示例中 'CN' 文本字段使用了单引号。</p>
+<p>如果是数值字段，请不要使用引号。</p>
+<p>例子：</p>
+<pre><code class="language-sql">SELECT * FROM Websites WHERE id=1;
+</code></pre>
+<p>输出结果：</p>
+<pre><code class="language-sql">mysql&gt; SELECT * FROM Websites WHERE id=1;
+
++----+--------------+---------------------------+-------+---------+
+| id | name         | url                       | alexa | country |
++----+--------------+---------------------------+-------+---------+
+| 1  | Google       | https://www.google.cm/    | 1     | USA     |
++----+--------------+---------------------------+-------+---------+
+</code></pre>
+<h2>WHERE 字句中的运算符</h2>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>=</td>
+<td style="text-align:left">等于</td>
+</tr>
+<tr>
+<td>&lt;&gt;</td>
+<td style="text-align:left">不等于。注释：在 SQL 的一些版本中，该操作符可被写成 !=</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td style="text-align:left">大于</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td style="text-align:left">小于</td>
+</tr>
+<tr>
+<td>&gt;=</td>
+<td style="text-align:left">大于等于</td>
+</tr>
+<tr>
+<td>&lt;=</td>
+<td style="text-align:left">小于等于</td>
+</tr>
+<tr>
+<td>BETWEEN</td>
+<td style="text-align:left">在某个范围内</td>
+</tr>
+<tr>
+<td>LIKE</td>
+<td style="text-align:left">搜索某种模式</td>
+</tr>
+<tr>
+<td>IN</td>
+<td style="text-align:left">指定针对某个列的多个可能值</td>
+</tr>
+</tbody>
+</table>
+<h2>更多示例</h2>
+<h3>Where 子句</h3>
+<h4>示例 （1）：</h4>
+<p><strong>搜索 empno 等于 7900 的数据：</strong></p>
+<pre><code class="language-sql">Select * from emp where empno=7900;
+</code></pre>
+<h4>示例 （2）：Where +条件（筛选行）</h4>
+<p>条件：列，比较运算符，值</p>
+<p>比较运算符包涵：= &gt; &lt; &gt;= ,&lt;=, !=,&lt;&gt; 表示（不等于）</p>
+<pre><code class="language-sql">Select * from emp where ename='SMITH';
+</code></pre>
+<p>例子中的 SMITH 用单引号引起来，表示是字符串，字符串要区分大小写。</p>
+<h3>逻辑运算</h3>
+<h4>示例</h4>
+<p>查询 EMP 表中 SAL 列中大于 2000 小于 3000 的值。</p>
+<pre><code class="language-sql">Select * from emp where sal &gt; 2000 and sal &lt; 3000;
+</code></pre>
+<h4>示例（2）：Or(或),满足其中一个条件的值</h4>
+<p>查询 emp 表中 SAL 大于 2000 或 COMM 大于500的值。</p>
+<pre><code class="language-sql">Select * from emp where sal &gt; 2000 or comm &gt; 500;
+</code></pre>
+<h4>示例（3）：Not(非),满足不包含该条件的值。</h4>
+<p>查询EMP表中 sal 小于等于 1500 的值。</p>
+<pre><code class="language-sql">select * from emp where not sal &gt; 1500;
+</code></pre>
+<h4>逻辑运算的优先级：</h4>
+<pre><code class="language-sql">not &gt; and  &gt; or
+</code></pre>
+<p>###特殊条件</p>
+<h4>空值判断： is null</h4>
+<p>查询 emp 表中 comm 列中的空值。</p>
+<pre><code class="language-sql">Select * from emp where comm is null;
+</code></pre>
+<h4>between and (在 之间的值)</h4>
+<p>查询 emp 表中 SAL 列中大于 1500 的小于 3000 的值。</p>
+<pre><code class="language-sql">Select * from emp where sal between 1500 and 3000;
+</code></pre>
+<p>注意：大于等于 1500 且小于等于 3000， 1500 为下限，3000 为上限，下限在前，上限在后，查询的范围包涵有上下限的值。</p>
+<h4>In</h4>
+<p>查询 EMP 表 SAL 列中等于 5000，3000，1500 的值。</p>
+<pre><code class="language-sql">Select * from emp where sal in (5000,3000,1500);
+
+</code></pre>
+<h4>like 模糊查询</h4>
+<p>查询 EMP 表中 Ename 列中有 M 的值，M 为要查询内容中的模糊信息。</p>
+<pre><code class="language-sql">Select * from emp where ename like 'M%';
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>字符串</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%</td>
+<td>表示多个字值，_ 下划线表示一个字符</td>
+</tr>
+<tr>
+<td>M%</td>
+<td>为能配符，正则表达式，表示的意思为模糊查询信息为 M 开头的</td>
+</tr>
+<tr>
+<td>%M%</td>
+<td>表示查询包含M的所有内容</td>
+</tr>
+<tr>
+<td>%M_</td>
+<td>表示查询以M在倒数第二位的所有内容</td>
+</tr>
+</tbody>
+</table>
+<h3>不带比较运算符的 WHERE 子句</h3>
+<p>WHERE子句并不一定带比较运算符，当不带运算符时，会执行一个隐式转换。</p>
+<p>当 0 时转化为 false，当其他值是转化为 true。</p>
+<p>例如：</p>
+<pre><code class="language-sql">SELECT studentNO FROM student WHERE 0
+</code></pre>
+<p>则会返回一个空集，因为每一行记录 WHERE 都返回 false。
+SELECT  studentNO  FROM student WHERE 1</p>
+<p>或者</p>
+<pre><code class="language-sql">SELECT studentNO FROM student WHERE 'abc'
+</code></pre>
+<p>都将返回 student 表所有行记录的 studentNO 列。因为每一行记录 WHERE 都返回 true。</p>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

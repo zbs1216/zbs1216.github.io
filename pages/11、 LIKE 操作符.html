@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>LIKE 操作符 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">LIKE 操作符</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2018-3-6 08:11:58 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 SQL
+               | </span></p>
+          <div class="markdown-body"><h2>LIKE 操作符</h2>
+<p>LIKE 操作符用于在 WHERE 子句中搜索列中的指定模式。</p>
+<h2>语法</h2>
+<pre><code class="language-sql">SELECT column_name(s)
+FROM table_name
+WHERE column_name LIKE pattern;
+</code></pre>
+<h2>示例</h2>
+<p>示例使用 RUNOOB 样本数据库。</p>
+<p>该库包含有 &quot;Websites&quot; 表：</p>
+<pre><code class="language-sql">+----+--------------+---------------------------+-------+---------+
+| id | name         | url                       | alexa | country |
++----+--------------+---------------------------+-------+---------+
+| 1  | Google       | https://www.google.cm/    | 1     | USA     |
+| 2  | 淘宝          | https://www.taobao.com/   | 13    | CN      |
+| 3  | 菜鸟教程      | http://www.runoob.com/    | 4689  | CN      |
+| 4  | 微博          | http://weibo.com/         | 20    | CN      |
+| 5  | Facebook     | https://www.facebook.com/ | 3     | USA     |
+| 7  | stackoverflow | http://stackoverflow.com/ |   0 | IND     |
++----+---------------+---------------------------+-------+---------+
+</code></pre>
+<h3>选取 name 以字母 &quot;G&quot; 开始的所有客户：</h3>
+<pre><code class="language-sql">SELECT * FROM Websites
+WHERE name LIKE 'G%';
+</code></pre>
+<p>执行输出结果：</p>
+<pre><code class="language-sql">mysql&gt; SELECT * FROM Websites
+    -&gt; WHERE name LIKE 'G%';
+
++----+--------------+---------------------------+-------+---------+
+| id | name         | url                       | alexa | country |
++----+--------------+---------------------------+-------+---------+
+| 1  | Google       | https://www.google.cm/    | 1     | USA     |
++----+---------------+---------------------------+-------+---------+
+</code></pre>
+<p><strong>提示：</strong> &quot;%&quot; 符号用于在模式的前后定义通配符（缺省字母）。</p>
+<h3>选取 name 以字母 &quot;k&quot; 结尾的所有客户：</h3>
+<pre><code class="language-sql">SELECT * FROM Websites
+WHERE name LIKE '%k';
+</code></pre>
+<p>执行输出结果：</p>
+<pre><code class="language-sql">mysql&gt; SELECT * FROM Websites
+    -&gt; WHERE name LIKE '%k';
+
++----+--------------+---------------------------+-------+---------+
+| id | name         | url                       | alexa | country |
++----+--------------+---------------------------+-------+---------+
+| 5  | Facebook     | https://www.facebook.com/ | 3     | USA     |
++----+---------------+---------------------------+-------+---------+
+</code></pre>
+<h3>选取 name 包含模式 &quot;oo&quot; 的所有客户：</h3>
+<pre><code class="language-sql">SELECT * FROM Websites
+WHERE name LIKE '%oo%';
+</code></pre>
+<p>执行输出结果：</p>
+<pre><code class="language-sql">mysql&gt; SELECT * FROM Websites
+    -&gt; WHERE name LIKE '%oo%';
+
++----+--------------+---------------------------+-------+---------+
+| id | name         | url                       | alexa | country |
++----+--------------+---------------------------+-------+---------+
+| 1  | Google       | https://www.google.cm/    | 1     | USA     |
+| 5  | Facebook     | https://www.facebook.com/ | 3     | USA     |
++----+---------------+---------------------------+-------+---------+
+</code></pre>
+<h2>使用 NOT 关键字，可以选取不匹配模式的记录。</h2>
+<h3>选取 name 不包含模式 &quot;oo&quot; 的所有客户：</h3>
+<pre><code class="language-sql">SELECT * FROM Websites
+WHERE name NOT LIKE '%oo%';
+</code></pre>
+<p>输出结果：</p>
+<pre><code class="language-sql">mysql&gt;  SELECT * FROM Websites
+    -&gt; WHERE name NOT LIKE '%oo%';
+
++----+--------------+---------------------------+-------+---------+
+| id | name         | url                       | alexa | country |
++----+--------------+---------------------------+-------+---------+
+| 2  | 淘宝          | https://www.taobao.com/   | 13    | CN      |
+| 3  | 菜鸟教程      | http://www.runoob.com/    | 4689  | CN      |
+| 4  | 微博          | http://weibo.com/         | 20    | CN      |
+| 7  | stackoverflow | http://stackoverflow.com/ |   0 | IND     |
++----+---------------+---------------------------+-------+---------+
+</code></pre>
+<h2>更多</h2>
+<table>
+<thead>
+<tr>
+<th>字符串</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%a'</td>
+<td>以 a 结尾的数据</td>
+</tr>
+<tr>
+<td>'a%'</td>
+<td>以 a 开头的数据</td>
+</tr>
+<tr>
+<td>'%a%'</td>
+<td>含有 a 的数据</td>
+</tr>
+<tr>
+<td>'<em>a</em>'</td>
+<td>三位且中间字母是 a 的</td>
+</tr>
+<tr>
+<td>'_a'</td>
+<td>两位且结尾字母是 a 的</td>
+</tr>
+<tr>
+<td>'a_'</td>
+<td>两位且开头字母是 a 的</td>
+</tr>
+</tbody>
+</table>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>连接(JOIN) | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">连接(JOIN)</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2018-3-6 10:04:21 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 SQL
+               | </span></p>
+          <div class="markdown-body"><h2>连接(JOIN)</h2>
+<p>SQL JOIN 子句用于把来自两个或多个表的行结合起来，基于这些表之间的共同字段。</p>
+<p>最常见的 JOIN 类型：</p>
+<ul>
+<li>SQL INNER JOIN（简单的 JOIN）。
+<ul>
+<li>SQL INNER JOIN 从多个表中返回满足 JOIN 条件的所有行。</li>
+</ul>
+</li>
+</ul>
+<h2>示例</h2>
+<p>示例使用 RUNOOB 样本数据库。</p>
+<p>该库包含 &quot;Websites&quot; 表：</p>
+<pre><code>+----+--------------+---------------------------+-------+---------+
+| id | name         | url                       | alexa | country |
++----+--------------+---------------------------+-------+---------+
+| 1  | Google       | https://www.google.cm/    | 1     | USA     |
+| 2  | 淘宝          | https://www.taobao.com/   | 13    | CN      |
+| 3  | 菜鸟教程      | http://www.runoob.com/    | 4689  | CN      |
+| 4  | 微博          | http://weibo.com/         | 20    | CN      |
+| 5  | Facebook     | https://www.facebook.com/ | 3     | USA     |
+| 7  | stackoverflow | http://stackoverflow.com/ |   0 | IND     |
++----+---------------+---------------------------+-------+---------+
+</code></pre>
+<p>下面是 &quot;access_log&quot; 网站访问记录表的数据：</p>
+<pre><code class="language-sql">mysql&gt; SELECT * FROM access_log;
+
++-----+---------+-------+------------+
+| aid | site_id | count | date       |
++-----+---------+-------+------------+
+|   1 |       1 |    45 | 2016-05-10 |
+|   2 |       3 |   100 | 2016-05-13 |
+|   3 |       1 |   230 | 2016-05-14 |
+|   4 |       2 |    10 | 2016-05-14 |
+|   5 |       5 |   205 | 2016-05-14 |
+|   6 |       4 |    13 | 2016-05-15 |
+|   7 |       3 |   220 | 2016-05-15 |
+|   8 |       5 |   545 | 2016-05-16 |
+|   9 |       3 |   201 | 2016-05-17 |
++-----+---------+-------+------------+
+</code></pre>
+<p><strong>注意 :</strong> &quot;Websites&quot; 表中的 &quot;id&quot; 列指向 &quot;access_log&quot; 表中的字段 &quot;site_id&quot;。上面这两个表是通过 &quot;site_id&quot; 列联系起来的。</p>
+<h3>SQL 语句</h3>
+<pre><code class="language-sql">SELECT Websites.id, Websites.name, access_log.count, access_log.date
+FROM Websites
+INNER JOIN access_log
+ON Websites.id=access_log.site_id;
+</code></pre>
+<p>输出结果如下：</p>
+<pre><code class="language-sql">mysql&gt; SELECT Websites.id, Websites.name, access_log.count, access_log.date
+    -&gt; FROM Websites
+    -&gt; INNER JOIN access_log
+    -&gt; ON Websites.id=access_log.site_id;
+
++-----+---------0-+-------+------------+
+| id  | name     | count | date       |
++-----+----------+-------+------------+
+|   1 | Google   |    45 | 2016-05-10 |
+|   1 | Google   |   230 | 2016-05-14 |
+|   2 | 淘宝     |    10 | 2016-05-14 |
+|   3 | 菜鸟教程  |   100 | 2016-05-13 |
+|   3 | 菜鸟教程  |   220 | 2016-05-15 |
+|   3 | 菜鸟教程  |   201 | 2016-05-17 |
+|   4 | 微博      |    13 | 2016-05-15 |
+|   5 | Facebook |   205 | 2016-05-14 |
+|   5 | Facebook |   545 | 2016-05-16 |
++-----+---------+-------+------------+
+</code></pre>
+<h2>不同的 SQL JOIN</h2>
+<p>可以使用的不同的 SQL JOIN 类型：</p>
+<table>
+<thead>
+<tr>
+<th>SQL JOIN 类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INNER JOIN</td>
+<td>如果表中有至少一个匹配，则返回行</td>
+</tr>
+<tr>
+<td>LEFT JOIN</td>
+<td>即使右表中没有匹配，也从左表返回所有的行</td>
+</tr>
+<tr>
+<td>RIGHT JOIN</td>
+<td>即使左表中没有匹配，也从右表返回所有的行</td>
+</tr>
+<tr>
+<td>FULL JOIN</td>
+<td>只要其中一个表中存在匹配，则返回行</td>
+</tr>
+</tbody>
+</table>
+<h2>更多</h2>
+<p>连接的结果可以在逻辑上看作是由 SELECT 语句指定的列组成的新表。</p>
+<p>左连接与右连接的左右，指的是以两张表中的哪一张为基准，它们都是外连接。</p>
+<p>外连接，就好像是为非基准表添加了一行全为空值的万能行，用来与基准表中找不到匹配的行进行匹配。</p>
+<p>假设两个没有空值的表进行左连接，左表是基准表，左表的所有行都出现在结果中，右表则可能因为无法与基准表匹配而出现是空值的字段。</p>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>BETWEEN 操作符 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">BETWEEN 操作符</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2018-3-6 09:12:09 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 SQL
+               | </span></p>
+          <div class="markdown-body"><h2>BETWEEN 操作符</h2>
+<p>BETWEEN 操作符选取介于两个值之间的数据范围内的值。这些值可以是数值、文本或者日期。</p>
+<h2>语法</h2>
+<pre><code class="language-sql">SELECT column_name(s)
+FROM table_name
+WHERE column_name BETWEEN value1 AND value2;
+</code></pre>
+<h2>示例</h2>
+<p>|使用样本数据库。</p>
+<p>该库含有 &quot;Websites&quot; 表：</p>
+<pre><code>+----+--------------+---------------------------+-------+---------+
+| id | name         | url                       | alexa | country |
++----+--------------+---------------------------+-------+---------+
+| 1  | Google       | https://www.google.cm/    | 1     | USA     |
+| 2  | 淘宝          | https://www.taobao.com/   | 13    | CN      |
+| 3  | 菜鸟教程      | http://www.runoob.com/    | 4689  | CN      |
+| 4  | 微博          | http://weibo.com/         | 20    | CN      |
+| 5  | Facebook     | https://www.facebook.com/ | 3     | USA     |
+| 7  | stackoverflow | http://stackoverflow.com/ |   0 | IND     |
++----+---------------+---------------------------+-------+---------+
+</code></pre>
+<h3>BETWEEN 操作符实例</h3>
+<p>选取 alexa 介于 1 和 20 之间的所有网站：</p>
+<pre><code class="language-sql">SELECT * FROM Websites
+WHERE alexa BETWEEN 1 AND 20;
+</code></pre>
+<p>执行输出结果：</p>
+<pre><code class="language-sql">mysql&gt; SELECT * FROM Websites
+    -&gt; WHERE alexa BETWEEN 1 AND 20;
+
++----+--------------+---------------------------+-------+---------+
+| id | name         | url                       | alexa | country |
++----+--------------+---------------------------+-------+---------+
+| 1  | Google       | https://www.google.cm/    | 1     | USA     |
+| 2  | 淘宝          | https://www.taobao.com/   | 13    | CN      |
+| 4  | 微博          | http://weibo.com/         | 20    | CN      |
+| 5  | Facebook     | https://www.facebook.com/ | 3     | USA     |
++----+---------------+---------------------------+-------+---------+
+</code></pre>
+<h3>NOT BETWEEN 操作符实例</h3>
+<p>如需显示不在上面实例范围内的网站，请使用 NOT BETWEEN：</p>
+<pre><code class="language-sql">SELECT * FROM Websites
+WHERE alexa NOT BETWEEN 1 AND 20;
+</code></pre>
+<p>执行输出结果：</p>
+<pre><code class="language-sql">mysql&gt; SELECT * FROM Websites
+    -&gt; WHERE alexa NOT BETWEEN 1 AND 20;
+
++----+--------------+---------------------------+-------+---------+
+| id | name         | url                       | alexa | country |
++----+--------------+---------------------------+-------+---------
+| 3  | 菜鸟教程      | http://www.runoob.com/    | 4689  | CN      |
+| 7  | stackoverflow | http://stackoverflow.com/ |   0 | IND     |
++----+---------------+---------------------------+-------+---------+
+</code></pre>
+<h3>带有 IN 的 BETWEEN 操作符实例</h3>
+<p>选取 alexa 介于 1 和 20 之间,但 country 不为 USA 和 IND 的所有网站：</p>
+<pre><code class="language-sql">SELECT * FROM Websites
+WHERE (alexa BETWEEN 1 AND 20)
+AND NOT country IN ('USA', 'IND');
+</code></pre>
+<p>执行输出结果：</p>
+<pre><code class="language-sql">mysql&gt; SELECT * FROM Websites
+   -&gt;  WHERE (alexa BETWEEN 1 AND 20)
+   -&gt;  AND NOT country IN ('USA', 'IND');
+
++----+--------------+---------------------------+-------+---------+
+| id | name         | url                       | alexa | country |
++----+--------------+---------------------------+-------+---------+
+| 2  | 淘宝          | https://www.taobao.com/   | 13    | CN      |
+| 4  | 微博          | http://weibo.com/         | 20    | CN      |
++----+---------------+---------------------------+-------+---------+
+</code></pre>
+<h3>带有文本值的 NOT BETWEEN 操作符实例</h3>
+<p>选取 name 不介于 'A' 和 'H' 之间字母开始的所有网站：</p>
+<pre><code class="language-sql">SELECT * FROM Websites
+WHERE name NOT BETWEEN 'A' AND 'H';
+</code></pre>
+<p>执行输出结果：</p>
+<pre><code class="language-sql">mysql&gt; SELECT * FROM Websites
+    -&gt; WHERE name NOT BETWEEN 'A' AND 'H';
+
++----+--------------+---------------------------+-------+---------+
+| id | name         | url                       | alexa | country |
++----+--------------+---------------------------+-------+---------+
+| 2  | 淘宝          | https://www.taobao.com/   | 13    | CN      |
+| 3  | 菜鸟教程      | http://www.runoob.com/    | 4689  | CN      |
+| 4  | 微博          | http://weibo.com/         | 20    | CN      |
+| 7  | stackoverflow | http://stackoverflow.com/ |   0 | IND     |
++----+---------------+---------------------------+-------+---------+
+</code></pre>
+<h2>示例表</h2>
+<p>下面是 &quot;access_log&quot; 网站访问记录表的数据，其中：</p>
+<ul>
+<li>aid：为自增 id。</li>
+<li>site_id：为对应 websites表的网站 id。</li>
+<li>count：访问次数。</li>
+<li>date：为访问日期。</li>
+</ul>
+<pre><code class="language-sql">mysql&gt; SELECT * FROM access_log;
+
++-----+---------+-------+------------+
+| aid | site_id | count | date       |
++-----+---------+-------+------------+
+|   1 |       1 |    45 | 2016-05-10 |
+|   2 |       3 |   100 | 2016-05-13 |
+|   3 |       1 |   230 | 2016-05-14 |
+|   4 |       2 |    10 | 2016-05-14 |
+|   5 |       5 |   205 | 2016-05-14 |
+|   6 |       4 |    13 | 2016-05-15 |
+|   7 |       3 |   220 | 2016-05-15 |
+|   8 |       5 |   545 | 2016-05-16 |
+|   9 |       3 |   201 | 2016-05-17 |
++-----+---------+-------+------------+
+9 rows in set (0.00 sec)
+</code></pre>
+<h3>带有日期值的 BETWEEN 操作符实例</h3>
+<p>选取 date 介于 '2016-05-10' 和 '2016-05-14' 之间的所有访问记录：</p>
+<pre><code class="language-sql">SELECT * FROM access_log
+WHERE date BETWEEN '2016-05-10' AND '2016-05-14';
+</code></pre>
+<p>执行输出结果：</p>
+<pre><code class="language-sql">mysql&gt; SELECT * FROM access_log
+    -&gt; WHERE date BETWEEN '2016-05-10' AND '2016-05-14';
+
++-----+---------+-------+------------+
+| aid | site_id | count | date       |
++-----+---------+-------+------------+
+|   1 |       1 |    45 | 2016-05-10 |
+|   2 |       3 |   100 | 2016-05-13 |
+|   3 |       1 |   230 | 2016-05-14 |
+|   4 |       2 |    10 | 2016-05-14 |
+|   5 |       5 |   205 | 2016-05-14 |
++-----+---------+-------+------------+
+</code></pre>
+<h2>注意</h2>
+<p>在不同的数据库中，BETWEEN 操作符会产生不同的结果。</p>
+<p>在某些数据库中，BETWEEN 选取介于两个值之间但不包括两个测试值的字段。</p>
+<p>在某些数据库中，BETWEEN 选取介于两个值之间且包括两个测试值的字段。</p>
+<p>在某些数据库中，BETWEEN 选取介于两个值之间且包括第一个测试值但不包括最后一个测试值的字段。</p>
+<p>因此，请检查数据库是如何处理 BETWEEN 操作符。</p>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>NULL 函数 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">NULL 函数</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2018-3-6 17:33:26 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 SQL
+               | </span></p>
+          <div class="markdown-body"><h2>NULL 函数</h2>
+<p><code>ISNULL()</code>、<code>NVL()</code>、<code>IFNULL()</code> 和 <code>COALESCE()</code> 函数。</p>
+<p>&quot;Products&quot; 表：</p>
+<table>
+<thead>
+<tr>
+<th>P_Id</th>
+<th>ProductName</th>
+<th>UnitPrice</th>
+<th>UnitsInStock</th>
+<th>UnitsOnOrder</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Jarlsberg</td>
+<td>10.45</td>
+<td>16</td>
+<td>15</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Mascarpone</td>
+<td>32.56</td>
+<td>23</td>
+<td>----------</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Gorgonzola</td>
+<td>15.67</td>
+<td>9</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<p>假如 &quot;UnitsOnOrder&quot; 是可选的，而且可以包含 NULL 值。</p>
+<p>执行下面的 SELECT 语句：</p>
+<pre><code class="language-sql">SELECT ProductName,UnitPrice*(UnitsInStock+UnitsOnOrder)
+FROM Products
+</code></pre>
+<p>在上面的实例中，如果有 &quot;UnitsOnOrder&quot; 值是 NULL，那么结果是 NULL。</p>
+<p>在这里，希望 NULL 值为 0。</p>
+<pre><code class="language-sql">-- 微软的 `ISNULL()` 函数用于规定如何处理 NULL 值。
+-- 如果 &quot;UnitsOnOrder&quot; 是 NULL，则不会影响计算，因为如果值是 NULL 则 ISNULL() 返回 0：
+-- NVL()、IFNULL() 和 COALESCE() 函数也可以达到相同的结果。
+
+-- SQL Server / MS Access
+SELECT ProductName,UnitPrice*(UnitsInStock+ISNULL(UnitsOnOrder,0))
+FROM Products
+
+-- Oracle
+-- Oracle 没有 ISNULL() 函数。不过，我们可以使用 NVL() 函数达到相同的结果：
+SELECT ProductName,UnitPrice*(UnitsInStock+NVL(UnitsOnOrder,0))
+FROM Products
+
+-- MySQL
+-- MySQL 也拥有类似 ISNULL() 的函数。不过它的工作方式与微软的 ISNULL() 函数有点不同。
+-- 在 MySQL 中，我们可以使用 IFNULL() 函数，如下所示：
+SELECT ProductName,UnitPrice*(UnitsInStock+IFNULL(UnitsOnOrder,0))
+FROM Products
+
+-- 或者可以使用 COALESCE() 函数：
+SELECT ProductName,UnitPrice*(UnitsInStock+COALESCE(UnitsOnOrder,0))
+FROM Products
+</code></pre>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

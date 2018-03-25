@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>DELETE 语句 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">DELETE 语句</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2018-3-5 21:26:34 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 SQL
+               | </span></p>
+          <div class="markdown-body"><h2>DELETE 语句</h2>
+<p>DELETE 语句用于删除表中的行。</p>
+<h2>语法</h2>
+<pre><code class="language-sql">DELETE FROM table_name
+WHERE some_column=some_value;
+</code></pre>
+<p><strong>注意：</strong></p>
+<p>DELETE 语句中的 WHERE 子句，规定哪条记录或者哪些记录需要删除。如果省略了 WHERE 子句，所有的记录都将被删除！</p>
+<h2>示例</h2>
+<p>样本数据库与 <strong>SELECT 语句</strong> 一章相同。</p>
+<h3>DELETE 示例</h3>
+<p>从 &quot;Websites&quot; 表中删除网站名为 &quot;淘宝 &quot; 且国家为 CN 的网站 :</p>
+<pre><code class="language-sql">DELETE FROM Websites
+WHERE name='淘宝' AND country='CN';
+</code></pre>
+<p>输出结果：</p>
+<pre><code class="language-sql">mysql&gt; DELETE FROM Websites
+    -&gt; WHERE name='淘宝' AND country='CN';
+
++----+--------------+---------------------------+-------+---------+
+| id | name         | url                       | alexa | country |
++----+--------------+---------------------------+-------+---------+
+| 1  | Google       | https://www.google.cm/    | 1     | USA     |
+| 2  | 菜鸟教程      | http://www.runoob.com/    | 4689  | CN      |
+| 3  | 微博          | http://weibo.com/         | 20    | CN      |
+| 4  | Facebook     | https://www.facebook.com/ | 3     | USA     |
++----+--------------+---------------------------+-------+---------+
+</code></pre>
+<h3>删除所有数据</h3>
+<p>可以在不删除表的情况下，删除表中所有的行。这意味着表结构、属性、索引将保持不变：</p>
+<pre><code class="language-sql">DELETE FROM table_name;
+</code></pre>
+<p>或</p>
+<pre><code class="language-sql">DELETE * FROM table_name;
+</code></pre>
+<p><strong>注意</strong>：在删除记录时要格外小心！因为不能重来！</p>
+<h2>更多：SQL关于删除的三个语句（DROP、TRUNCATE、DELETE）的区别。</h2>
+<h3>DROP</h3>
+<p>删除表test，并释放空间，将test删除的一干二净:</p>
+<pre><code class="language-sql">DROP test;
+</code></pre>
+<h3>TRUNCATE</h3>
+<p>删除表test里的内容，并释放空间，但不删除表的定义，表的结构还在:</p>
+<pre><code class="language-sql">TRUNCATE test;
+</code></pre>
+<h3>DELETE</h3>
+<h4>（1）删除指定数据</h4>
+<p>删除表 test 中年龄等于 30 的且国家为 US 的数据：</p>
+<pre><code class="language-sql">DELETE FROM test WHERE age=30 AND country='US';
+</code></pre>
+<h4>（2）删除整个表</h4>
+<p>仅删除表test内的所有内容，保留表的定义，不释放空间：</p>
+<pre><code class="language-sql">DELETE FROM test;
+
+ 或者 
+DELETE * FROM test;
+</code></pre>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

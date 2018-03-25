@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>SQL 介绍 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">SQL 介绍</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2018-3-5 14:57:57 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 SQL
+               | </span></p>
+          <div class="markdown-body"><h2>介绍</h2>
+<p>SQL 是用于访问和处理数据库的标准的计算机语言。</p>
+<p>虽然 SQL 是一门 ANSI 标准的计算机语言，但是存在着多种不同版本的 SQL 语言。</p>
+<p>为了与 ANSI 标准相兼容，这些不同版本的 SQL 语言，必须以相似的方式共同地来支持一些主要的命令（比如 SELECT、UPDATE、DELETE、INSERT、WHERE 等等）。</p>
+<h2>示例</h2>
+<p>一个数据库通常包含一个或多个表。每个表由一个名字标识（例如：&quot;Websites&quot;）,表包含带有数据的记录（行）。</p>
+<p>在 MySQL 的 RUNOOB 数据库中创建了 Websites 表，用于存储网站记录。
+我们可以通过以下命令查看 &quot;Websites&quot; 表的数据：</p>
+<pre><code>mysql&gt; use RUNOOB;
+Database changed
+
+mysql&gt; set names utf8;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql&gt; SELECT * FROM Websites;
++----+--------------+---------------------------+-------+---------+
+| id | name         | url                       | alexa | country |
++----+--------------+---------------------------+-------+---------+
+| 1  | Google       | https://www.google.cm/    | 1     | USA     |
+| 2  | 淘宝          | https://www.taobao.com/   | 13    | CN      |
+| 3  | 菜鸟教程      | http://www.runoob.com/    | 4689  | CN      |
+| 4  | 微博          | http://weibo.com/         | 20    | CN      |
+| 5  | Facebook     | https://www.facebook.com/ | 3     | USA     |
++----+--------------+---------------------------+-------+---------+
+5 rows in set (0.01 sec)
+</code></pre>
+<h3>解释</h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>use RUNOOB</td>
+<td style="text-align:center">选择数据库</td>
+</tr>
+<tr>
+<td>set names utf8</td>
+<td style="text-align:center">设置使用的字符集</td>
+</tr>
+<tr>
+<td>SELECT * FROM Websites</td>
+<td style="text-align:center">从 &quot;Websites&quot; 表中选取所有记录</td>
+</tr>
+</tbody>
+</table>
+<p>上面的表包含五条记录（每一条对应一个网站信息）和 5 个列（id、name、url、alexa 和 country）</p>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

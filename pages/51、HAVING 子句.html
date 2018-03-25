@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>HAVING 子句 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">HAVING 子句</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2018-3-7 16:03:47 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 SQL
+               | </span></p>
+          <div class="markdown-body"><h2>HAVING 子句</h2>
+<p>在 SQL 中增加 HAVING 子句原因是，WHERE 关键字无法与聚合函数一起使用。</p>
+<p>HAVING 子句可以筛选分组后的各组数据。</p>
+<h2>语法</h2>
+<pre><code class="language-sql">SELECT column_name, aggregate_function(column_name)
+FROM table_name
+WHERE column_name operator value
+GROUP BY column_name
+HAVING aggregate_function(column_name) operator value;
+</code></pre>
+<h2>示例</h2>
+<p>&quot;Websites&quot; 表的数据：</p>
+<pre><code>+----+--------------+---------------------------+-------+---------+
+| id | name         | url                       | alexa | country |
++----+--------------+---------------------------+-------+---------+
+| 1  | Google       | https://www.google.cm/    | 1     | USA     |
+| 2  | 淘宝          | https://www.taobao.com/   | 13    | CN      |
+| 3  | 菜鸟教程      | http://www.runoob.com/    | 4689  | CN      |
+| 4  | 微博          | http://weibo.com/         | 20    | CN      |
+| 5  | Facebook     | https://www.facebook.com/ | 3     | USA     |
+| 7  | stackoverflow | http://stackoverflow.com/ |   0 | IND     |
++----+---------------+---------------------------+-------+---------+
+</code></pre>
+<p>&quot;access_log&quot; 网站访问记录表的数据：</p>
+<pre><code>mysql&gt; SELECT * FROM access_log;
++-----+---------+-------+------------+
+| aid | site_id | count | date       |
++-----+---------+-------+------------+
+|   1 |       1 |    45 | 2016-05-10 |
+|   2 |       3 |   100 | 2016-05-13 |
+|   3 |       1 |   230 | 2016-05-14 |
+|   4 |       2 |    10 | 2016-05-14 |
+|   5 |       5 |   205 | 2016-05-14 |
+|   6 |       4 |    13 | 2016-05-15 |
+|   7 |       3 |   220 | 2016-05-15 |
+|   8 |       5 |   545 | 2016-05-16 |
+|   9 |       3 |   201 | 2016-05-17 |
++-----+---------+-------+------------+
+</code></pre>
+<h3>查找总访问量大于 200 的网站。</h3>
+<pre><code class="language-sql">SELECT Websites.name, Websites.url, SUM(access_log.count) AS nums FROM (access_log
+INNER JOIN Websites
+ON access_log.site_id=Websites.id)
+GROUP BY Websites.name
+HAVING SUM(access_log.count) &gt; 200;
+</code></pre>
+<p>输出结果：</p>
+<pre><code class="language-sql">mysql&gt; SELECT Websites.name, Websites.url, SUM(access_log.count) AS nums FROM (access_log
+    -&gt; INNER JOIN Websites
+    -&gt; ON access_log.site_id=Websites.id)
+    -&gt; GROUP BY Websites.name
+    -&gt; HAVING SUM(access_log.count) &gt; 200;
+
++----------+-------------------------------+------------+
+| name     | url                           | nums       |
++----------+-------------------------------+------------+
+| Facebook | https://www.facebook.com/     | 750        |
+| Google   | https://www.google.cm/        | 275        |
+| 菜鸟教程  | http://www.runoob.com/        | 521        |
++----------+-------------------------------+------------+
+</code></pre>
+<h3>查找总访问量大于 200 的网站，并且 alexa 排名小于 200。</h3>
+<pre><code class="language-sql">SELECT Websites.name, SUM(access_log.count) AS nums FROM Websites
+INNER JOIN access_log
+ON Websites.id=access_log.site_id
+WHERE Websites.alexa &lt; 200 
+GROUP BY Websites.name
+HAVING SUM(access_log.count) &gt; 200;
+</code></pre>
+<p>输出结果：</p>
+<pre><code class="language-sql">mysql&gt; SELECT Websites.name, SUM(access_log.count) AS nums FROM Websites
+    -&gt; INNER JOIN access_log
+    -&gt; ON Websites.id=access_log.site_id
+    -&gt; WHERE Websites.alexa &lt; 200 
+    -&gt; GROUP BY Websites.name
+    -&gt; HAVING SUM(access_log.count) &gt; 200;
+
++--------+-----------+
+|  name  |   nums    |
++--------+-----------+
+|Facebook|      750  |
+|Google  |  275      |
++--------+-----------+
+</code></pre>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

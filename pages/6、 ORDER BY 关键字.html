@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/all.css">
+    <link rel="stylesheet" href="../css/highlight/styles/foundation.css">
+    <title>ORDER BY 关键字 | zbs's Blog</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wraper">
+        <div class="clearFix" id="logobar">
+          <div class="logo">
+            <div class="logo-line-before"> </div><a href="../index.html">zbs's Blog</a>
+            <div class="logo-line-after"></div>
+          </div>
+          <div class="nav">
+            <ul>
+              <li><a href="../index.html">
+                   <i class="fa fa-fw fa-home"></i>首页</a></li>
+              <li><a href="./archive.html">
+                   <i class="fa fa-fw fa-archive"></i>归档</a></li>
+              <li><a href="../types/type.html">
+                   <i class="fa fa-fw fa-th"></i>分类</a></li>
+              <li><a href="../tags/tags.html">
+                   <i class="fa fa-fw fa-tags"></i>标签</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wraper clearFix">
+        <div id="detail">
+          <h1 class="title">ORDER BY 关键字</h1>
+          <p class="info"><span> <i class="fa fa-calendar-o"> </i> 发表于 2018-3-5 19:56:55 
+               |  </span><span><i class="fa fa-folder-o"> </i> 分类于 SQL
+               | </span></p>
+          <div class="markdown-body"><h2>ORDER BY 关键字</h2>
+<p>ORDER BY 关键字用于对结果集按照一个列或者多个列进行排序。</p>
+<p>默认按照升序对记录进行排序。如果需要按照降序对记录进行排序，可以使用 <strong>DESC</strong> 关键字。</p>
+<h2>语法</h2>
+<pre><code class="language-sql">SELECT column_name,column_name
+FROM table_name
+ORDER BY column_name,column_name ASC|DESC;
+</code></pre>
+<h2>示例</h2>
+<p>样本数据库与 <strong>SELECT 语句</strong> 一章相同。</p>
+<h3>ORDER BY 示例</h3>
+<p>从 &quot;Websites&quot; 表中选取所有网站，并按照 &quot;alexa&quot; 列排序：</p>
+<pre><code class="language-sql">SELECT * FROM Websites
+ORDER BY alexa;
+</code></pre>
+<p>输出结果：</p>
+<pre><code class="language-sql">mysql&gt; SELECT * FROM Websites
+    -&gt; ORDER BY alexa;
+
++----+--------------+---------------------------+-------+---------+
+| id | name         | url                       | alexa | country |
++----+--------------+---------------------------+-------+---------+
+| 1  | Google       | https://www.google.cm/    | 1     | USA     |
+| 5  | Facebook     | https://www.facebook.com/ | 3     | USA     |
+| 2  | 淘宝          | https://www.taobao.com/   | 13    | CN      |
+| 4  | 微博          | http://weibo.com/         | 20    | CN      |
+| 3  | 菜鸟教程      | http://www.runoob.com/    | 4689  | CN      |
++----+--------------+---------------------------+-------+---------+
+</code></pre>
+<h3>ORDER BY DESC 示例</h3>
+<p>从 &quot;Websites&quot; 表中选取所有网站，并按照 &quot;alexa&quot; 列降序排序：</p>
+<pre><code class="language-sql">SELECT * FROM Websites
+ORDER BY alexa DESC;
+</code></pre>
+<p>输出结果：</p>
+<pre><code class="language-sql">mysql&gt; SELECT * FROM Websites
+    -&gt; ORDER BY alexa DESC;
+
++----+--------------+---------------------------+-------+---------+
+| id | name         | url                       | alexa | country |
++----+--------------+---------------------------+-------+---------+
+| 3  | 菜鸟教程      | http://www.runoob.com/    | 4689  | CN      |
+| 4  | 微博          | http://weibo.com/         | 20    | CN      |
+| 2  | 淘宝          | https://www.taobao.com/   | 13    | CN      |
+| 5  | Facebook     | https://www.facebook.com/ | 3     | USA     |
+| 1  | Google       | https://www.google.cm/    | 1     | USA     |
++----+--------------+---------------------------+-------+---------+
+</code></pre>
+<h3>ORDER BY 多列示例</h3>
+<p>从 &quot;Websites&quot; 表中选取所有网站，并按照 &quot;country&quot; 和 &quot;alexa&quot; 列排序：</p>
+<pre><code class="language-sql">SELECT * FROM Websites
+ORDER BY country,alexa;
+</code></pre>
+<p>执行输出结果：</p>
+<pre><code class="language-sql">mysql&gt; SELECT * FROM Websites
+    -&gt; ORDER BY country,alexa;
+
++----+--------------+---------------------------+-------+---------+
+| id | name         | url                       | alexa | country |
++----+--------------+---------------------------+-------+---------+
+| 2  | 淘宝          | https://www.taobao.com/   | 13    | CN      |
+| 4  | 微博          | http://weibo.com/         | 20    | CN      |
+| 3  | 菜鸟教程      | http://www.runoob.com/    | 4689  | CN      |
+| 1  | Google       | https://www.google.cm/    | 1     | USA     |
+| 5  | Facebook     | https://www.facebook.com/ | 3     | USA     |
++----+--------------+---------------------------+-------+---------+
+</code></pre>
+<h2>更多</h2>
+<h3>ORDER BY 多列补充</h3>
+<p>ORDER BY 多列的时候，先按照第一个 column name 排序，再按照第二个 column name 排序；如上述最后一个例子：</p>
+<ul>
+<li>先将 country 值这一列排序，同为 CN 的排前面，同属 USA 的排后面；</li>
+<li>然后在同属 CN 的这些多行数据中，再根据 alexa 值的大小排列。</li>
+<li>ORDER BY 排列时，不写明 ASC DESC 的时候，默认是 ASC。</li>
+</ul>
+<h3>通过非选择列进行排序</h3>
+<p>通常，ORDER BY子句中使用的列将是为显示而选择的列。但是，实际上并不一定要这样，用非检索的列排序数据是完全合法的。</p>
+</div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="wraper">
+        <p>Copyright (c) foobar</p>
+      </div>
+    </footer>
+    <script src="../js/all.js"></script>
+    <script src="../css/highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
