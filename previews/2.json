@@ -1,0 +1,122 @@
+{
+	"0": {
+		"title": "PRIMARY KEY 约束",
+		"type": "SQL",
+		"birthtime": "2018-3-6 15:38:47",
+		"birthtimeMs": 1520321927553.179,
+		"path": "./pages/29、PRIMARY KEY 约束.html",
+		"firstnode": "<h2>PRIMARY KEY 约束</h2><p>PRIMARY KEY 约束唯一标识数据库表中的每条记录。</p>"
+	},
+	"1": {
+		"title": "UNIQUE 约束",
+		"type": "SQL",
+		"birthtime": "2018-3-6 15:23:41",
+		"birthtimeMs": 1520321021800.956,
+		"path": "./pages/28、UNIQUE 约束.html",
+		"firstnode": "<h2>UNIQUE 约束</h2><p>NIQUE 约束唯一标识数据库表中的每条记录。</p>"
+	},
+	"2": {
+		"title": "NOT NULL 约束",
+		"type": "SQL",
+		"birthtime": "2018-3-6 15:21:04",
+		"birthtimeMs": 1520320864195.3767,
+		"path": "./pages/27、NOT NULL 约束.html",
+		"firstnode": "<h2>NOT NULL 约束</h2><p>在默认的情况下，表的列接受 NULL 值。</p>"
+	},
+	"3": {
+		"title": "CRSQL 约束（Constraints）",
+		"type": "SQL",
+		"birthtime": "2018-3-6 15:12:38",
+		"birthtimeMs": 1520320358347.0786,
+		"path": "./pages/26、SQL 约束（Constraints）.html",
+		"firstnode": "<h2>SQL 约束（Constraints）</h2><p>SQL 约束用于规定表中的数据规则。</p>"
+	},
+	"4": {
+		"title": "CREATE TABLE 语句",
+		"type": "SQL",
+		"birthtime": "2018-3-6 15:05:45",
+		"birthtimeMs": 1520319945750.9211,
+		"path": "./pages/25、CREATE TABLE 语句.html",
+		"firstnode": "<h2>CREATE TABLE 语句</h2><p>CREATE TABLE 语句用于创建数据库中的表。</p>"
+	},
+	"5": {
+		"title": "CREATE DATABASE 语句",
+		"type": "SQL",
+		"birthtime": "2018-3-6 15:04:00",
+		"birthtimeMs": 1520319840663.9873,
+		"path": "./pages/24、CREATE DATABASE 语句.html",
+		"firstnode": "<h2>CREATE DATABASE 语句</h2><p>CREATE DATABASE 语句用于创建数据库。</p>"
+	},
+	"6": {
+		"title": "INSERT INTO SELECT 语句",
+		"type": "SQL",
+		"birthtime": "2018-3-6 14:49:52",
+		"birthtimeMs": 1520318992249.9426,
+		"path": "./pages/23、INSERT INTO SELECT 语句.html",
+		"firstnode": "<h2>INSERT INTO SELECT 语句</h2><p>INSERT INTO SELECT 语句从一个表复制数据，然后把数据插入到一个已存在的表中。目标表中任何已存在的行都不会受影响。</p>"
+	},
+	"7": {
+		"title": "SELECT INTO 语句",
+		"type": "SQL",
+		"birthtime": "2018-3-6 14:33:22",
+		"birthtimeMs": 1520318002786.8726,
+		"path": "./pages/22、 SELECT INTO 语句.html",
+		"firstnode": "<h2>SELECT INTO 语句</h2><p>SELECT INTO 语句从一个表复制数据，然后把数据插入到另一个新表中。</p>"
+	},
+	"8": {
+		"title": "UNION 操作符",
+		"type": "SQL",
+		"birthtime": "2018-3-6 14:05:38",
+		"birthtimeMs": 1520316338720.5256,
+		"path": "./pages/21、 UNION 操作符.html",
+		"firstnode": "<h2>UNION 操作符</h2><p>UNION 操作符合并两个或多个 SELECT 语句的结果。</p>"
+	},
+	"9": {
+		"title": "RIGHT JOIN 关键字",
+		"type": "SQL",
+		"birthtime": "2018-3-6 13:09:43",
+		"birthtimeMs": 1520312983091.6638,
+		"path": "./pages/20、 FULL OUTER JOIN 关键字.html",
+		"firstnode": "<h2>FULL OUTER JOIN 关键字</h2><p>FULL OUTER JOIN 关键字只要左表（table1）和右表（table2）其中一个表中存在匹配，则返回行。</p>"
+	},
+	"10": {
+		"title": "RIGHT JOIN 关键字",
+		"type": "SQL",
+		"birthtime": "2018-3-6 11:43:49",
+		"birthtimeMs": 1520307829265.032,
+		"path": "./pages/19、 RIGHT JOIN 关键字.html",
+		"firstnode": "<h2>RIGHT JOIN 关键字</h2><p>RIGHT JOIN 关键字从右表（table2）返回所有的行，即使左表（table1）中没有匹配。如果左表中没有匹配，则结果为 NULL。</p>"
+	},
+	"11": {
+		"title": "LEFT JOIN 关键字",
+		"type": "SQL",
+		"birthtime": "2018-3-6 10:37:43",
+		"birthtimeMs": 1520303863671.7925,
+		"path": "./pages/18、 LEFT JOIN 关键字.html",
+		"firstnode": "<h2>LEFT JOIN 关键字</h2><p>LEFT JOIN 关键字从左表（table1）返回所有的行，即使右表（table2）中没有匹配。如果右表中没有匹配，则结果为 NULL。</p>"
+	},
+	"12": {
+		"title": "INNER JOIN 关键字)",
+		"type": "SQL",
+		"birthtime": "2018-3-6 10:24:11",
+		"birthtimeMs": 1520303051107.5513,
+		"path": "./pages/17、 INNER JOIN 关键字.html",
+		"firstnode": "<h2>INNER JOIN 关键字</h2><p>INNER JOIN 关键字在表中存在至少一个匹配时返回行。</p>"
+	},
+	"13": {
+		"title": "连接(JOIN)",
+		"type": "SQL",
+		"birthtime": "2018-3-6 10:04:21",
+		"birthtimeMs": 1520301861653.1692,
+		"path": "./pages/16、 连接(JOIN).html",
+		"firstnode": "<h2>连接(JOIN)</h2><p>SQL JOIN 子句用于把来自两个或多个表的行结合起来，基于这些表之间的共同字段。</p>"
+	},
+	"14": {
+		"title": "别名",
+		"type": "SQL",
+		"birthtime": "2018-3-6 09:28:35",
+		"birthtimeMs": 1520299715607.7283,
+		"path": "./pages/15、 别名.html",
+		"firstnode": "<h2>别名</h2><p>通过使用 SQL，可以为表名称或列名称指定别名。</p>"
+	}
+}

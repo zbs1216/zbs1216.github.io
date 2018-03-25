@@ -1,0 +1,122 @@
+{
+	"0": {
+		"title": "BETWEEN 操作符",
+		"type": "SQL",
+		"birthtime": "2018-3-6 09:12:09",
+		"birthtimeMs": 1520298729728.899,
+		"path": "./pages/14、 BETWEEN 操作符.html",
+		"firstnode": "<h2>BETWEEN 操作符</h2><p>BETWEEN 操作符选取介于两个值之间的数据范围内的值。这些值可以是数值、文本或者日期。</p>"
+	},
+	"1": {
+		"title": "IN 操作符",
+		"type": "SQL",
+		"birthtime": "2018-3-6 09:04:29",
+		"birthtimeMs": 1520298269965.7307,
+		"path": "./pages/13、 IN 操作符.html",
+		"firstnode": "<h2>IN 操作符</h2><p>N 操作符允许在 WHERE 子句中规定多个值。</p>"
+	},
+	"2": {
+		"title": "通配符",
+		"type": "SQL",
+		"birthtime": "2018-3-6 08:26:58",
+		"birthtimeMs": 1520296018747.371,
+		"path": "./pages/12、 通配符.html",
+		"firstnode": "<h2>通配符</h2><ul>\n<li>\n<p>通配符可用于替代字符串中的任何其他字符。</p>\n</li>\n<li>\n<p>在 SQL 中，通配符与 SQL LIKE 操作符一起使用。</p>\n</li>\n<li>\n<p>SQL 通配符用于搜索表中的数据。</p>\n</li>\n</ul>"
+	},
+	"3": {
+		"title": "LIKE 操作符",
+		"type": "SQL",
+		"birthtime": "2018-3-6 08:11:58",
+		"birthtimeMs": 1520295118849.227,
+		"path": "./pages/11、 LIKE 操作符.html",
+		"firstnode": "<h2>LIKE 操作符</h2><p>LIKE 操作符用于在 WHERE 子句中搜索列中的指定模式。</p>"
+	},
+	"4": {
+		"title": "SELECT TOP, LIMIT, ROWNUM 子句",
+		"type": "SQL",
+		"birthtime": "2018-3-6 07:53:36",
+		"birthtimeMs": 1520294016987.035,
+		"path": "./pages/10、 SELECT TOP, LIMIT, ROWNUM 子句.html",
+		"firstnode": "<h2>SELECT TOP, LIMIT, ROWNUM 子句</h2><p>SELECT TOP 子句用于规定要返回的记录的数目。对于拥有数千条记录的大型表来说，是非常有用的。</p>"
+	},
+	"5": {
+		"title": "DELETE 语句",
+		"type": "SQL",
+		"birthtime": "2018-3-5 21:26:34",
+		"birthtimeMs": 1520256394150.6404,
+		"path": "./pages/9、 DELETE 语句.html",
+		"firstnode": "<h2>DELETE 语句</h2><p>DELETE 语句用于删除表中的行。</p>"
+	},
+	"6": {
+		"title": "UPDATE 语句",
+		"type": "SQL",
+		"birthtime": "2018-3-5 20:59:57",
+		"birthtimeMs": 1520254797383.1619,
+		"path": "./pages/8、 UPDATE 语句.html",
+		"firstnode": "<h2>UPDATE 语句</h2><p>UPDATE 语句用于更新表中已存在的记录。</p>"
+	},
+	"7": {
+		"title": "INSERT INTO 语句",
+		"type": "SQL",
+		"birthtime": "2018-3-5 20:40:17",
+		"birthtimeMs": 1520253617064.2385,
+		"path": "./pages/7、 INSERT INTO 语句.html",
+		"firstnode": "<h2>INSERT INTO 语句</h2><p>INSERT INTO 语句用于向表中插入新记录。</p>"
+	},
+	"8": {
+		"title": "ORDER BY 关键字",
+		"type": "SQL",
+		"birthtime": "2018-3-5 19:56:55",
+		"birthtimeMs": 1520251015457.3389,
+		"path": "./pages/6、 ORDER BY 关键字.html",
+		"firstnode": "<h2>ORDER BY 关键字</h2><p>ORDER BY 关键字用于对结果集按照一个列或者多个列进行排序。</p>"
+	},
+	"9": {
+		"title": "AND $ OR 运算符",
+		"type": "SQL",
+		"birthtime": "2018-3-5 17:28:38",
+		"birthtimeMs": 1520242118426.008,
+		"path": "./pages/5、 AND $ OR 运算符.html",
+		"firstnode": "<h2>AND & OR 运算符</h2><p>AND & OR 运算符用于基于一个以上的条件对记录进行过滤。</p>"
+	},
+	"10": {
+		"title": "WHERE 子句",
+		"type": "SQL",
+		"birthtime": "2018-3-5 16:38:25",
+		"birthtimeMs": 1520239105775.243,
+		"path": "./pages/4、 WHERE 子句.html",
+		"firstnode": "<p>WHERE 字句用于提取满足指定标准的记录。</p><h2>语法</h2>"
+	},
+	"11": {
+		"title": "SELECT DISTINCT 语句",
+		"type": "SQL",
+		"birthtime": "2018-3-5 16:01:23",
+		"birthtimeMs": 1520236883968.768,
+		"path": "./pages/3、 SELECT DISTINCT 语句.html",
+		"firstnode": "<p>在表中，一个列可能会包含多个重复值，有时也许希望仅仅列出不同（ distinct）的值。</p><p>DISTINCT 关键词用于返回唯一不同的值。</p>"
+	},
+	"12": {
+		"title": "SELECT 语句",
+		"type": "SQL",
+		"birthtime": "2018-3-5 15:32:05",
+		"birthtimeMs": 1520235125249.4807,
+		"path": "./pages/2、 SELECT 语句.html",
+		"firstnode": "<p>SELECT 语句用于从数据库中选取数据。</p><p>结果被存储在一个结果表中，称为结果集。</p>"
+	},
+	"13": {
+		"title": "SQL 介绍",
+		"type": "SQL",
+		"birthtime": "2018-3-5 14:57:57",
+		"birthtimeMs": 1520233077104.6064,
+		"path": "./pages/1、 SQL 介绍.html",
+		"firstnode": "<h2>介绍</h2><p>SQL 是用于访问和处理数据库的标准的计算机语言。</p>"
+	},
+	"14": {
+		"title": "第六章 页面组件",
+		"type": "CSS",
+		"birthtime": "2018-1-15 16:55:45",
+		"birthtimeMs": 1516006545535.6477,
+		"path": "./pages/第六章 页面组件.html",
+		"firstnode": "<p>界面组件是对 HTML 提供的常见用户界面（UI，User Interface）元素的称呼，包括列表和表单等。实际上，下拉菜单和弹出层也是很常用的界面组件，只不过 HTML没有提供对应的原生标签，本章也将介绍如何通过标记和样式实现它们。</p><p>除了介绍怎么实现这些界面组件，还会讲解怎么写代码才能更方便地重用这些组件，省得每次都从头写。另外，还会讲解怎么把它们放到重用样式表中，以备将来在不同的项目中派上用场。</p>"
+	}
+}

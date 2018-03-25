@@ -1,0 +1,122 @@
+{
+	"0": {
+		"title": "FORMAT() 函数",
+		"type": "SQL",
+		"birthtime": "2018-3-7 17:14:30",
+		"birthtimeMs": 1520414070400.471,
+		"path": "./pages/58、FORMAT() 函数.html",
+		"firstnode": "<h2>FORMAT() 函数</h2><p>用于对字段的显示进行格式化。</p>"
+	},
+	"1": {
+		"title": "NOW() 函数",
+		"type": "SQL",
+		"birthtime": "2018-3-7 17:09:52",
+		"birthtimeMs": 1520413792505.9343,
+		"path": "./pages/57、NOW() 函数.html",
+		"firstnode": "<h2>NOW() 函数</h2><p>返回当前系统的日期和时间。</p>"
+	},
+	"2": {
+		"title": "ROUND() 函数",
+		"type": "SQL",
+		"birthtime": "2018-3-7 17:04:59",
+		"birthtimeMs": 1520413499424.1284,
+		"path": "./pages/56、ROUND() 函数.html",
+		"firstnode": "<h2>ROUND() 函数</h2><p>用于把数值字段舍入为指定的小数位数。</p>"
+	},
+	"3": {
+		"title": "LEN() 函数",
+		"type": "SQL",
+		"birthtime": "2018-3-7 16:59:26",
+		"birthtimeMs": 1520413166121.371,
+		"path": "./pages/55、LEN() 函数.html",
+		"firstnode": "<h2>LEN() 函数</h2><p>返回文本字段中值的长度</p>"
+	},
+	"4": {
+		"title": "MID() 函数",
+		"type": "SQL",
+		"birthtime": "2018-3-7 16:54:03",
+		"birthtimeMs": 1520412843484.8403,
+		"path": "./pages/54、MID() 函数.html",
+		"firstnode": "<h2>MID() 函数</h2><p>用于从文本字段中提取字符。</p>"
+	},
+	"5": {
+		"title": "LCASE() 函数",
+		"type": "SQL",
+		"birthtime": "2018-3-7 16:49:58",
+		"birthtimeMs": 1520412598263.941,
+		"path": "./pages/53、LCASE() 函数.html",
+		"firstnode": "<h2>LCASE() 函数</h2><p>把字段的值转换为小写。</p>"
+	},
+	"6": {
+		"title": "UCASE() 函数",
+		"type": "SQL",
+		"birthtime": "2018-3-7 16:41:32",
+		"birthtimeMs": 1520412092289.0825,
+		"path": "./pages/52、UCASE() 函数.html",
+		"firstnode": "<h2>UCASE() 函数</h2><p>把字段的值转换为大写。</p>"
+	},
+	"7": {
+		"title": "HAVING 子句",
+		"type": "SQL",
+		"birthtime": "2018-3-7 16:03:47",
+		"birthtimeMs": 1520409827376.59,
+		"path": "./pages/51、HAVING 子句.html",
+		"firstnode": "<h2>HAVING 子句</h2><p>在 SQL 中增加 HAVING 子句原因是，WHERE 关键字无法与聚合函数一起使用。</p>"
+	},
+	"8": {
+		"title": "GROUP BY 语句",
+		"type": "SQL",
+		"birthtime": "2018-3-7 14:59:30",
+		"birthtimeMs": 1520405970814.5725,
+		"path": "./pages/49、GROUP BY 语句.html",
+		"firstnode": "<h2>GROUP BY 语句</h2><p>用于结合聚合函数，根据一个或多个列对结果集进行分组。</p>"
+	},
+	"9": {
+		"title": "SUM() 函数",
+		"type": "SQL",
+		"birthtime": "2018-3-7 14:55:42",
+		"birthtimeMs": 1520405742765.3691,
+		"path": "./pages/50、SUM() 函数.html",
+		"firstnode": "<h2>SUM() 函数</h2><p>返回数值列的总数。</p>"
+	},
+	"10": {
+		"title": "MIN() 函数",
+		"type": "SQL",
+		"birthtime": "2018-3-7 14:18:39",
+		"birthtimeMs": 1520403519825.9111,
+		"path": "./pages/48、MIN() 函数.html",
+		"firstnode": "<h2>MIN() 函数</h2><p>返回指定列的最小值。</p>"
+	},
+	"11": {
+		"title": "MAX() 函数",
+		"type": "SQL",
+		"birthtime": "2018-3-7 13:38:50",
+		"birthtimeMs": 1520401130095.395,
+		"path": "./pages/47、MAX() 函数.html",
+		"firstnode": "<h2>MAX() 函数</h2><p>回指定列的最大值。</p>"
+	},
+	"12": {
+		"title": "LAST() 函数",
+		"type": "SQL",
+		"birthtime": "2018-3-7 12:15:41",
+		"birthtimeMs": 1520396141948.2803,
+		"path": "./pages/46、LAST() 函数.html",
+		"firstnode": "<h2>LAST() 函数</h2><p>返回指定的列中最后一个记录的值。</p>"
+	},
+	"13": {
+		"title": "FIRST() 函数",
+		"type": "SQL",
+		"birthtime": "2018-3-7 11:32:29",
+		"birthtimeMs": 1520393549898.1062,
+		"path": "./pages/45、FIRST() 函数.html",
+		"firstnode": "<h2>FIRST() 函数</h2><p>返回指定的列中第一个记录的值。</p>"
+	},
+	"14": {
+		"title": "COUNT() 函数",
+		"type": "SQL",
+		"birthtime": "2018-3-7 10:47:32",
+		"birthtimeMs": 1520390852202.814,
+		"path": "./pages/44、COUNT() 函数.html",
+		"firstnode": "<h2>COUNT() 函数</h2><p><code>COUNT()</code> 函数返回匹配指定条件的行数。</p>"
+	}
+}

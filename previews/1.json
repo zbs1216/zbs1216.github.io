@@ -1,0 +1,122 @@
+{
+	"0": {
+		"title": "AVG() 函数",
+		"type": "SQL",
+		"birthtime": "2018-3-7 10:36:54",
+		"birthtimeMs": 1520390214605.0342,
+		"path": "./pages/43、AVG() 函数.html",
+		"firstnode": "<h2>AVG() 函数</h2><p>AVG() 函数返回数值列的平均值。</p>"
+	},
+	"1": {
+		"title": "函数",
+		"type": "SQL",
+		"birthtime": "2018-3-7 10:32:10",
+		"birthtimeMs": 1520389930734.7783,
+		"path": "./pages/42、函数.html",
+		"firstnode": "<h2>函数</h2><p>SQL 拥有很多可用于计数和计算的内建函数。</p>"
+	},
+	"2": {
+		"title": "用于各种数据库的数据类型",
+		"type": "SQL",
+		"birthtime": "2018-3-7 09:47:13",
+		"birthtimeMs": 1520387233435.9312,
+		"path": "./pages/41、用于各种数据库的数据类型.html",
+		"firstnode": "<h2>用于各种数据库的数据类型</h2><p>Microsoft Access、MySQL 和 SQL Server 所使用的数据类型和范围。</p>"
+	},
+	"3": {
+		"title": "通用数据类型",
+		"type": "SQL",
+		"birthtime": "2018-3-7 09:22:29",
+		"birthtimeMs": 1520385749002.564,
+		"path": "./pages/40、通用数据类型.html",
+		"firstnode": "<h2>通用数据类型</h2><p>数据类型定义列中存放的值的种类。</p>"
+	},
+	"4": {
+		"title": "NULL 函数",
+		"type": "SQL",
+		"birthtime": "2018-3-6 17:33:26",
+		"birthtimeMs": 1520328806612.9563,
+		"path": "./pages/39、NULL 函数.html",
+		"firstnode": "<h2>NULL 函数</h2><p><code>ISNULL()</code>、<code>NVL()</code>、<code>IFNULL()</code> 和 <code>COALESCE()</code> 函数。</p>"
+	},
+	"5": {
+		"title": "NULL 值",
+		"type": "SQL",
+		"birthtime": "2018-3-6 17:23:06",
+		"birthtimeMs": 1520328186111.7915,
+		"path": "./pages/38、NULL 值.html",
+		"firstnode": "<h2>NULL 值</h2><p>NULL 值代表遗漏的未知数据。</p>"
+	},
+	"6": {
+		"title": "Date 函数",
+		"type": "SQL",
+		"birthtime": "2018-3-6 17:01:47",
+		"birthtimeMs": 1520326907726.249,
+		"path": "./pages/37、Date 函数.html",
+		"firstnode": "<h2>SQL Date 函数</h2><p>当处理日期时，最难的任务可能是确保所插入的日期的格式，与数据库中日期列的格式相匹配。</p>"
+	},
+	"7": {
+		"title": "视图（Views）",
+		"type": "SQL",
+		"birthtime": "2018-3-6 16:48:03",
+		"birthtimeMs": 1520326083009.5276,
+		"path": "./pages/36、视图（Views）.html",
+		"firstnode": "<h2>视图（Views）</h2><p>视图是可视化的表。</p>"
+	},
+	"8": {
+		"title": "AUTO INCREMENT 字段",
+		"type": "SQL",
+		"birthtime": "2018-3-6 16:39:06",
+		"birthtimeMs": 1520325546155.893,
+		"path": "./pages/36、AUTO INCREMENT 字段.html",
+		"firstnode": "<h2>AUTO INCREMENT 字段</h2><p>Auto-increment 会在新记录插入表中时生成一个唯一的数字。</p>"
+	},
+	"9": {
+		"title": " ALTER TABLE 语句",
+		"type": "SQL",
+		"birthtime": "2018-3-6 16:23:23",
+		"birthtimeMs": 1520324603797.7937,
+		"path": "./pages/35、ALTER.html",
+		"firstnode": "<h2>ALTER TABLE 语句</h2><p>ALTER TABLE 语句用于在已有的表中添加、删除或修改列。</p>"
+	},
+	"10": {
+		"title": "DROP 语句",
+		"type": "SQL",
+		"birthtime": "2018-3-6 16:17:28",
+		"birthtimeMs": 1520324248753.7605,
+		"path": "./pages/34、DROP .html",
+		"firstnode": "<h2>DROP 语句</h2><p>通过使用 DROP 语句，可以轻松地删除索引、表和数据库。</p>"
+	},
+	"11": {
+		"title": "CREATE INDEX 语句",
+		"type": "SQL",
+		"birthtime": "2018-3-6 16:11:42",
+		"birthtimeMs": 1520323902466.6392,
+		"path": "./pages/33、CREATE INDEX 语句.html",
+		"firstnode": "<h2>CREATE INDEX 语句</h2><p>CREATE INDEX 语句用于在表中创建索引。</p>"
+	},
+	"12": {
+		"title": "DEFAULT 约束",
+		"type": "SQL",
+		"birthtime": "2018-3-6 16:07:48",
+		"birthtimeMs": 1520323668533.445,
+		"path": "./pages/32、DEFAULT 约束.html",
+		"firstnode": "<h2>DEFAULT 约束</h2><p>DEFAULT 约束用于向列中插入默认值。</p>"
+	},
+	"13": {
+		"title": "CHECK 约束",
+		"type": "SQL",
+		"birthtime": "2018-3-6 16:01:24",
+		"birthtimeMs": 1520323284262.299,
+		"path": "./pages/31、CHECK 约束.html",
+		"firstnode": "<h2>CHECK 约束</h2><p>CHECK 约束用于限制列中的值的范围。</p>"
+	},
+	"14": {
+		"title": "FOREIGN KEY 约束",
+		"type": "SQL",
+		"birthtime": "2018-3-6 15:49:03",
+		"birthtimeMs": 1520322543753.4207,
+		"path": "./pages/30、FOREIGN KEY 约束.html",
+		"firstnode": "<h2>FOREIGN KEY 约束</h2><p>一个表中的 FOREIGN KEY 指向另一个表中的 PRIMARY KEY。</p>"
+	}
+}
