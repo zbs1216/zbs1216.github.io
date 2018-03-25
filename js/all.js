@@ -11,9 +11,9 @@ function getText(url, callback) {
     request.open("GET", url);
     
 	request.onreadystatechange = function() {
-		if (request.readystate === 4 && request.status === 200) {
-				callback(request.responseText);
-		}
+			callback(request.responseText);
+			console.log("request.readystate ： " + request.readystate;)
+			console.log("request.status ： " + request.status;)
         
 	}; 
 
