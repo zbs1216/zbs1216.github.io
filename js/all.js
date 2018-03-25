@@ -1,4 +1,3 @@
-
 let url = "./previews/index.json";
 
 function callback(responseText) {
@@ -12,12 +11,8 @@ function getText(url, callback) {
     request.open("GET", url);
     
 	request.onreadystatechange = function() {
-        
-            callback(request.responseText);
-		
-    }; 
-    
-    
+        callback(request.responseText);
+	}; 
 
     request.send(null);
 }
