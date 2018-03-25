@@ -13,8 +13,18 @@ function getText(url, callback) {
 	request.onreadystatechange = function() {
 			callback(request.responseText);
 			console.log("request.readystate ： " + request.readystate);
-			console.log("request.status ： " + request.status);
-			console.log("request ： " + request);
+            console.log("request.status ： " + request.status);
+            
+            let keys = Object.keys(request);
+            console.log("request keys： " + keys);
+            
+            let obj = {}
+            for (let i = 0, len = keys.length; i < len; i++) {
+                let key = keys[i]
+                obj[key] = request[key]
+            }
+            console.log("request : " + obj);
+
         
 	}; 
 
