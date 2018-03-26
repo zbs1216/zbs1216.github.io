@@ -11,7 +11,8 @@
         console.log(responseText)
         
         let continer = $(wraperID)
-        let previewTemplate = $(previewTemplateID)
+        // let previewTemplate = $(previewTemplateID)
+        let previewTemplate = document.getElementById(previewTemplateID)     
 
         console.log(previewTemplate)
 
@@ -23,14 +24,14 @@
 
         getText(list[0],function(responseText){
             let infoList = JSON.parse(responseText)
-
-            previews = infoList.map(function(item, index, array) {
-                new Preview({
-                    "info": item,
-                    "selfID": index,
-                    "tepmlate": previewTemplate,
-                })
-            });
+            console.log(infoList)
+            // previews = infoList.map(function(item, index, array) {
+            //     new Preview({
+            //         "info": item,
+            //         "selfID": index,
+            //         "tepmlate": previewTemplate,
+            //     })
+            // });
 
             continer.innerHTML = previews
         })
