@@ -1,122 +1,137 @@
-{
-	"0": {
-		"title": "AVG() 函数",
+[
+	{
+		"title": "COUNT() 函数",
 		"type": "SQL",
-		"birthtime": "2018-3-7 10:36:54",
-		"birthtimeMs": 1520390214605.0342,
-		"path": "./pages/43、AVG() 函数.html",
-		"firstnode": "<h2>AVG() 函数</h2><p>AVG() 函数返回数值列的平均值。</p>"
+		"birthtime": "2018-3-7 10:47:32",
+		"path": "./pages/44、COUNT() 函数.html",
+		"typePath": "./types/SQL.html",
+		"wordCount": 581,
+		"firstnode": "<h2>COUNT() 函数</h2><p><code>COUNT()</code> 函数返回匹配指定条件的行数。</p>"
 	},
-	"1": {
+	{
+		"title": "FIRST() 函数",
+		"type": "SQL",
+		"birthtime": "2018-3-7 11:32:29",
+		"path": "./pages/45、FIRST() 函数.html",
+		"typePath": "./types/SQL.html",
+		"wordCount": 708,
+		"firstnode": "<h2>FIRST() 函数</h2><p>返回指定的列中第一个记录的值。</p>"
+	},
+	{
 		"title": "函数",
 		"type": "SQL",
 		"birthtime": "2018-3-7 10:32:10",
-		"birthtimeMs": 1520389930734.7783,
 		"path": "./pages/42、函数.html",
+		"typePath": "./types/SQL.html",
+		"wordCount": 343,
 		"firstnode": "<h2>函数</h2><p>SQL 拥有很多可用于计数和计算的内建函数。</p>"
 	},
-	"2": {
-		"title": "用于各种数据库的数据类型",
+	{
+		"title": "AVG() 函数",
 		"type": "SQL",
-		"birthtime": "2018-3-7 09:47:13",
-		"birthtimeMs": 1520387233435.9312,
-		"path": "./pages/41、用于各种数据库的数据类型.html",
-		"firstnode": "<h2>用于各种数据库的数据类型</h2><p>Microsoft Access、MySQL 和 SQL Server 所使用的数据类型和范围。</p>"
+		"birthtime": "2018-3-7 10:36:54",
+		"path": "./pages/43、AVG() 函数.html",
+		"typePath": "./types/SQL.html",
+		"wordCount": 463,
+		"firstnode": "<h2>AVG() 函数</h2><p>AVG() 函数返回数值列的平均值。</p>"
 	},
-	"3": {
-		"title": "通用数据类型",
-		"type": "SQL",
-		"birthtime": "2018-3-7 09:22:29",
-		"birthtimeMs": 1520385749002.564,
-		"path": "./pages/40、通用数据类型.html",
-		"firstnode": "<h2>通用数据类型</h2><p>数据类型定义列中存放的值的种类。</p>"
+	{
+		"title": "栈",
+		"type": "算法",
+		"birthtime": "2017-12-15 09:07:26",
+		"path": "./pages/栈.html",
+		"typePath": "./types/算法.html",
+		"wordCount": 341,
+		"firstnode": "<h2>栈的定义</h2><p>栈是一种遵从后进先出原则的有序集合。新添加的或待删除的元素都保存在栈的末尾，称作栈顶，另一端叫做栈底。在栈里，新元素都靠近栈顶，旧元素都靠近栈底。</p>"
 	},
-	"4": {
-		"title": "NULL 函数",
-		"type": "SQL",
-		"birthtime": "2018-3-6 17:33:26",
-		"birthtimeMs": 1520328806612.9563,
-		"path": "./pages/39、NULL 函数.html",
-		"firstnode": "<h2>NULL 函数</h2><p><code>ISNULL()</code>、<code>NVL()</code>、<code>IFNULL()</code> 和 <code>COALESCE()</code> 函数。</p>"
+	{
+		"title": "排序和搜索",
+		"type": "算法",
+		"birthtime": "2017-12-21 14:38:07",
+		"path": "./pages/排序和搜索算法.html",
+		"typePath": "./types/算法.html",
+		"wordCount": 1612,
+		"firstnode": "<h2>排序和搜索算法</h2><h3>用来表示待排序和搜索的数据结构</h3>"
 	},
-	"5": {
-		"title": "NULL 值",
-		"type": "SQL",
-		"birthtime": "2018-3-6 17:23:06",
-		"birthtimeMs": 1520328186111.7915,
-		"path": "./pages/38、NULL 值.html",
-		"firstnode": "<h2>NULL 值</h2><p>NULL 值代表遗漏的未知数据。</p>"
+	{
+		"title": "树",
+		"type": "算法",
+		"birthtime": "2017-12-18 17:02:13",
+		"path": "./pages/树.html",
+		"typePath": "./types/算法.html",
+		"wordCount": 1755,
+		"firstnode": "<h2>树的相关概念</h2><ul>\n<li>一个树结构包含一系列存在父子关系的节点。</li>\n<li>每个节点都有一个父节点（除了顶部的第一个节点）以及零个或多个子节点</li>\n<li>位于树顶部的节点叫做根节点，它没有父节点</li>\n<li>树中的每个元素都叫做节点\n<ul>\n<li>节点分为外部节点和内部节点</li>\n<li>至少有一个子节点的节点为内部节点</li>\n<li>没有子元素的节点称为外部节点或叶节点</li>\n</ul>\n</li>\n<li>一个节点可以有祖先和后代\n<ul>\n<li>一个节点（除了根节点）的祖先包括，父节点、祖父节点、曾祖父节点等</li>\n<li>一个节点的后代包括子节点、孙子节点、曾孙节点等</li>\n</ul>\n</li>\n<li>子树\n<ul>\n<li>由节点和它的后代构成</li>\n</ul>\n</li>\n<li>节点的深度\n<ul>\n<li>取决于他的祖先节点的数量</li>\n</ul>\n</li>\n<li>树的高度\n<ul>\n<li>取决于所有节点深度的最大值 。</li>\n</ul>\n</li>\n</ul>"
 	},
-	"6": {
-		"title": "Date 函数",
-		"type": "SQL",
-		"birthtime": "2018-3-6 17:01:47",
-		"birthtimeMs": 1520326907726.249,
-		"path": "./pages/37、Date 函数.html",
-		"firstnode": "<h2>SQL Date 函数</h2><p>当处理日期时，最难的任务可能是确保所插入的日期的格式，与数据库中日期列的格式相匹配。</p>"
+	{
+		"title": "图",
+		"type": "算法",
+		"birthtime": "2017-12-19 17:05:22",
+		"path": "./pages/图.html",
+		"typePath": "./types/算法.html",
+		"wordCount": 2897,
+		"firstnode": "<h2>图的相关概念</h2><ul>\n<li>图，是网络结构的抽象模型。</li>\n<li>图，是一组由边连接的节点（或顶点）。</li>\n<li>任何二元关系都可以用图来表示</li>\n</ul>"
 	},
-	"7": {
-		"title": "视图（Views）",
-		"type": "SQL",
-		"birthtime": "2018-3-6 16:48:03",
-		"birthtimeMs": 1520326083009.5276,
-		"path": "./pages/36、视图（Views）.html",
-		"firstnode": "<h2>视图（Views）</h2><p>视图是可视化的表。</p>"
+	{
+		"title": "字典和散列表",
+		"type": "算法",
+		"birthtime": "2017-12-18 15:56:17",
+		"path": "./pages/字典和散列表.html",
+		"typePath": "./types/算法.html",
+		"wordCount": 1496,
+		"firstnode": "<h2>集合、字典、散列表</h2><ul>\n<li>都可以存储不重复的值</li>\n<li>集合，每个值作为主要元素</li>\n<li>字典、散列表，以 [ 键， 值 ] 对的形式存储数据</li>\n<li>字典、散列表各自的实现方式有所不同</li>\n</ul>"
 	},
-	"8": {
-		"title": "AUTO INCREMENT 字段",
-		"type": "SQL",
-		"birthtime": "2018-3-6 16:39:06",
-		"birthtimeMs": 1520325546155.893,
-		"path": "./pages/36、AUTO INCREMENT 字段.html",
-		"firstnode": "<h2>AUTO INCREMENT 字段</h2><p>Auto-increment 会在新记录插入表中时生成一个唯一的数字。</p>"
+	{
+		"title": "队列",
+		"type": "算法",
+		"birthtime": "2017-12-15 10:41:49",
+		"path": "./pages/队列.html",
+		"typePath": "./types/算法.html",
+		"wordCount": 608,
+		"firstnode": "<h2>队列的定义</h2><p>队列是遵循先进先出原则的一组有序的项。队列在尾部添加新元素，并从顶部移除元素。最新添加的元素必须排在队列的末尾。</p>"
 	},
-	"9": {
-		"title": " ALTER TABLE 语句",
-		"type": "SQL",
-		"birthtime": "2018-3-6 16:23:23",
-		"birthtimeMs": 1520324603797.7937,
-		"path": "./pages/35、ALTER.html",
-		"firstnode": "<h2>ALTER TABLE 语句</h2><p>ALTER TABLE 语句用于在已有的表中添加、删除或修改列。</p>"
+	{
+		"title": "集合",
+		"type": "算法",
+		"birthtime": "2017-12-18 14:42:55",
+		"path": "./pages/集合.html",
+		"typePath": "./types/算法.html",
+		"wordCount": 1352,
+		"firstnode": "<h2>集合的定义</h2><p>集合是由一组无序且唯一（即不能重复）的项组成的。这个数据结构使用了与有限集合相同的数学概念。</p>"
 	},
-	"10": {
-		"title": "DROP 语句",
-		"type": "SQL",
-		"birthtime": "2018-3-6 16:17:28",
-		"birthtimeMs": 1520324248753.7605,
-		"path": "./pages/34、DROP .html",
-		"firstnode": "<h2>DROP 语句</h2><p>通过使用 DROP 语句，可以轻松地删除索引、表和数据库。</p>"
+	{
+		"title": "算法补充知识",
+		"type": "算法",
+		"birthtime": "2017-12-21 16:17:46",
+		"path": "./pages/算法补充知识.html",
+		"typePath": "./types/算法.html",
+		"wordCount": 1391,
+		"firstnode": "<h2>递归</h2><p>递归，是一种解决问题的方法。通过解决问题的各个小部分，直到解决最初的大问题。通常涉及函数调用自身。</p>"
 	},
-	"11": {
-		"title": "CREATE INDEX 语句",
-		"type": "SQL",
-		"birthtime": "2018-3-6 16:11:42",
-		"birthtimeMs": 1520323902466.6392,
-		"path": "./pages/33、CREATE INDEX 语句.html",
-		"firstnode": "<h2>CREATE INDEX 语句</h2><p>CREATE INDEX 语句用于在表中创建索引。</p>"
+	{
+		"title": "链表",
+		"type": "算法",
+		"birthtime": "2017-12-17 11:29:16",
+		"path": "./pages/链表.html",
+		"typePath": "./types/算法.html",
+		"wordCount": 1330,
+		"firstnode": "<h2>链表的定义</h2><p>​链表存储有序的元素集合，但不同于数组，链表中的元素在内存中并不是连续放置的。</p>"
 	},
-	"12": {
-		"title": "DEFAULT 约束",
+	{
+		"title": "FORMAT() 函数",
 		"type": "SQL",
-		"birthtime": "2018-3-6 16:07:48",
-		"birthtimeMs": 1520323668533.445,
-		"path": "./pages/32、DEFAULT 约束.html",
-		"firstnode": "<h2>DEFAULT 约束</h2><p>DEFAULT 约束用于向列中插入默认值。</p>"
+		"birthtime": "2018-3-7 17:14:30",
+		"path": "./pages/58、FORMAT() 函数.html",
+		"typePath": "./types/SQL.html",
+		"wordCount": 733,
+		"firstnode": "<h2>FORMAT() 函数</h2><p>用于对字段的显示进行格式化。</p>"
 	},
-	"13": {
-		"title": "CHECK 约束",
+	{
+		"title": "NOW() 函数",
 		"type": "SQL",
-		"birthtime": "2018-3-6 16:01:24",
-		"birthtimeMs": 1520323284262.299,
-		"path": "./pages/31、CHECK 约束.html",
-		"firstnode": "<h2>CHECK 约束</h2><p>CHECK 约束用于限制列中的值的范围。</p>"
-	},
-	"14": {
-		"title": "FOREIGN KEY 约束",
-		"type": "SQL",
-		"birthtime": "2018-3-6 15:49:03",
-		"birthtimeMs": 1520322543753.4207,
-		"path": "./pages/30、FOREIGN KEY 约束.html",
-		"firstnode": "<h2>FOREIGN KEY 约束</h2><p>一个表中的 FOREIGN KEY 指向另一个表中的 PRIMARY KEY。</p>"
+		"birthtime": "2018-3-7 17:09:52",
+		"path": "./pages/57、NOW() 函数.html",
+		"typePath": "./types/SQL.html",
+		"wordCount": 687,
+		"firstnode": "<h2>NOW() 函数</h2><p>返回当前系统的日期和时间。</p>"
 	}
-}
+]
