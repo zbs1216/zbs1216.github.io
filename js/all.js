@@ -31,6 +31,8 @@
             for(let i = 0; i < len; i++){
                 fragment.appendChild( previews[i].node )
             }
+
+            continer.innerHTML = null;
             continer.appendChild(fragment)
         })
     }
