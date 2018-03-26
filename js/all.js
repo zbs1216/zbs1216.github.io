@@ -8,8 +8,6 @@
     }
 
     function init(responseText) {
-        console.log(responseText)
-        
         let continer = $(wraperID)
         let previewTemplate = $(previewTemplateID)
 
@@ -25,6 +23,15 @@
             let infoList = JSON.parse(responseText)
             console.log(infoList)
 
+            previews = infoList.map(function(item, index, array) {
+                new Preview({
+                    "info": item,
+                    "selfID": index,
+                    "tepmlate": previewTemplate,
+                })
+            });
+
+            // continer.innerHTML = previews
         })
     }
 
