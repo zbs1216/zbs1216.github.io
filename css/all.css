@@ -188,9 +188,11 @@ a:link { text-decoration:none; }
 }
 
 #indexPage{
-    display: none;
+    display: block;
     margin-top: 85px;
 }
+
+#container {display: block;}
 
 #indexPage .article {
     margin-bottom: 50px;
@@ -212,7 +214,7 @@ a:link { text-decoration:none; }
     vertical-align: top;
 }
 
-#indexPage .title span {
+#indexPage .title .decoration {
     display:block;
     position: absolute;
     width: 100%;
@@ -227,7 +229,7 @@ a:link { text-decoration:none; }
     transition-delay: 0s;
 }
 
-#indexPage a:hover span {
+#indexPage  a:hover .decoration {
     visibility: visible;    
     transform: scaleX(1);
     transition-duration: 0.2s;
