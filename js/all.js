@@ -10,21 +10,15 @@
     function init(responseText) {
         let continer = $(wraperID)
         let previewTemplate = $(previewTemplateID)
-
-        console.log(previewTemplate)
-
         let list = JSON.parse(responseText)
         let previews
-
-        console.log(list[0])
-
 
         getText(list[0],function(responseText){
             let infoList = JSON.parse(responseText)
             console.log(infoList)
 
             previews = infoList.map(function(item, index, array) {
-                new Preview({
+                return new Preview({
                     "info": item,
                     "selfID": index,
                     "tepmlate": previewTemplate,
