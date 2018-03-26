@@ -35,11 +35,10 @@
     <main id="main">
       <div class="wraper clearFix">
         <div id="indexPage">
-          <div class="article" id="index-0">
-            <h1 class="title"><a class="article-path title" href="#">{{title}} <span></span></a></h1>
-            <p class="info"><span class="birthtime"> <i class="fa fa-calendar-o"> </i> 创建 ： {{birthtime}}
-                 |  </span><span><i class="fa fa-folder-o"> </i> 分类 ： <a class="type-path type" href="#"> {{type}}</a> | </span><span><i class="fa fa-file-word-o word-count"></i> 字数</span></p>
-            <div class="content markdown-body priview">{{preview}}</div>
+          <div class="article" id="container">
+            <h1 class="title"><a class="article-path" href="#"> <span class="title-content">{{title}} </span><span class="decoration"></span></a></h1>
+            <p class="info"><span class="birthtime"> <i class="fa fa-calendar-o"> </i> 创建 ： <span class="birthtime">{{birthtime}}</span> |  </span><span><i class="fa fa-folder-o"> </i> 分类 ： <a class="type-path" href="#"> </a><span class="type">{{type}}</span> | </span><span><i class="fa fa-file-word-o"> </i><span class="word-count">字数</span></span></p>
+            <div class="content markdown-body preview">{{preview}}</div>
             <p class="link"><a class="article-path" href="#">阅读全文 »</a></p>
           </div>
         </div>
