@@ -8,10 +8,15 @@
     }
 
     function init(responseText) {
+        console.log(responseText)
         let continer = $(wraperID)
         let previewTemplate = $(previewTemplateID)
+
         let list = JSON.parse(responseText)
         let previews
+
+        console.log(list[0])
+
 
         getText(list[0],function(responseText){
             let infoList = JSON.parse(responseText)
