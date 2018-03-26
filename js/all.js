@@ -9,8 +9,11 @@
 
     function init(responseText) {
         console.log(responseText)
+        
         let continer = $(wraperID)
         let previewTemplate = $(previewTemplateID)
+
+        console.log(previewTemplate)
 
         let list = JSON.parse(responseText)
         let previews
