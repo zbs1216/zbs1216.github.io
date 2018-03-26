@@ -25,7 +25,13 @@
                 })
             });
             console.log(previews)
-            // continer.innerHTML = previews
+
+            let fragment = document.createDocumentFragment();
+            let len = previews.length
+            for(let i = 0; i < len; i++){
+                fragment.appendChild( previews(i) )
+            }
+            continer.appendChild(fragment)
         })
     }
 
