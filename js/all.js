@@ -25,15 +25,7 @@
         getText(list[0],function(responseText){
             let infoList = JSON.parse(responseText)
             console.log(infoList)
-            // previews = infoList.map(function(item, index, array) {
-            //     new Preview({
-            //         "info": item,
-            //         "selfID": index,
-            //         "tepmlate": previewTemplate,
-            //     })
-            // });
 
-            // continer.innerHTML = previews
         })
     }
 
