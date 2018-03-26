@@ -30,7 +30,7 @@
                     "tepmlate": previewTemplate,
                 })
             });
-
+            console.log(previews)
             // continer.innerHTML = previews
         })
     }
